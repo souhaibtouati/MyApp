@@ -1,20 +1,30 @@
 @extends('layouts.master')
 
-@section('content')
+@section ('head')
 <!-- datatables -->
 <link href="{{ asset("/plugins/datatables/dataTables.bootstrap.css") }}" rel="stylesheet" type="text/css" />
 <!-- jQuery datatables -->
 <script src="{{ asset("/plugins/datatables/jquery.dataTables.min.js")}}"></script>
 <!-- bootstrap datatables -->
 <script src="{{ asset("/plugins/datatables/dataTables.bootstrap.min.js")}}"></script>
+@endsection
 
+@section('content')
 <div class="panel panel-default">
 
 <div class="panel-body">
 
-   
+ <div class="row">
+ <div class="col-lg-6">
+   <h1><i class="fa fa-users"></i> Users Administration </h1>
+ </div>
 
-    <h1><i class="fa fa-users"></i> Users Administration </h1>
+ <div class="col-lg-6">
+ <br>
+   <a href="/user/create" class="btn btn-warning pull-right">Add User &nbsp&nbsp<i class="fa fa-plus"></i></a>
+ </div>
+ </div>
+    
 
 
     <table class="table table-hover" id="userslist" name="userslist">
@@ -73,16 +83,16 @@
   </table>
 
 
-  <a href="/user/create" class="btn btn-success">Add User</a>
+  
 
   
 
 </div>
 </div>
+@endsection
 
 
-
-
+@section ('footer')
 <script type="text/javascript">
   $(function() {
    $('#userslist').DataTable({

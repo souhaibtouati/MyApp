@@ -23,6 +23,8 @@ use Illuminate\Database\Schema\Blueprint;
 
 class MigrationCartalystSentinel extends Migration
 {
+
+    
     /**
      * Run the migrations.
      *
@@ -136,6 +138,9 @@ class MigrationCartalystSentinel extends Migration
             $table->engine = 'InnoDB';
             $table->unique('email');
         });
+
+        
+
     }
 
     /**
@@ -155,5 +160,7 @@ class MigrationCartalystSentinel extends Migration
         Schema::drop('permissions');
         Schema::drop('permission_users');
         Schema::drop('permission_roles');
+
+
     }
 }

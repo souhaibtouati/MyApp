@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5867b9f134a0cf41bf4895a1148ddb22",
-    "content-hash": "4b4ac4e9ea871896d53b5ca8d3e4a0fa",
+    "hash": "dae7825709dcc77d77edf6896bdc2b16",
+    "content-hash": "9329c2528a961634b28f0ac2eb9f3cd4",
     "packages": [
         {
             "name": "acacha/admin-lte-template-laravel",
@@ -1606,7 +1606,7 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
@@ -1779,16 +1779,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c0c00c80b3a69132c4e55c3e7db32b4a387615e5"
+                "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
-                "reference": "c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
+                "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
                 "shasum": ""
             },
             "require": {
@@ -1835,7 +1835,56 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-19 10:45:57"
+            "time": "2016-10-13 06:28:43"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v3.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "0565b61bf098cb4dc09f4f103f033138ae4f42c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/0565b61bf098cb4dc09f4f103f033138ae4f42c6",
+                "reference": "0565b61bf098cb4dc09f4f103f033138ae4f42c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-10-18 04:30:12"
         },
         {
             "name": "symfony/finder",
@@ -2488,6 +2537,102 @@
                 "environment"
             ],
             "time": "2016-09-01 10:05:43"
+        },
+        {
+            "name": "webcreate/util",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webcreate/util.git",
+                "reference": "838944fcf74b15d943c88660193a43f007b795c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webcreate/util/zipball/838944fcf74b15d943c88660193a43f007b795c8",
+                "reference": "838944fcf74b15d943c88660193a43f007b795c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Webcreate": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Fiege",
+                    "email": "jeroen@webcreate.nl",
+                    "homepage": "http://www.fieg.nl"
+                }
+            ],
+            "description": "Webcreate/Util is a PHP library containing some simple utility classes.",
+            "homepage": "https://github.com/webcreate/util",
+            "keywords": [
+                "util"
+            ],
+            "time": "2013-04-10 14:00:31"
+        },
+        {
+            "name": "webcreate/vcs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webcreate/vcs.git",
+                "reference": "bcf0ea790872caf9f2cd9cb8e294645466fb9432"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webcreate/vcs/zipball/bcf0ea790872caf9f2cd9cb8e294645466fb9432",
+                "reference": "bcf0ea790872caf9f2cd9cb8e294645466fb9432",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/filesystem": ">=v2.1.2|~3.0",
+                "symfony/finder": ">=v2.1.2|~3.0",
+                "symfony/process": "~2.3|~3.0",
+                "webcreate/util": "1.*"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": "Allows to hook into VCS with events"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Webcreate": [
+                        "src/",
+                        "tests/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Fiege",
+                    "email": "jeroen@webcreate.nl",
+                    "homepage": "http://www.fieg.nl"
+                }
+            ],
+            "description": "PHP interface for version control systems",
+            "homepage": "https://github.com/webcreate/vcs",
+            "keywords": [
+                "git",
+                "subversion",
+                "svn",
+                "vcs",
+                "versioncontrol"
+            ],
+            "time": "2016-06-20 08:31:45"
         }
     ],
     "packages-dev": [
@@ -3765,16 +3910,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3"
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/368b9738d4033c8b93454cb0dbd45d305135a6d3",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
                 "shasum": ""
             },
             "require": {
@@ -3810,7 +3955,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-25 08:27:07"
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "webmozart/assert",
@@ -3865,7 +4010,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "webcreate/vcs": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -64,3 +64,7 @@ Route::get('503', function(){
 	return view('errors.503');
 });
 
+//Altium Routes
+
+Route::get('category', 'AltiumController@index');
+Route::get('altcom', 'AltiumController@Test');

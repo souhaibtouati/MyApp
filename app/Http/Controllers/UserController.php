@@ -51,7 +51,7 @@ class UserController extends Controller
        	$formRoute = array('user.store');
        	$user = new User;
        	$user->avatar = $user->setAvatarAttribute();
-		return View::make('users.user', ['user'=> $user,'PermissionsArray'=>$this->PermissionsArray, 'formRoute' => $formRoute, 'formMethod' => 'POST']);
+		return View::make('users.user', ['user'=> $user, 'formRoute' => $formRoute, 'formMethod' => 'POST']);
 	}
 
 	/**

@@ -24,6 +24,9 @@
 
       <!-- iCheck -->
       <link rel="stylesheet" href="{{ asset("/plugins/iCheck/square/blue.css")}}"">
+      <!-- Pace -->
+      <link rel="stylesheet" href="{{ asset("/plugins/pace/pace.min.css")}}"">
+      <script type="text/javascript" src="{{asset('plugins/pace/pace.min.js')}}"></script>
       <!-- iCheck -->
       <script src="{{ asset ("/plugins/iCheck/icheck.min.js")}}"></script>
 
@@ -83,6 +86,7 @@
     <script src="{{ asset ("/js/app.min.js") }}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+
 <script type="text/javascript">
   $('.select2').select2({
       placeholder: 'select permissions',
