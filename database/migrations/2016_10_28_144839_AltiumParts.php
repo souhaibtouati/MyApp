@@ -5,8 +5,10 @@ use Illuminate\Database\Migrations\Migration;
 
 class AltiumParts extends Migration
 {
-  
-    protected $libraries = ['Ceramic','Tantal','Aluminium','LED','Schottky','TVS','Switch_Diode','Zener','Silicon','Thin_film', 'Thick_film','Wirewound','Multilayer','Bead','Bipolar','MOSFET','Y_Connectors','Connectors','Relays','Switch','Sensor', 'Amplifier','Interface','Logic','MCU','Memory','Power','Crystal','Misc']; 
+    
+    protected $Models = ['Capacitor', 'Command', 'Connector', 'Control', 'Diode', 'Inductor', 'Others', 'PWR', 'Resistor', 'Signal', 'Transistor'];
+    
+    protected $Part;
     /**
      * Run the migrations.
      *
@@ -14,30 +16,41 @@ class AltiumParts extends Migration
      */
     public function up()
     {
-        foreach ($this->libraries as $key => $libTable) {
-            Schema::connection('Altium')->create($libTable, function (Blueprint $table) {
+        foreach ($this->Models as $key => $Model) {
+            $class = '\App\Altium\Models\\'.$Model;
+            $this->Part = new $class();
+            foreach ($this->Part->getTables() as $key => $Table) {
 
-                $table->increments('id');
-                $table->string('Y_PartNr');
-                $table->string('Library Ref');
-                $table->string('Footprint Ref');
-                $table->text('Description');
-                $table->string('Manufacturer');
-                $table->string('Manufacturer Part Number');
-                $table->string('Supplier 1');
-                $table->string('Supplier Part Number 1');
-                $table->string('Supplier 2')->nullable();
-                $table->string('Supplier Part Number 2')->nullable();
-                $table->string('Supplier 3')->nullable();
-                $table->string('Supplier Part Number 3')->nullable();
-                $table->string('revision')->nullable();
-                $table->timestamp('Last_modified')->nullable();
-                $table->string('modified_by')->nullable();
-                $table->timestamps();
+                Schema::connection('Altium')->create($Table, function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->string('Y_PartNr');
+                    $table->string('Library_Ref');
+                    $table->string('Footprint_Ref');
+                    $table->text('Description');
+                    $table->string('ComponentLink1URL')->nullable();
+                    $table->string('ComponentLink2URL')->nullable();
+                    $table->string('Manufacturer');
+                    $table->string('Manufacturer_Part_Number');
+                    $table->string('Supplier_1');
+                    $table->string('Supplier_Part_Number_1');
+                    $table->string('Supplier_2')->nullable();
+                    $table->string('Supplier_Part_Number_2')->nullable();
+                    $table->string('Supplier_3')->nullable();
+                    $table->string('Supplier_Part_Number_3')->nullable();
+                    $table->string('Revision')->nullable();
+                    $table->string('Package')->nullable();
+                    $table->string('modified_by')->nullable();
+                    foreach ($this->Part->getChildFill() as $key => $child) {
+                        $table->string($child)->nullable();
+                    }
 
-                $table->engine = 'InnoDB';
-                $table->unique('Y_PartNr');
-            });
+                    $table->timestamps();
+                    $table->engine = 'InnoDB';
+                    $table->unique('Y_PartNr');
+                });
+
+            }
+            
         }
     }
 
@@ -48,9 +61,13 @@ class AltiumParts extends Migration
      */
     public function down()
     {
-        foreach ($this->libraries as $key => $libTable){
-            Schema::connection('Altium')->drop($libTable);
-        }
+        foreach ($this->Models as $key => $Model) {
+            $class = '\App\Altium\Models\\'.$Model;
+            $this->Part = new $class();
+            foreach ($this->Part->getTables() as $key => $Table) {
+                Schema::connection('Altium')->drop($Table);
+            }
 
+        }
     }
 }

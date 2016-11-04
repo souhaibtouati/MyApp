@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-
+<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i> Library Categories</h1>
+<hr>
 <!-- Passive Components -->
 
 <div class="row">
@@ -29,7 +30,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/category" class="small-box-footer">
+            <a href="/Altium/Resistor" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -46,7 +47,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Inductor" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -63,7 +64,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Capacitor" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -98,7 +99,7 @@
             <div class="icon">
               <i class="fa fa-flash"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/PWR" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -115,7 +116,7 @@
             <div class="icon">
               <i class="fa fa-server"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Control" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -132,7 +133,7 @@
             <div class="icon">
               <i class="fa fa-random"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Signal" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -168,7 +169,7 @@
             <div class="icon">
               <i class="fa fa-caret-right"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Diode" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -185,7 +186,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Transistor" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -222,7 +223,7 @@
             <div class="icon">
               <i class="fa fa-plug"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Connector" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -239,7 +240,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Command" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -255,7 +256,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/Altium/Others" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
