@@ -30,15 +30,18 @@ class AltiumController extends Controller
     }
 
     // Show All records in Database
-    public function ShowAll(Request $request,$type ,$table)
+    public function ShowAll(Request $request,$type)
     {
+        
+               
         if($request->ajax()) 
         {
-            $Repository = new PartRepository;
-            $data = $Repository->findAll('Capacitors', 'ceramic');
-           // $data = 'this is content request for ' . $table;
-            dd($data);
-            return($data);
+        $table = Input::get('table');
+        $class = '\App\Altium\Models\\'.$type ;
+        $part = new $class();
+        $part->setTable($table);
+        $components = $part->get();
+            return($components);
         }
     }
 

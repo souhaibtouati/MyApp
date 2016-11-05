@@ -1,5 +1,14 @@
 @extends('layouts.master')
 
+@section ('head')
+<!-- datatables -->
+<link href="{{ asset("/plugins/datatables/dataTables.bootstrap.css") }}" rel="stylesheet" type="text/css" />
+<!-- jQuery datatables -->
+<script src="{{ asset("/plugins/datatables/jquery.dataTables.min.js")}}"></script>
+<!-- bootstrap datatables -->
+<script src="{{ asset("/plugins/datatables/dataTables.bootstrap.min.js")}}"></script>
+@endsection
+
 @section('content')
 
 
@@ -7,16 +16,26 @@
 	<div class="col-md-12">
 		<div class="box">
 			<div class="box-body">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i> {{$Part->getName()}}</h1>
 			</div>
-				
+
+			<div class="col-md-5">
+				<div class="btn-group">
+					@foreach($Part->getTables() as $Index => $Table)
+					{!! Form::button(str_replace('_',' ',$Table), ['class' => 'btn-table btn btn-default','value'=>$Table]) !!}
+					@endforeach
+				</div>
+			</div>
+				<div class="col-md-4">
 				<div class="btn-group pull-right">
-			
-					{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary', 'onclick'=>'ShowAll()']) !!}
+					{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
+					{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary']) !!}
+					{!! Form::close() !!}
 					{!! Form::button('<i class="fa fa-plus"></i> Create New ', ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()']) !!}
 					{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()']) !!}
 			
+				</div>
 				</div>
 
 			</div>
@@ -29,16 +48,12 @@
 	<div class="col-md-7">
 		<div class="box box-success">
 			<div class="box-header">
-				<i class="fa fa-plus"></i><h3 class="box-title"> Create New <span id="createType"></span></h3>
+				<i class="fa fa-plus"></i><h3 class="box-title"> Create New <span class="createType"></span></h3>
 			</div>
 			<div class="box-body">
-			<div class="btn-group">
-					@foreach($Part->getTables() as $Index => $Table)
-					{!! Form::button(str_replace('_',' ',$Table), ['class' => 'btn-table btn btn-default','value'=>$Table]) !!}
-					@endforeach
-				</div>
+
 				{!! Form::model($Part, ['url'=>'/Altium/'.$Part->getName().'/store', 'id'=>'createURL']) !!}
-				<input name="selected-Type" id="selected-Type" type="hidden" value= null>
+				<input name="selected-Type" class="selected-Type" type="hidden" value= null>
 				
 				<div class="form-group">
 				<h3>Altium Links</h3>
@@ -138,6 +153,34 @@
 </div>
 <!-- Create New Div-->
 
+<div id="showall-div" hidden="true">
+	<div class="col-md-12">
+		<div class="box box-primary">
+			<div class="box-header">
+				<i class="fa fa-list"></i><h3 class="box-title"> Show All <span class="createType"></span></h3>
+			</div>
+			<div class="box-body">
+			{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
+			<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
+			{!! Form::close() !!}
+
+			<table class="table table-hover" id="show-all-table">
+				<thead>
+					<th>Part Nbr</th>
+					<th>Description</th>
+					<th>Manufacturer</th>
+					<th>MPN</th>
+				</thead>
+				<tbody id="show-all-table-body">
+					
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Show All Div-->
+
 </div>
 <!-- Content Row -->
 @endsection
@@ -148,19 +191,47 @@
 	$(document).ready(function(){
 		$('.btn-table').click(function(){
 				$('#CreateButton').prop('disabled', false);
-				$('#createType').text($(this).text());
-				$('#selected-Type').val($(this).val());
+				$('.createType').text($(this).text());
+				$('.selected-Type').val($(this).val());
+			});
+		});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.ShowAll-btn').click(function(){
+			var	token = $('input[name=_token]').val();
+			var table = $('.selected-Type').val();
+			$.ajax({
+				url: window.location.href + '/ShowAll',
+				headers: {'X-CSRF-TOKEN': token},
+				type: 'POST',
+				data: {table : table}
+				}).success(function(data){
+					$('#show-all-table-body').empty();
+					$(data).each(function(component){
+						$('#show-all-table-body').append( '<tr><td>' +  data[component].Y_PartNr + '</td><td>' + data[component].Description  + '</td><td>' + data[component].Manufacturer + '</td><td>' + data[component].Manufacturer_Part_Number  +'</td></tr>' );
+					});
+					$('#create-new-div').hide("fade");
+					$('#show-all-table').DataTable();
+					$('#showall-div').show("fade");
+				});
 			});
 		});
 </script>
 
 <script type="text/javascript">
 	function CreateNew(){
+		$('#showall-div').hide("fade");
 		$('#create-new-div').show("fade");
 	}
 
 	function ShowAll(){
-		
+		$('#create-new-div').hide("fade");
+		$('#showall-div').show("fade");
+		$('#showURL').submit(function(data){
+			console.log(data);
+		});
 	}
 
 	function Search(){
