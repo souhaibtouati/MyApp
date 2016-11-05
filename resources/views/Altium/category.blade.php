@@ -30,7 +30,7 @@
 				<div class="col-md-4">
 				<div class="btn-group pull-right">
 					{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
-					{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary']) !!}
+					{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true']) !!}
 					{!! Form::close() !!}
 					{!! Form::button('<i class="fa fa-plus"></i> Create New ', ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()']) !!}
 					{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()']) !!}
@@ -191,14 +191,20 @@
 	$(document).ready(function(){
 		$('.btn-table').click(function(){
 				$('#CreateButton').prop('disabled', false);
+				$(".ShowAll-btn").attr('disabled',false);
 				$('.createType').text($(this).text());
 				$('.selected-Type').val($(this).val());
 			});
+
+		$('input[name=Manufacturer_Part_Number]').focusout(function(){
+			alert('searching for Manufacturer...');
+		});
 		});
 </script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$('.ShowAll-btn').click(function(){
 			var	token = $('input[name=_token]').val();
 			var table = $('.selected-Type').val();

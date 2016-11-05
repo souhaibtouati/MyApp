@@ -6,7 +6,7 @@
 <!-- Passive Components -->
 
 <div class="row">
-<div class="col-lg-2">
+<div class="col-lg-3">
           <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-flag-o"></i></span>
 
@@ -75,7 +75,7 @@
 <!-- Integrated Circuits -->
 
 <div class="row">
-<div class="col-lg-2">
+<div class="col-lg-3">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-flag-o"></i></span>
 
@@ -145,7 +145,7 @@
 <!-- SemiConductors -->
 
 <div class="row">
-<div class="col-lg-2">
+<div class="col-lg-3">
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
 
@@ -199,7 +199,7 @@
 <!-- Electromechanical -->
 
 <div class="row">
-<div class="col-lg-2">
+<div class="col-lg-3">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="fa fa-flag-o"></i></span>
 
