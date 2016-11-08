@@ -71,4 +71,5 @@ Route::post('Altium/{type}/ShowAll', 'AltiumController@ShowAll');
 Route::post('Altium/{type}/{table}/create', 'AltiumController@CreateNew');
 Route::post('Altium/{type}/store', 'AltiumController@store');
 Route::post('category/{type}/Search/{table}', 'AltiumController@Search');
+Route::get('Altium/part/{id}/edit', 'AltiumController@edit');
 Route::get('altcom', 'AltiumController@Test');

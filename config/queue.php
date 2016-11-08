@@ -32,6 +32,7 @@ return [
 
         'sync' => [
             'driver' => 'sync',
+            'expire' => 360,
         ],
 
         'database' => [

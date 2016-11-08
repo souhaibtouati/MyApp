@@ -13,6 +13,7 @@ use Webcreate\Vcs\Svn;
 use App\Altium\PartRepository;
 use App\Altium\PartRepositoryinterface;
 
+
 class AltiumController extends Controller
 {
     public function index()
@@ -62,7 +63,11 @@ class AltiumController extends Controller
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
         $part->setTable($table);
+       $this->ImportSymbol();
         $part->Y_PartNr = $part->generatePN($table);
+        $part->Library_Ref = $part->UploadFiles('symbol');
+        $part->Footprint_Ref = $part->UploadFiles('footprint');
+        $part->ComponentLink1URL = $part->UploadFiles('datasheet');
         foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) == null) {
                 $part->$fillable = null;
@@ -86,6 +91,19 @@ class AltiumController extends Controller
     {
         # code...
     }
+
+
+    //Edit a part from parts table
+    public function edit($id)
+    {
+        $part = Altium::findById($id);
+        return View::make('Altium.PartEdit', ['part'=>$part]);
+    }
+
+
+    
+
+
 
     public function Test()
     {

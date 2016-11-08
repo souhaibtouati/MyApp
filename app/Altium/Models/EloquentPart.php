@@ -3,7 +3,10 @@
 namespace App\Altium\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Input;
+use Webcreate\Vcs\Svn;
 abstract class EloquentPart extends Model
 {
 
@@ -18,8 +21,7 @@ abstract class EloquentPart extends Model
 
     protected $fillable = [
    
-    	'Library_Ref',
-    	'Footprint_Ref',
+
     	'Description',
         'ComponentLink1URL',
         'ComponentLink2URL',
@@ -79,6 +81,35 @@ abstract class EloquentPart extends Model
 
         return $this->Y_PartNr;
         
+    }
+
+    public function UploadFiles($type)
+    {
+        $Types = ['symbol' => 'Symbols', 'footprint'=> 'Footprints', 'datasheet'=> 'Datasheets'];
+        
+        if(Input::file($type) !== null)
+        {
+            $Symbol = Input::file($type);
+            $destination = public_path('/Altium//'. $Types[$type]) ;
+            $filename = $Symbol->getClientOriginalName();
+            $attribute = explode('.', $filename)[0];
+            $Symbol->move($destination, $filename);
+            return $attribute;
+        }
+        return null;
+    }
+
+    public function ImportSymbol($type)
+    {
+        $symbol = Input::file('symbol');
+        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
+        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
+        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $filename = $symbol->getClientOriginalName();
+        $symbol->move(storage_path('Uploads'),$filename);
+        dd($Repo->import(storage_path('Uploads\\').$filename ,'SYM/'.$type.'/'.$filename , 'File imported'));
+        File::delete(storage_path('Uploads\\').$filename);
+
     }
 
 }

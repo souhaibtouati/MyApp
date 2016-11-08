@@ -1,7 +1,6 @@
 @extends('layouts.guestview')
 
-@section('content')
-
+@section('head')
 <style type="text/css">
 
 #avatar {
@@ -10,6 +9,11 @@
    z-index: -1;
 }    
 </style>
+@endsection
+
+@section('content')
+
+
 
 
 <div class="login-box">
