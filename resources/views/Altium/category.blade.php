@@ -185,7 +185,7 @@
 				<div class="box-header">
 					<i class="fa fa-server"></i><h3 class="box-title"> Live Data Search</h3>
 				</div>
-				<div class="box-body">
+				<div class="box-body" style="overflow: auto;">
 					<img src="/img/Octopart_logo.png" class="pull-right" style="width: 150px">
 					<div class="col-xs-5">
 						<input id="octo-keyword" class="form-control" placeholder="Search Keyword" >
@@ -196,10 +196,11 @@
 					
 					
 				<br><br><br>
-					<table class="table table-hover" id="octo-table">
+
+					<table class="table table-hover" id="octo-table" width="100%">
 						<thead>
 							<th>Description</th>
-							<th>Manufacturer</th>
+							<th>Mfc</th>
 							<th>MPN</th>
 							<th>Supplier</th>
 							<th>SPN</th>
@@ -211,7 +212,6 @@
 						</tbody>
 					</table>
 					
-
 				</div>			
 			</div>
 		</div>
@@ -261,12 +261,14 @@
 			$(".ShowAll-btn").attr('disabled',false);
 			$('.createType').text($(this).text());
 			$('.selected-Type').val($(this).val());
+
+  });
 		});
 
 		$('input[name=Manufacturer_Part_Number]').focusout(function(){
-			console.log($(this).val());
+			$('#octo-keyword').val($(this).val());
+			OctoSearch();
 		});
-	});
 </script>
 
 <script type="text/javascript">
@@ -328,9 +330,7 @@ var supp_Count = 1;
     	    };
 
     	    $.getJSON(url, args, function(search_response) {
-    	        // print original request
-    	        // console.log(search_response['request']);
-    	         console.log(search_response['results']);
+
     	        myresults = search_response['results'];
     			$.each(myresults, function(i,result){
     				var Description = result.snippet;
@@ -342,18 +342,22 @@ var supp_Count = 1;
 
     				$('#octo-table-body').append('<tr><td>'+ Description+ '</td><td>' + manuf + '</td><td>' + mpn+ '</td><td>' + seller + '</td><td>' + sellerPN + '</td><td>' + stock + '</td><td>' + '<button class="btn btn-primary" onclick="addSupplier('+ i +')"><i class="fa fa-plus"></i></button>' +'</td><tr>');
         			});
+    			//$('#octo-table').DataTable();
     	    });
 
-    	    $('#octo-table').DataTable();
+    	    
 	}
 
 
 	function addSupplier(id){
 		var supplier = myresults[id].item.offers[0].seller.name;
 		var supplierPN =  myresults[id].item.offers[0].sku;
-		console.log(supp_Count);
 		if (supp_Count > 3) {
-			alert('You have to fill only 3 suppliers');
+			$(".wrapper").overhang({
+				type: "error",
+				message: "You can only add up to 3 supplier links !!!"
+				
+			});
 		}
 		else if (1 < supp_Count && supp_Count <= 3) {
 			$('#supply_chain').append(

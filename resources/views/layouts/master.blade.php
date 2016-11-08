@@ -35,6 +35,8 @@
 
       <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.min.css')}}">
 
+      <link rel="stylesheet" type="text/css" href="{{ asset('plugins/overhang/overhang.min.css')}} ">
+
 
       @yield('head')
 
@@ -82,6 +84,8 @@
     <script type="text/javascript">
         $('div.alert').not('.alert-important').delay(2500).slideUp(500);
     </script>
+
+    <script src="{{ asset ("/plugins/overhang/overhang.min.js")}}"></script>
 
     <!-- Bootstrap 3.3.6 -->
     <script src="{{ asset ("/js/bootstrap.min.js")}}"></script>

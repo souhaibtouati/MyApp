@@ -63,7 +63,8 @@ class AltiumController extends Controller
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
         $part->setTable($table);
-       $this->ImportSymbol();
+        $part->ImportSymbol($type);
+        $part->ImportFootprint($type);
         $part->Y_PartNr = $part->generatePN($table);
         $part->Library_Ref = $part->UploadFiles('symbol');
         $part->Footprint_Ref = $part->UploadFiles('footprint');

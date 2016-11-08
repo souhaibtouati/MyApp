@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Webcreate\Vcs\Svn;
+use File;
 abstract class EloquentPart extends Model
 {
 
@@ -107,7 +108,20 @@ abstract class EloquentPart extends Model
         $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
         $filename = $symbol->getClientOriginalName();
         $symbol->move(storage_path('Uploads'),$filename);
-        dd($Repo->import(storage_path('Uploads\\').$filename ,'SYM/'.$type.'/'.$filename , 'File imported'));
+        $Repo->import(storage_path('Uploads\\').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
+        File::delete(storage_path('Uploads\\').$filename);
+
+    }
+
+    public function ImportFootprint($type)
+    {
+        $footprint = Input::file('footprint');
+        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
+        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
+        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $filename = $footprint->getClientOriginalName();
+        $footprint->move(storage_path('Uploads'),$filename);
+        $Repo->import(storage_path('Uploads\\').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
         File::delete(storage_path('Uploads\\').$filename);
 
     }
