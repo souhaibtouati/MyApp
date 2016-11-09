@@ -10,11 +10,29 @@
 
 <style type="text/css">
 
-#datasheet, #footprint, #symbol {
+	#datasheet, #footprint, #symbol {
 		opacity: 0;
 		position: absolute;
 		z-index: -1;
 	}    
+
+
+	table.table-expandable > tbody > tr:nth-child(odd) {
+		cursor: pointer;
+	}
+
+	table.table-expandable.table-hover > tbody > tr:nth-child(even):hover td {
+		background-color: white;
+	}
+
+	table.table-expandable > tbody > tr div.table-expandable-arrow {
+		background:transparent url(/img/arrows.png) no-repeat scroll 0px -16px; width:16px; height:16px; display:block;
+	}
+
+	table.table-expandable > tbody > tr div.table-expandable-arrow.up {
+		background-position:0px 0px;
+	}
+
 </style>
 @endsection
 
@@ -25,29 +43,29 @@
 
 <div class="row">
 	<div class="col-md-12">
-	
+
 		
-				<div class="col-md-2">
-					<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
-				</div>
+		<div class="col-md-2">
+			<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
+		</div>
 
-				<div class="col-md-5">
-					<div class="btn-group">
-						@foreach($Part->getTables() as $Index => $Table)
-						{!! Form::button(str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; margin-top: 5px']) !!}
-						@endforeach
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="btn-group pull-right">
-						{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
-						{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true' , 'style'=> "margin-top: 5px;"]) !!}
-						{!! Form::close() !!}
-						{!! Form::button('<i class="fa fa-plus"></i> Create New ', ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()' , 'style'=> "margin-top: 5px;"]) !!}
-						{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()' , 'style'=> "margin-top: 5px;"]) !!}
+		<div class="col-md-5">
+			<div class="btn-group">
+				@foreach($Part->getTables() as $Index => $Table)
+				{!! Form::button(str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; margin-top: 5px']) !!}
+				@endforeach
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="btn-group pull-right">
+				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
+				{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true' , 'style'=> "margin-top: 5px;"]) !!}
+				{!! Form::close() !!}
+				{!! Form::button('<i class="fa fa-plus"></i> Create New ', ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()' , 'style'=> "margin-top: 5px;"]) !!}
+				{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()' , 'style'=> "margin-top: 5px;"]) !!}
 
-					</div>
-				</div>
+			</div>
+		</div>
 
 		
 		
@@ -55,7 +73,7 @@
 </div>
 
 <div class="row">
-	<div id="create-new-div" hidden>
+	<div id="create-new-div" {{ Session::get('showDiv') === 'create' ? '' : 'hidden="true"' }}>
 		<div class="col-md-6">
 			{!! Form::model($Part, ['url'=>'/Altium/'.$Part->getName().'/store', 'id'=>'createURL', 'enctype'=>'multipart/form-data']) !!}
 			<input name="selected-Type" class="selected-Type" type="hidden" value= null>
@@ -67,32 +85,32 @@
 					
 
 					<div class="form-group">
-					<table class="table">
-					<thead>
-					<tr>
-						<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
-						<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
-						<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-						<td style="text-align: center">
-						<label class="btn btn-default" for="symbol"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
-						<input type="file" name="symbol" id="symbol" />
-						</td>
-						<td style="text-align: center">
-						<label class="btn btn-default" for="footprint"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
-						<input type="file" name="footprint" id="footprint" />
-						</td>
-						<td style="text-align: center">
-						<label class="btn btn-default" for="datasheet"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
-						<input type="file" name="datasheet" id="datasheet" />
-						</td>
-						</tr>
-					</tbody>
-					</table>
-					
+						<table class="table">
+							<thead>
+								<tr>
+									<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
+									<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
+									<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="text-align: center">
+										<label class="btn btn-default" for="symbol"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
+										<input type="file" name="symbol" id="symbol" />
+									</td>
+									<td style="text-align: center">
+										<label class="btn btn-default" for="footprint"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
+										<input type="file" name="footprint" id="footprint" />
+									</td>
+									<td style="text-align: center">
+										<label class="btn btn-default" for="datasheet"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
+										<input type="file" name="datasheet" id="datasheet" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
 					</div>
 
 					<div class="form-group">
@@ -195,58 +213,57 @@
 					</div>
 					
 					
-				<br><br><br>
+					<br><br><br>
 
-					<table class="table table-hover" id="octo-table" width="100%">
+					<table class="table table-expandable" id="octo-table" width="100%">
 						<thead>
-							<th>Description</th>
-							<th>Mfc</th>
-							<th>MPN</th>
-							<th>Supplier</th>
-							<th>SPN</th>
-							<th>Stock</th>
-							<th></th>
+							<tr>
+								<th>Description</th>
+								<th>Manufacturer</th>
+								<th>MPN</th>
+							</tr>
 						</thead>
 						<tbody id="octo-table-body">
 
 						</tbody>
 					</table>
 					
-				</div>			
+
+</div>			
+</div>
+</div>
+</div>
+<!-- Create New Div-->
+
+<div id="showall-div" {{ Session::get('showDiv') === 'showall' ? '' : 'hidden="true"' }} >
+	<div class="col-md-12">
+		<div class="box box-primary">
+			<div class="box-header">
+				<i class="fa fa-list"></i><h3 class="box-title"> Show All <span class="createType"></span></h3>
+			</div>
+			<div class="box-body">
+				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
+				<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
+				{!! Form::close() !!}
+
+				<table class="table table-hover" id="show-all-table">
+					<thead>
+						<th>Part Nbr</th>
+						<th>Description</th>
+						<th>Manufacturer</th>
+						<th>MPN</th>
+						<th>Symbol</th>
+						<th></th>
+					</thead>
+					<tbody id="show-all-table-body">
+
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-	<!-- Create New Div-->
-
-	<div id="showall-div" hidden="true">
-		<div class="col-md-12">
-			<div class="box box-primary">
-				<div class="box-header">
-					<i class="fa fa-list"></i><h3 class="box-title"> Show All <span class="createType"></span></h3>
-				</div>
-				<div class="box-body">
-					{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
-					<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
-					{!! Form::close() !!}
-
-					<table class="table table-hover" id="show-all-table">
-						<thead>
-							<th>Part Nbr</th>
-							<th>Description</th>
-							<th>Manufacturer</th>
-							<th>MPN</th>
-							<th>Symbol</th>
-							<th></th>
-						</thead>
-						<tbody id="show-all-table-body">
-
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Show All Div-->
+</div>
+<!-- Show All Div-->
 
 </div>
 <!-- Content Row -->
@@ -262,13 +279,8 @@
 			$('.createType').text($(this).text());
 			$('.selected-Type').val($(this).val());
 
-  });
 		});
-
-		$('input[name=Manufacturer_Part_Number]').focusout(function(){
-			$('#octo-keyword').val($(this).val());
-			OctoSearch();
-		});
+	});
 </script>
 
 <script type="text/javascript">
@@ -296,8 +308,8 @@
 </script>
 
 <script type="text/javascript">
-var myresults;
-var supp_Count = 1;
+	var myresults;
+	var supp_Count = 1;
 	function CreateNew(){
 		$('#showall-div').hide("fade");
 		$('#create-new-div').show("fade");
@@ -307,7 +319,7 @@ var supp_Count = 1;
 		$('#create-new-div').hide("fade");
 		$('#showall-div').show("fade");
 		$('#showURL').submit(function(data){
-		
+
 		});
 	}
 
@@ -316,42 +328,70 @@ var supp_Count = 1;
 	}
 
 	function OctoSearch(){
-			$("#octo-table-body").html('');
-        	var url = "http://octopart.com/api/v3/parts/search";
-        	
-    	    url += "?callback=?";
-    	    url += "&apikey=a49294f9";
+		$("#octo-table-body").html('');
+		var url = "http://octopart.com/api/v3/parts/search";
 
-    	    var args = {
-    	    	q: $("#octo-keyword").val(),
-    	    	start: 0,
-    	        limit: 10,
-    	        'filter[queries][]' : 'offers.seller.name:Digi-Key'
-    	    };
+		url += "?callback=?";
+		url += "&apikey=a49294f9";
 
-    	    $.getJSON(url, args, function(search_response) {
+		var args = {
+			q: $("#octo-keyword").val(),
+			start: 0,
+			limit: 10,
+			'filter[queries][]' : 'offers.seller.name:Digi-Key offers.packaging:Cut-Tape',
 
-    	        myresults = search_response['results'];
-    			$.each(myresults, function(i,result){
-    				var Description = result.snippet;
-    				var manuf = result.item.manufacturer.name;
-    				var mpn = result.item.mpn;
-    				var seller = result.item.offers[0].seller.name;
-					var sellerPN = result.item.offers[0].sku;
-					var stock = result.item.offers[0].in_stock_quantity;
 
-    				$('#octo-table-body').append('<tr><td>'+ Description+ '</td><td>' + manuf + '</td><td>' + mpn+ '</td><td>' + seller + '</td><td>' + sellerPN + '</td><td>' + stock + '</td><td>' + '<button class="btn btn-primary" onclick="addSupplier('+ i +')"><i class="fa fa-plus"></i></button>' +'</td><tr>');
-        			});
-    			//$('#octo-table').DataTable();
-    	    });
+		};
 
-    	    
+		$.getJSON(url, args, function(search_response) {
+
+			myresults = search_response['results'];
+			$.each(myresults, function(i,result){
+				var Description = result.snippet;
+				var manuf = result.item.manufacturer.name;
+				var mpn = result.item.mpn;
+				var offers = result.item.offers;
+				var buff ="";
+				$('#octo-table-body').append('<tr class="offers">\
+					<td>'+ Description+ '</td>\
+					<td>' + manuf + '</td>\
+					<td>' + mpn + '</td>\
+				</tr>\
+				<tr class="offer">\
+					<td id="offer_td'+i+'" colspan="5"></td></tr>'); 
+							$.each(offers, function(j,offer){
+								buff += '<tr><td>' + offer.seller.name + '</td><td>' + offer.sku + '</td><td>' + offer.in_stock_quantity + '</td><td><button class="btn btn-primary" onclick="addSupplier('+ i +','+ j +')"><i class="fa fa-plus"></i></button></td></tr>';
+							});
+							$('#offer_td'+ i).append('<table class="table table-hover"><thead><tr><th>Supplier</th><th>Supplier PN</th><th>Stock</th></tr></thead><tbody>' + buff + '</tbody></table>');
+							buff = '';
+							
+						});
+
+
+		}).done(function(){
+			$('.table-expandable').each(function () {
+				var table = $(this);
+				table.children('thead').children('tr').append('<th></th>');
+				table.children('tbody').children('tr').filter('.offer').hide();
+				table.children('tbody').children('tr').filter('.offers').click(function () {
+					var element = $(this);
+					element.next('.offer').toggle('fast');
+					element.find(".table-expandable-arrow").toggleClass("up");
+				});
+				table.children('tbody').children('tr').filter('.offers').each(function () {
+					var element = $(this);
+					element.append('<td><div class="table-expandable-arrow"></div></td>');
+				});
+			});
+
+		});
+
 	}
 
 
-	function addSupplier(id){
-		var supplier = myresults[id].item.offers[0].seller.name;
-		var supplierPN =  myresults[id].item.offers[0].sku;
+	function addSupplier(i , j){
+		var supplier = myresults[i].item.offers[j].seller.name;
+		var supplierPN =  myresults[i].item.offers[j].sku;
 		if (supp_Count > 3) {
 			$(".wrapper").overhang({
 				type: "error",
@@ -375,22 +415,22 @@ var supp_Count = 1;
 					<input type="text" id="Supplier_Part_Number_'+supp_Count+'" class="form-control" placeholder="Supplier PN '+supp_Count+'">\
 				</div>\
 			</div>'
-				);
+			);
 			$('#Supplier_'+supp_Count+'').val(supplier);
 			$('#Supplier_Part_Number_'+supp_Count+'').val(supplierPN);
-		++supp_Count;
+			++supp_Count;
 		}
 		else if(supp_Count === 1){
-		$('#Supplier_1').val(supplier);
-		$('#Supplier_Part_Number_1').val(supplierPN);
-		++supp_Count;
+			$('#Supplier_1').val(supplier);
+			$('#Supplier_Part_Number_1').val(supplierPN);
+			++supp_Count;
 		}
 
 
 	}
 
-
 </script>
 
 
 @endsection
+

@@ -165,7 +165,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        App\Providers\AltiumServiceProvider::class
         /*
          * Acacha Llum Service Providers...
          *
@@ -225,6 +226,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'Image' => Intervention\Image\Facades\Image::class,
         'SentinelEx' => \App\Users\Facades\Sentinel_exFacade::class,
+        'Altium' => \App\Altium\Facades\AltiumFacade::class,
 
         /*
          * Acacha Llum Aliases...

@@ -4,7 +4,7 @@ namespace App\Altium;
 
 interface PartRepositoryInterface {
 
-	public function findAll($type, $table);
+	public function findAll();
 
 	public function findPartById($id);
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Altium;
-use App\Altium\epart;
+use App\Altium\EloquentPart;
 /**
 * 
 */
@@ -18,11 +18,9 @@ class PartRepository implements PartRepositoryInterface
 	}
 
 
-	public function findAll($type, $table)
+	public function findAll()
 	{
-		$part = new epart($type);
-		$part->setTable($table);
-		return $part;
+		$this->get();
 	}
 
 	public function findPartById($id)

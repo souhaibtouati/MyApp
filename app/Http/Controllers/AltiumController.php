@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Altium\Models\EloquentPart;
+use Altium;
 use View;
 use Form;
 use Illuminate\Support\Facades\Input;
 use Webcreate\Vcs\Svn;
 use App\Altium\PartRepository;
-use App\Altium\PartRepositoryinterface;
+
 
 
 class AltiumController extends Controller
@@ -37,11 +38,8 @@ class AltiumController extends Controller
                
         if($request->ajax()) 
         {
-        $table = Input::get('table');
-        $class = '\App\Altium\Models\\'.$type ;
-        $part = new $class();
-        $part->setTable($table);
-        $components = $part->get();
+        $part = Altium::CreateClass($type);
+        $components = $part->findAll($type);
             return($components);
         }
     }
@@ -63,12 +61,10 @@ class AltiumController extends Controller
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
         $part->setTable($table);
-        $part->ImportSymbol($type);
-        $part->ImportFootprint($type);
         $part->Y_PartNr = $part->generatePN($table);
-        $part->Library_Ref = $part->UploadFiles('symbol');
-        $part->Footprint_Ref = $part->UploadFiles('footprint');
-        $part->ComponentLink1URL = $part->UploadFiles('datasheet');
+        try{$part->Library_Ref = $part->ImportSymbol($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
+        try{$part->Footprint_Ref = $part->ImportFootprint($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
+        $part->ComponentLink1URL = $part->UploadDatasheet($type);
         foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) == null) {
                 $part->$fillable = null;
@@ -80,7 +76,7 @@ class AltiumController extends Controller
         }
         $part->save();
 
-        return redirect()->back()->withSuccess('Successfully created');
+        return redirect()->back()->withSuccess('Successfully created')->with('showDiv', 'create');
 
   
 
@@ -95,13 +91,24 @@ class AltiumController extends Controller
 
 
     //Edit a part from parts table
-    public function edit($id)
+    public function edit($type , $table, $id)
     {
         $part = Altium::findById($id);
         return View::make('Altium.PartEdit', ['part'=>$part]);
     }
 
-
+    public function ParseSVNErrors($e, $fileType)
+    {
+        if (preg_match('[already]', $e->getMessage())){ 
+            return 'This '.$fileType.' file Already exists with the same name in SVN';
+            }
+        else if (preg_match('[choose]', $e->getMessage())){ 
+            return "Please Choose a " . $fileType . ' file';
+            }
+        else { 
+            return "Error Imporing " . $fileType. " to SVN";
+            }
+    }
     
 
 

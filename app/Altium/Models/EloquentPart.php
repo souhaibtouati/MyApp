@@ -91,7 +91,7 @@ abstract class EloquentPart extends Model
         if(Input::file($type) !== null)
         {
             $Symbol = Input::file($type);
-            $destination = public_path('/Altium//'. $Types[$type]) ;
+            $destination = public_path('\Altium\\'. $Types[$type]) ;
             $filename = $Symbol->getClientOriginalName();
             $attribute = explode('.', $filename)[0];
             $Symbol->move($destination, $filename);
@@ -103,27 +103,48 @@ abstract class EloquentPart extends Model
     public function ImportSymbol($type)
     {
         $symbol = Input::file('symbol');
+        if($symbol === null || $symbol === ''){
+            throw new \Exception('Please choose a Schlib File');
+        }
         $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
         $Repo->setCredentials('souhaib.t', 'souhaibt_01');
         $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
         $filename = $symbol->getClientOriginalName();
-        $symbol->move(storage_path('Uploads'),$filename);
-        $Repo->import(storage_path('Uploads\\').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
-        File::delete(storage_path('Uploads\\').$filename);
-
+        File::cleanDirectory(storage_path('tmp'));
+        $symbol->move(storage_path('tmp'),$filename);
+        $Repo->import(storage_path('tmp\\').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
+        $attribute = explode('.', $filename)[0];
+        return $attribute;
     }
 
     public function ImportFootprint($type)
     {
         $footprint = Input::file('footprint');
+        if($footprint === null || $footprint === ''){
+            throw new \Exception('Please choose a PCBLib File');
+        }
         $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
         $Repo->setCredentials('souhaib.t', 'souhaibt_01');
         $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
         $filename = $footprint->getClientOriginalName();
-        $footprint->move(storage_path('Uploads'),$filename);
-        $Repo->import(storage_path('Uploads\\').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
-        File::delete(storage_path('Uploads\\').$filename);
+         File::cleanDirectory(storage_path('tmp'));
+        $footprint->move(storage_path('tmp'),$filename);
+        $Repo->import(storage_path('tmp\\').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
+        $attribute = explode('.', $filename)[0];
+        return $attribute;
+    }
 
+    public function UploadDatasheet($type)
+    {
+       if(Input::file('datasheet') !== null)
+        {
+            $datasheet = Input::file('datasheet');
+            $destination = public_path('\Altium\Datasheets\\'. $type) ;
+            $filename = $datasheet->getClientOriginalName();
+            $datasheet->move($destination, $filename);
+            return '/Altium/Datasheets//' . $type .'/' . $filename;
+        }
+        return null;
     }
 
 }
