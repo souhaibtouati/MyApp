@@ -15,19 +15,23 @@ class Altium
 
 	protected $parts;
 	
-	public function __construct(PartRepositoryinterface $parts) 
-	{
-        $this->parts = $parts;
+	// public function __construct() 
+	// {
 
-    }
+ //    }
 
-	public function CreateClass($type)
+	public function CreateClass($type, $table)
 	{
-		$table = Input::get('selected-Type');
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
         $part->setTable($table);
 
         return $part;
+	}
+
+	public function getPartRepository($type, $table)
+	{
+		$part = $this->CreateClass($type, $table);
+		return new PartRepository($part);
 	}
 }

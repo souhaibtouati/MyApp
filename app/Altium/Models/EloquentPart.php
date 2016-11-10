@@ -68,6 +68,11 @@ abstract class EloquentPart extends Model
         return array_pop($path);
     }
 
+    public function getTable()
+    {
+        return $this->table;
+    }
+
     public function generatePN($table)
     {
         $record = DB::connection('Altium')->table($table)->orderby('id', 'desc')->first();

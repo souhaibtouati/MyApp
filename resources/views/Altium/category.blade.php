@@ -297,7 +297,7 @@
 			}).success(function(data){
 				$('#show-all-table-body').empty();
 				$(data).each(function(component){
-					$('#show-all-table-body').append( '<tr><td>' +  data[component].Y_PartNr + '</td><td>' + data[component].Description  + '</td><td>' + data[component].Manufacturer + '</td><td>' + data[component].Manufacturer_Part_Number  +'</td><td>'+ data[component].Library_Ref +'</td><td><a href="/Altium/part/'+data[component].id+'/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>' );
+					$('#show-all-table-body').append( '<tr><td>' +  data[component].Y_PartNr + '</td><td>' + data[component].Description  + '</td><td>' + data[component].Manufacturer + '</td><td>' + data[component].Manufacturer_Part_Number  +'</td><td>'+ data[component].Library_Ref +'</td><td><a href="'+ window.location.href+ '/' +data[component].id+'/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>' );
 				});
 				$('#create-new-div').hide("fade");
 				$('#show-all-table').DataTable();

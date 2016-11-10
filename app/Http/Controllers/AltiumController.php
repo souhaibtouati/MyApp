@@ -38,19 +38,12 @@ class AltiumController extends Controller
                
         if($request->ajax()) 
         {
-        $part = Altium::CreateClass($type);
-        $components = $part->findAll($type);
-            return($components);
+            $parts = Altium::getPartRepository($type, $request->table)->findAll();
+            return($parts);
         }
     }
 
 
-    // show form for record creation
-    public function CreateNew(Request $request, $type , $table)
-    {
-
-        return 'ok';
-    }
 
     // Create New records in Database
     public function store(Request $request,$type)
@@ -78,7 +71,12 @@ class AltiumController extends Controller
 
         return redirect()->back()->withSuccess('Successfully created')->with('showDiv', 'create');
 
-  
+    }
+
+    //Update an existing part
+    public function update($type, $id)
+    {
+       // $part = Altium::getPartRepository($type, $table)->findPartById($id);
 
     }
 
@@ -91,11 +89,15 @@ class AltiumController extends Controller
 
 
     //Edit a part from parts table
-    public function edit($type , $table, $id)
+    public function edit($type , $id)
     {
-        $part = Altium::findById($id);
+        $table = 'thin_film';
+
+        $part = Altium::getPartRepository($type, $table)->findPartById($id);
+        $part->setTable($table);
         return View::make('Altium.PartEdit', ['part'=>$part]);
     }
+
 
     public function ParseSVNErrors($e, $fileType)
     {

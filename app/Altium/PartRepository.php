@@ -8,24 +8,22 @@ use App\Altium\EloquentPart;
 class PartRepository implements PartRepositoryInterface
 {
 
-	//protected $model = 'App\Altium\EloquentPart';
+	protected $model;
 	
-	function __construct($model = null)
+	function __construct($model)
 	{
-		if (isset($model)) {
-			$this->model = $model;
-		}
+		$this->model = $model;
 	}
 
 
 	public function findAll()
 	{
-		$this->get();
+		return $this->model->get();
 	}
 
 	public function findPartById($id)
 	{
-		
+		return $this->model->find($id);
 	}
 
 	public function findPartByMPN($MPN)
@@ -58,10 +56,12 @@ class PartRepository implements PartRepositoryInterface
 		
 	}
 
-	public function createModel(array $data = [])
+	public function createModel($type, $table)
     {
-        $class = '\\'.ltrim($this->model, '\\');
+        $class = '\App\Altium\Models\\'.$type ;
+        $part = new $class();
+        $part->setTable($table);
 
-        return new $class($data);
+        return $part;
     }
 }
