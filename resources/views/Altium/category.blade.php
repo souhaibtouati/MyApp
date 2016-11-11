@@ -59,9 +59,9 @@
 		<div class="col-md-4">
 			<div class="btn-group pull-right">
 				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
-				{!! Form::button('<i class="fa fa-list"></i> Show All ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true' , 'style'=> "margin-top: 5px;"]) !!}
+				{!! Form::button('<i class="fa fa-list"></i> List view ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true' , 'style'=> "margin-top: 5px;"]) !!}
 				{!! Form::close() !!}
-				{!! Form::button('<i class="fa fa-plus"></i> Create New ', ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()' , 'style'=> "margin-top: 5px;"]) !!}
+				{!! Form::button('<i class="fa fa-plus"></i> New '.$Part->getName(), ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()' , 'style'=> "margin-top: 5px;"]) !!}
 				{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()' , 'style'=> "margin-top: 5px;"]) !!}
 
 			</div>
@@ -179,7 +179,8 @@
 							<div id="parameters-div">
 								@foreach( $Part->getChildFill() as $child)
 								<div class="col-xs-3">
-									{{ Form::text($child, null, ['placeholder' => $child, 'class' => 'form-control']) }}
+									{{ Form::label($child, str_replace('_', ' ', $child))}}
+									{{ Form::text($child, null, ['placeholder' => str_replace('_', ' ', $child), 'class' => 'form-control']) }}
 								</div>
 								@endforeach
 							</div>
@@ -239,7 +240,7 @@
 	<div class="col-md-12">
 		<div class="box box-primary">
 			<div class="box-header">
-				<i class="fa fa-list"></i><h3 class="box-title"> Show All <span class="createType"></span></h3>
+				<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType"></span></h3>
 			</div>
 			<div class="box-body">
 				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
@@ -296,9 +297,8 @@
 				data: {table : table}
 			}).success(function(data){
 				$('#show-all-table-body').empty();
-				$(data).each(function(component){
-					$('#show-all-table-body').append( '<tr><td>' +  data[component].Y_PartNr + '</td><td>' + data[component].Description  + '</td><td>' + data[component].Manufacturer + '</td><td>' + data[component].Manufacturer_Part_Number  +'</td><td>'+ data[component].Library_Ref +'</td><td><a href="'+ window.location.href+ '/' +data[component].id+'/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>' );
-				});
+				$('#show-all-table-body').append(data);
+
 				$('#create-new-div').hide("fade");
 				$('#show-all-table').DataTable();
 				$('#showall-div').show("fade");

@@ -12,6 +12,7 @@ use Form;
 use Illuminate\Support\Facades\Input;
 use Webcreate\Vcs\Svn;
 use App\Altium\PartRepository;
+use URL;
 
 
 
@@ -39,7 +40,12 @@ class AltiumController extends Controller
         if($request->ajax()) 
         {
             $parts = Altium::getPartRepository($type, $request->table)->findAll();
-            return($parts);
+            $buffer = '';
+            foreach ($parts as $key => $part) {
+                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
+            }
+            
+            return($buffer);
         }
     }
 
@@ -89,13 +95,11 @@ class AltiumController extends Controller
 
 
     //Edit a part from parts table
-    public function edit($type , $id)
+    public function edit($type , $table , $id)
     {
-        $table = 'thin_film';
-
         $part = Altium::getPartRepository($type, $table)->findPartById($id);
         $part->setTable($table);
-        return View::make('Altium.PartEdit', ['part'=>$part]);
+        return View::make('Altium.PartEdit', ['part'=>$part, 'url'=>URL::previous(), 'view'=>$table]);
     }
 
 
@@ -112,7 +116,6 @@ class AltiumController extends Controller
             }
     }
     
-
 
 
     public function Test()

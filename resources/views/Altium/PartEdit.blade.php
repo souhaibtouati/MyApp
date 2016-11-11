@@ -1,15 +1,16 @@
 @extends('layouts.master')	
 
 @section('content')
+<a class="btn btn-primary pull-left	" href="{{ URL::previous(true)}}"><i class="fa fa-arrow-circle-left"></i>&nbsp Back</a>
 
-<div id="Edit-div" class="col-md-8">
-	{!! Form::model($part, ['url'=>'/Altium/'.$part->getName().'/update', 'id'=>'EditURL', 'onsubmit'=>'getclass(this);']) !!}
-	<input name="sub" type="hidden" value= "{{$part->getTable()}}" >
+	<div id="Edit-div" class="col-md-8">
+
 	<div class="box box-success">
 		<div class="box-header">
 			<i class="fa fa-pencil"></i><h3 class="box-title"> Edit <span class="createType"></span></h3>
 		</div>
 		<div class="box-body">
+			{!! Form::model($part, ['url'=>'/Altium/'.$part->getName().'/update', 'id'=>'EditURL']) !!}
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-3">
@@ -95,12 +96,12 @@
 						</div>
 						@endforeach
 					</div>
-				</div>
+				</div> 
 				<div class='row'>
 					<br>
 					<div class="col-xs-3 pull-right">
 					{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-success ', 'type'=>'submit',  'id'=>'EditButton'])}}
-					</div>
+					</div> 
 				</div>	
 			</div>
 			{{ Form::close()}}
@@ -108,6 +109,7 @@
 	</div>
 
 </div>
+
 
 
 @endsection
