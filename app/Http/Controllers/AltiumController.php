@@ -83,7 +83,20 @@ class AltiumController extends Controller
     {
         
        $part = Altium::getPartRepository($type, $table)->findPartById($id);
-       dd($part);
+       $part->setTable($table);
+       $part->ComponentLink1URL = Input::get('ComponentLink1URL');
+       foreach ($part->getFillables() as $key => $fillable) {
+            if (Input::get($fillable) === null) {
+                $part->$fillable = null;
+            }
+            else {
+                $part->$fillable = Input::get($fillable);
+            }
+
+        }
+
+        $part->save();
+        return redirect()->back()->withSuccess( $part->Y_PartNr. ' was Updated Successfully');
 
     }
 
