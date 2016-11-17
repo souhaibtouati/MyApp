@@ -55,7 +55,6 @@ class AltiumController extends Controller
     public function store(Request $request,$type)
     {
 
-        
         $table = Input::get('selected-Type');
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
@@ -63,9 +62,9 @@ class AltiumController extends Controller
         $part->Y_PartNr = $part->generatePN($table);
         try{$part->Library_Ref = $part->ImportSymbol($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
         try{$part->Footprint_Ref = $part->ImportFootprint($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
-        $part->ComponentLink1URL = $part->UploadDatasheet($type);
+        $part->UploadDatasheet($request, $type);
         foreach ($part->getFillables() as $key => $fillable) {
-            if (Input::get($fillable) == null) {
+            if (Input::get($fillable) === null) {
                 $part->$fillable = null;
             }
             else {
@@ -80,9 +79,11 @@ class AltiumController extends Controller
     }
 
     //Update an existing part
-    public function update($type, $id)
+    public function update($type,$table, $id)
     {
-       // $part = Altium::getPartRepository($type, $table)->findPartById($id);
+        
+       $part = Altium::getPartRepository($type, $table)->findPartById($id);
+       dd($part);
 
     }
 

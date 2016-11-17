@@ -114,7 +114,7 @@
               <p>MCU / Memory / Logic</p>
             </div>
             <div class="icon">
-              <i class="fa fa-server"></i>
+              <i class="fa fa-microchip"></i>
             </div>
             <a href="/Altium/Control" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
@@ -238,7 +238,7 @@
               <p>Relays / Switches</p>
             </div>
             <div class="icon">
-              <i class="fa fa-cube"></i>
+              <i class="fa fa-toggle-off"></i>
             </div>
             <a href="/Altium/Command" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>

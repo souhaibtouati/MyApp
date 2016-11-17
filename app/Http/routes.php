@@ -68,9 +68,13 @@ Route::get('503', function(){
 
 Route::get('Altium/{type}', 'AltiumController@ShowCategory');
 Route::post('Altium/{type}/ShowAll', 'AltiumController@ShowAll');
+
 Route::post('Altium/{type}/{table}/create', 'AltiumController@CreateNew');
 Route::post('Altium/{type}/store', 'AltiumController@store');
-Route::post('Altium/{type}/{id}/update', 'AltiumController@update');
+
 Route::post('category/{type}/Search/{table}', 'AltiumController@Search');
+
 Route::get('Altium/{type}/{table}/{id}/edit', 'AltiumController@edit');
+Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
+
 Route::get('altcom', 'AltiumController@Test');

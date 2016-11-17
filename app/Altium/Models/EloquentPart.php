@@ -24,8 +24,6 @@ abstract class EloquentPart extends Model
    
 
     	'Description',
-        'ComponentLink1URL',
-        'ComponentLink2URL',
     	'Manufacturer',
     	'Manufacturer_Part_Number',
     	'Supplier_1',
@@ -139,15 +137,17 @@ abstract class EloquentPart extends Model
         return $attribute;
     }
 
-    public function UploadDatasheet($type)
+    public function UploadDatasheet($request, $type)
     {
-       if(Input::file('datasheet') !== null)
+       if($request->hasFile('ComponentLink1URL'))
         {
-            $datasheet = Input::file('datasheet');
+            $datasheet = Input::file('ComponentLink1URL');
             $destination = public_path('\Altium\Datasheets\\'. $type) ;
             $filename = $datasheet->getClientOriginalName();
             $datasheet->move($destination, $filename);
-            return '/Altium/Datasheets//' . $type .'/' . $filename;
+            $path = $request->root().'/Altium/Datasheets/' . $type .'/' . $filename;
+            $this->ComponentLink1URL = $path;
+            return $path;
         }
         return null;
     }
