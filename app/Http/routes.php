@@ -77,4 +77,6 @@ Route::post('category/{type}/Search/{table}', 'AltiumController@Search');
 Route::get('Altium/{type}/{table}/{id}/edit', 'AltiumController@edit');
 Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
 
+Route::get('Altium/{type}/{table}/{id}/view', 'AltiumController@PartIndex');
+
 Route::get('altcom', 'AltiumController@Test');

@@ -60,8 +60,15 @@ class AltiumController extends Controller
         $part = new $class();
         $part->setTable($table);
         $part->Y_PartNr = $part->generatePN($table);
-        try{$part->Library_Ref = $part->ImportSymbol($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
-        try{$part->Footprint_Ref = $part->ImportFootprint($type);}catch(\Exception $e){return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
+
+        try{$part->Library_Ref = $part->ImportSymbol($type);}
+        catch(\Exception $e)
+            {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
+
+        try{$part->Footprint_Ref = $part->ImportFootprint($type);}
+        catch(\Exception $e)
+            {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
+
         $part->UploadDatasheet($request, $type);
         foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) === null) {
@@ -128,6 +135,21 @@ class AltiumController extends Controller
         else { 
             return "Error Imporing " . $fileType. " to SVN";
             }
+    }
+
+
+
+    public function PartIndex($type, $table, $id)
+    {
+        $part = Altium::getPartRepository($type, $table)->findPartById($id);
+        
+        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
+        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
+        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $Symbol_Log = $Repo->ls('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');
+        $Footprint_Log = $Repo->ls('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');
+
+        return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log, 'ftpt_log'=>$Footprint_Log]);
     }
     
 
