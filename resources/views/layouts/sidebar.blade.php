@@ -32,7 +32,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header"></li>
-        <!-- Optionally, you can add icons to the links -->
+
         <li class="{{(\Request::route()->getName() === 'dashboard') ? 'active' : ''}}"><a href="/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
         <li class="{{(\Request::route()->getName() === 'altium') ? 'active' : ''}}"><a href="/altiumCmp"><i class="fa fa-cubes"></i><span>Altium Library</span></a></li>
         <li class="treeview">
@@ -51,6 +51,14 @@
                 <li><a href="/user"><i class="fa fa-user-md"></i>Manage Users</a></li>
                 <li><a href="#"><i class="fa fa-briefcase"></i>Groups</a></li>
                 <li><a href="/permissions"><i class="fa fa-lock"></i>Permissions</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+        <a href="#"><i class="fa fa-cogs"></i><span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a href="/Settings/Altium/SVN">SVN</a></li>
+
             </ul>
         </li>
     </ul><!-- /.sidebar-menu -->

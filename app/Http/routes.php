@@ -80,3 +80,10 @@ Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
 Route::get('Altium/{type}/{table}/{id}/view', 'AltiumController@PartIndex');
 
 Route::get('altcom', 'AltiumController@Test');
+
+
+
+//Settings
+
+Route::get('Settings/Altium/SVN', 'UserController@SVNSettingsIndex');
+Route::post('Settings/Altium/SVN/update', 'UserController@SVNSettingsUpdate');

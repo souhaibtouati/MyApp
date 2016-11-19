@@ -21,6 +21,8 @@ class User extends EloquentUser
         'permissions',
         'avatar',
         'departement',
+        'svnUsername',
+        'svnPath',
     ];
 
     /**
@@ -28,6 +30,7 @@ class User extends EloquentUser
      */
     protected $hidden = [
         'password',
+        'svnPassword',
     ];
 
 

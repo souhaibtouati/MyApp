@@ -55,7 +55,7 @@
         @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="height: 1000px">
             <!-- Content Header (Page header) -->
 
 

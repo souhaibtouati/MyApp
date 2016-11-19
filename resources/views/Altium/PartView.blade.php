@@ -97,16 +97,16 @@
 		<div class="box-body">
 		<div class="col-md-6">
 		<table class="table col-md-6">
-		<thead style="text-align: center">
-				<th>Symbol</th>
+		<thead><tr style="text-align: center">
+				<th>Symbol</th></tr>
 		</thead>
 			<tbody>
 			@foreach($sym_log as $Sym)
 				<tr>
 				<td> <!-- Symbol td -->
-					<th>Revision</th><td>{{$Sym->getCommit()->getRevision()}}</td>
-					<th>Updated By</th><td>{{$Sym->getCommit()->getAuthor()}}</td>
-					<th>Message</th><td>{{$Sym->getCommit()->getMessage()}}</td>
+					<th>Revision</th><td>{{$Sym->getRevision()}}</td>
+					<th>Updated By</th><td>{{$Sym->getAuthor()}}</td>
+					<th>Message</th><td>{{$Sym->getMessage()}}</td>
 				</td> <!-- Symbol td -->
 				</tr>
 				@endforeach
@@ -116,16 +116,16 @@
 
 		<div class="col-md-6">
 		<table class="table">
-		<thead style="text-align: center">
+		<thead>
 				<th>Footprint</th>
 		</thead>
 			<tbody>
 			@foreach($ftpt_log as $ftpt)
 				<tr>
 				<td> <!-- Symbol td -->
-					<th>Revision</th><td>{{$ftpt->getCommit()->getRevision()}}</td>
-					<th>Updated By</th><td>{{$ftpt->getCommit()->getAuthor()}}</td>
-					<th>Message</th><td>{{$ftpt->getCommit()->getMessage()}}</td>
+					<th>Revision</th><td>{{$ftpt->getRevision()}}</td>
+					<th>Updated By</th><td>{{$ftpt->getAuthor()}}</td>
+					<th>Message</th><td>{{$ftpt->getMessage()}}</td>
 				</td> <!-- Symbol td -->
 				</tr>
 				@endforeach

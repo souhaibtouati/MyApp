@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Webcreate\Vcs\Svn;
 use App\Altium\PartRepository;
 use URL;
-
+use Sentinel;
 
 
 class AltiumController extends Controller
@@ -143,11 +143,15 @@ class AltiumController extends Controller
     {
         $part = Altium::getPartRepository($type, $table)->findPartById($id);
         
-        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
+        $Repo = new svn(Sentinel::getUser()->svnPath);
         $Repo->setCredentials('souhaib.t', 'souhaibt_01');
-        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
-        $Symbol_Log = $Repo->ls('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');
-        $Footprint_Log = $Repo->ls('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');
+        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $Repo->getAdapter()->setExecutable('/usr/bin/svn');
+        }
+        else $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+
+        $Symbol_Log = $Repo->log('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');
+        $Footprint_Log = $Repo->log('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');
 
         return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log, 'ftpt_log'=>$Footprint_Log]);
     }
@@ -156,7 +160,12 @@ class AltiumController extends Controller
 
     public function Test()
     {
-
+        $repo = new Svn (Sentinel::getUser()->svnPath);
+        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $repo->getAdapter()->setExecutable('/usr/bin/svn');
+        }
+        else $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        dd($repo->ls('/'));
 
     	// $repo = new Svn ("http://yed-muc-ed1/svn/AltiumDesign");
     	// $repo->setCredentials('souhaib.t', 'souhaibt_01');

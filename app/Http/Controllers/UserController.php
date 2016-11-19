@@ -215,6 +215,27 @@ class UserController extends Controller
 	}
 
 
+	public function SVNSettingsIndex()
+	{
+		$user = Sentinel::getUser();
+
+		return view::make('Settings.svn', ['user'=>$user]); 
+	}
+
+	public function SVNSettingsUpdate(Request $request)
+	{
+		$user = Sentinel::getUser();
+		$user->svnUsername = Input::get('svnUsername');
+		if ($request->has('svnPassword')) {
+			$user->svnPassword = Input::get('svnPassword');
+		}
+		$user->svnPath = Input::get('svnPath');
+		$user->save();
+
+		return redirect()->back()->withSuccess('SVN settings Updated Successfully'); 
+	}
+
+
 
 
 

@@ -8,6 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use Webcreate\Vcs\Svn;
 use File;
+use Sentinel;
 abstract class EloquentPart extends Model
 {
 
@@ -109,13 +110,21 @@ abstract class EloquentPart extends Model
         if($symbol === null || $symbol === ''){
             throw new \Exception('Please choose a Schlib File');
         }
-        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
-        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
-        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $repo = new Svn (Sentinel::getUser()->svnPath);
+        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $repo->getAdapter()->setExecutable('/usr/bin/svn');
+        }
+        else $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $svnUser = Sentinel::getUser()->svnUsername;
+        if ($svnUser !== null && $svnUser !== '') {
+            $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
+        }
+        
+        
         $filename = $symbol->getClientOriginalName();
         File::cleanDirectory(storage_path('tmp'));
         $symbol->move(storage_path('tmp'),$filename);
-        $Repo->import(storage_path('tmp\\').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
+        $repo->import(storage_path('tmp/').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
         $attribute = explode('.', $filename)[0];
         return $attribute;
     }
@@ -126,13 +135,17 @@ abstract class EloquentPart extends Model
         if($footprint === null || $footprint === ''){
             throw new \Exception('Please choose a PCBLib File');
         }
-        $Repo = new svn('http://yed-muc-ed1/svn/AltiumLib');
-        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
-        $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $repo = new Svn (Sentinel::getUser()->svnPath);
+        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $repo->getAdapter()->setExecutable('/usr/bin/svn');
+        }
+        else $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
+
         $filename = $footprint->getClientOriginalName();
-         File::cleanDirectory(storage_path('tmp'));
+        File::cleanDirectory(storage_path('tmp'));
         $footprint->move(storage_path('tmp'),$filename);
-        $Repo->import(storage_path('tmp\\').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
+        $repo->import(storage_path('tmp/').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
         $attribute = explode('.', $filename)[0];
         return $attribute;
     }
