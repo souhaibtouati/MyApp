@@ -109,9 +109,17 @@ class AltiumController extends Controller
 
 
     // Search for a records in Database
-    public function Search(Request $request,$type , $table)
+    public function Search(Request $request,$type)
     {
-        # code...
+        if($request->ajax()) 
+        {
+            $table = $request->table;
+            $SearchBy = $request->SearchBy;
+            $keyword = $request->keyword;
+
+            return [$table, $SearchBy, $keyword];
+        }
+        
     }
 
 

@@ -38,7 +38,7 @@ class PartRepository implements PartRepositoryInterface
 
 	public function findPartByKeyword($keyword)
 	{
-		
+		return $this->model->where('keyword', 'like', '%' . Input::get('keyword') . '%')->get();
 	}
 
 	public function create(array $fillables)

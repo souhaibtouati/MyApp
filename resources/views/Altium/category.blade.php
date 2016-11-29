@@ -79,7 +79,7 @@
 			<input name="selected-Type" class="selected-Type" type="hidden" value= null>
 			<div class="box box-success">
 				<div class="box-header">
-					<i class="fa fa-plus"></i><h3 class="box-title"> Create New <span class="createType"></span></h3>
+					<i class="fa fa-plus"></i><h3 class="box-title"> Create New <span class="createType" style="color: red"></span></h3>
 				</div>
 				<div class="box-body">
 					
@@ -266,6 +266,39 @@
 </div>
 <!-- Show All Div-->
 
+
+<div id="SearchDiv" hidden="true">
+<div class="col-md-12">	
+		<div class="box box-warning">
+		<div class="box-header">
+			<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType"></span></h3>
+		</div>
+
+		<div class="box-body">
+		<div class="form-group">
+			{{Form::open(['url' =>'Altium/'.$Part->getName().'/search'])}}
+			<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
+			<div class="col-md-2">
+			{{Form::label('SearchBy','Search By')}}
+			</div>
+			<div class="col-md-3">
+			{{Form::select('SearchBy',['MPN'=>'Manufacturer PN','SKU'=>'Supplier PN', 'keyword'=>'keyword'],null,['class'=>'form-control'])}}
+			</div>
+			<div class="col-md-3">
+			{{Form::text('SearchKeyword',null,['placeholder'=>'Search Keyword', 'class'=>'form-control'])}}
+			</div>
+			<div class="col-md-3">
+			{{ Form::button('<i class="fa fa-search"></i>' , ['class'=>'SearchBtn btn btn-warning'])}}	
+			</div>
+			
+			{{Form::close()}}
+		</div>
+		</div>
+			
+		</div>
+</div>	
+</div>
+
 </div>
 <!-- Content Row -->
 @endsection
@@ -304,6 +337,22 @@
 				$('#showall-div').show("fade");
 			});
 		});
+
+		$('.SearchBtn').click(function(){
+			var	token = $('input[name=_token]').val();
+			var table = $('.selected-Type').val();
+			var SearchBy = $('select[name=SearchBy]').val();
+			var keyword = $('input[name=SearchKeyword]').val();
+			$.ajax({
+				url: window.location.href + '/search',
+				headers: {'X-CSRF-TOKEN': token},
+				type: 'POST',
+				data: {table: table, SearchBy : SearchBy, keyword : keyword}
+			}).success(function(data){
+				console.log(data);
+			});
+		});
+
 	});
 </script>
 
@@ -312,12 +361,14 @@
 <script type="text/javascript">
 
 	function CreateNew(){
-		$('#showall-div').hide("fade");
+		$('#showall-div').hide();
+		$('#SearchDiv').hide();
 		$('#create-new-div').show("fade");
 	}
 
 	function ShowAll(){
-		$('#create-new-div').hide("fade");
+		$('#create-new-div').hide();
+		$('#SearchDiv').hide();
 		$('#showall-div').show("fade");
 		$('#showURL').submit(function(data){
 
@@ -325,7 +376,9 @@
 	}
 
 	function Search(){
-
+		$('#showall-div').hide();
+		$('#create-new-div').hide();
+		$('#SearchDiv').show('fade');
 	}
 </script>
 

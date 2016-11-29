@@ -72,7 +72,7 @@ Route::post('Altium/{type}/ShowAll', 'AltiumController@ShowAll');
 Route::post('Altium/{type}/{table}/create', 'AltiumController@CreateNew');
 Route::post('Altium/{type}/store', 'AltiumController@store');
 
-Route::post('category/{type}/Search/{table}', 'AltiumController@Search');
+Route::post('Altium/{type}/search', 'AltiumController@Search');
 
 Route::get('Altium/{type}/{table}/{id}/edit', 'AltiumController@edit');
 Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
