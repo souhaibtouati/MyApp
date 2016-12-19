@@ -83,6 +83,14 @@ Route::get('altcom', 'AltiumController@Test');
 
 
 
+//Projects
+
+Route::group(['prefix' => 'yproject'], function(){
+	Route::get('/{group}','ProjectsController@ProjectsIndex');
+
+});
+
+
 //Settings
 
 Route::get('Settings/Altium/SVN', 'UserController@SVNSettingsIndex');

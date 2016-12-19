@@ -2,23 +2,11 @@
 
 @section('content')
 
-
-<div class="container">
+<h1>Welcome back {{Sentinel::getUser()->first_name}}</h1>
+<div class="container" style="padding: 15%; margin-left:100px">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    <h2>Welcome {{Sentinel::getUser()->first_name}}</h2>
-                    <p>
-                     
-                    </p>
-
-
-
-                </div>
-            </div>
+            <img src="{{asset('img/ylogo.png')}}" >
         </div>
     </div>
 </div>

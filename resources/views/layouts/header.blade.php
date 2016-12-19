@@ -32,7 +32,7 @@
                             <ul class="menu">
                                 <li><!-- start notification -->
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        <i class="fa fa-users text-aqua"></i> 2 new members joined today
                                     </a>
                                 </li><!-- end notification -->
                             </ul>
@@ -56,7 +56,7 @@
                                     <a href="#">
                                         <!-- Task title and progress text -->
                                         <h3>
-                                            Design some buttons
+                                            Yamaichi-Test
                                             <small class="pull-right">20%</small>
                                         </h3>
                                         <!-- The progress bar -->

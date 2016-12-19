@@ -38,10 +38,10 @@
         <li class="treeview">
         <a href="#"><i class="fa fa-flask"></i><span>Projects</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
-                <li><a href="#">DEV</a></li>
-                <li><a href="#">CS1</a></li>
-                <li><a href="#">CS2</a></li>
-                <li><a href="#">TS</a></li>
+                <li><a href="/yproject/dev">DEV</a></li>
+                <li><a href="/yproject/cs1">CS1</a></li>
+                <li><a href="/yproject/cs2">CS2</a></li>
+                <li><a href="/yproject/ts">TS</a></li>
             </ul>
         </li>
         <li class="treeview">

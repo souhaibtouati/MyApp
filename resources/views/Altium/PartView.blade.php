@@ -96,18 +96,16 @@
 		</div>
 		<div class="box-body">
 		<div class="col-md-6">
-		<table class="table col-md-6">
-		<thead><tr style="text-align: center">
-				<th>Symbol</th></tr>
-		</thead>
+		<table class="table">
+			<tr>Symbol History</tr>
 			<tbody>
 			@foreach($sym_log as $Sym)
 				<tr>
-				<td> <!-- Symbol td -->
+				<td> 
 					<th>Revision</th><td>{{$Sym->getRevision()}}</td>
 					<th>Updated By</th><td>{{$Sym->getAuthor()}}</td>
 					<th>Message</th><td>{{$Sym->getMessage()}}</td>
-				</td> <!-- Symbol td -->
+				</td> 
 				</tr>
 				@endforeach
 			</tbody>
@@ -116,17 +114,15 @@
 
 		<div class="col-md-6">
 		<table class="table">
-		<thead>
-				<th>Footprint</th>
-		</thead>
+				<tr>Footprint History</tr>
 			<tbody>
 			@foreach($ftpt_log as $ftpt)
 				<tr>
-				<td> <!-- Symbol td -->
+				<td> 
 					<th>Revision</th><td>{{$ftpt->getRevision()}}</td>
 					<th>Updated By</th><td>{{$ftpt->getAuthor()}}</td>
 					<th>Message</th><td>{{$ftpt->getMessage()}}</td>
-				</td> <!-- Symbol td -->
+				</td> 
 				</tr>
 				@endforeach
 			</tbody>

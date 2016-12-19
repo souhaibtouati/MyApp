@@ -42,7 +42,7 @@ class AltiumController extends Controller
             $parts = Altium::getPartRepository($type, $request->table)->findAll();
             $buffer = '';
             foreach ($parts as $key => $part) {
-                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
+                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
             }
             
             return($buffer);
@@ -92,6 +92,8 @@ class AltiumController extends Controller
        $part = Altium::getPartRepository($type, $table)->findPartById($id);
        $part->setTable($table);
        $part->ComponentLink1URL = Input::get('ComponentLink1URL');
+       $part->Library_Ref = Input::get('Library_Ref');
+       $part->Footprint_Ref = Input::get('Footprint_Ref');
        foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) === null) {
                 $part->$fillable = null;
@@ -150,9 +152,8 @@ class AltiumController extends Controller
     public function PartIndex($type, $table, $id)
     {
         $part = Altium::getPartRepository($type, $table)->findPartById($id);
-        
         $Repo = new svn(Sentinel::getUser()->svnPath);
-        $Repo->setCredentials('souhaib.t', 'souhaibt_01');
+        $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
         if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
             $Repo->getAdapter()->setExecutable('/usr/bin/svn');
         }
@@ -161,9 +162,10 @@ class AltiumController extends Controller
         $Symbol_Log = $Repo->log('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');
         $Footprint_Log = $Repo->log('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');
 
-        return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log, 'ftpt_log'=>$Footprint_Log]);
+        return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log , 'ftpt_log'=>$Footprint_Log]);
     }
-    
+
+
 
 
     public function Test()

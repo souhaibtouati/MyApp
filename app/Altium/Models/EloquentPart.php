@@ -117,7 +117,7 @@ abstract class EloquentPart extends Model
         else $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
         $svnUser = Sentinel::getUser()->svnUsername;
         if ($svnUser !== null && $svnUser !== '') {
-            $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
+            $repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
         }
         
         

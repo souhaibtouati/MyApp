@@ -240,7 +240,7 @@
 	<div class="col-md-12">
 		<div class="box box-primary">
 			<div class="box-header">
-				<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType"></span></h3>
+				<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType" style="color: red"></span></h3>
 			</div>
 			<div class="box-body">
 				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
@@ -254,6 +254,7 @@
 						<th>Manufacturer</th>
 						<th>MPN</th>
 						<th>Symbol</th>
+						<th>Footprint</th>
 						<th></th>
 					</thead>
 					<tbody id="show-all-table-body">
@@ -271,7 +272,7 @@
 <div class="col-md-12">	
 		<div class="box box-warning">
 		<div class="box-header">
-			<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType"></span></h3>
+			<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType" style="color: red"></span></h3>
 		</div>
 
 		<div class="box-body">
@@ -333,6 +334,7 @@
 				$('#show-all-table-body').append(data);
 
 				$('#create-new-div').hide("fade");
+				$('#SearchDiv').hide();
 				$('#show-all-table').DataTable();
 				$('#showall-div').show("fade");
 			});
