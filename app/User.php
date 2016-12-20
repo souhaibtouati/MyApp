@@ -67,6 +67,13 @@ class User extends EloquentUser
         return $this->attributes['title'];
     }
 
+
+
+    public function getGroup()
+    {
+        return $this->attributes['departement'];
+    }
+
         /**
      * return title Attribute.
      *

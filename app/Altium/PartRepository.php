@@ -28,32 +28,32 @@ class PartRepository implements PartRepositoryInterface
 
 	public function findPartByMPN($MPN)
 	{
-		
+		return $this->model->where('Manufacturer_Part_Number', $MPN)->first();
 	}
 
 	public function findPartBySKU($SKU)
 	{
-		
+		return $this->model->where('Supplier_Part_Number_1', $SKU)->first();
 	}
 
-	public function findPartByKeyword($keyword)
+	public function findPartByDescription($Description)
 	{
-		return $this->model->where('keyword', 'like', '%' . Input::get('keyword') . '%')->get();
+		return $this->model->where('Description', 'like', '%' . $Description . '%')->get();
 	}
 
-	public function create(array $fillables)
+	public function create(array $attributes)
 	{
-		return $this->insert($fillables);
+		return $this->model->insert($attributes);
 	}
 
-	public function Update(array $fillables)
+	public function Update(array $attributes)
 	{
-		
+		return $this->model->update($attributes);
 	}
 
 	public function Destroy($id)
 	{
-		
+		return $this->model->where('id', $id)->delete();	
 	}
 
 	public function createModel($type, $table)

@@ -4,6 +4,7 @@
 	var foundImg ="/assets/img/img_not_found.jpg";
 
 function OctoSearch(){
+		Pace.restart(); 
 		$("#octo-table-body").html('');
 		var url = "http://octopart.com/api/v3/parts/search";
 
@@ -14,7 +15,7 @@ function OctoSearch(){
 			q: $("#octo-keyword").val(),
 			start: 0,
 			limit: 10,
-			'filter[queries][]' : 'offers.seller.name:Digi-Key offers.packaging:Cut-Tape',
+			'filter[queries][]' : 'offers.seller.name:Digi-Key',
 
 
 		};
@@ -61,8 +62,7 @@ function OctoSearch(){
 			});
 
 		});
-
-	}
+}
 
 
 	function addSupplier(i , j){
@@ -111,60 +111,47 @@ function OctoSearch(){
 
 
 	function getpartspecs(){
-					var myresults;
-					var myspecs;
-					if (document.getElementById("mpn").innerHTML != ""){
-			        
-			        	var url = "http://octopart.com/api/v3/parts/search";
-					    url += "?callback=?";
-					    url += "&include[]=specs";
-					    url += "&include[]=imagesets";
+		var myresults;
+		var myspecs;
+		if (document.getElementById("mpn").innerHTML != ""){
+
+			var url = "http://octopart.com/api/v3/parts/search";
+			url += "?callback=?";
+			url += "&include[]=specs";
+			url += "&include[]=imagesets";
 
 					    // NOTE: Use your API key here (https://octopart.com/api/register)
 					    url += "&apikey=a49294f9";
-
-
 					    var args = {
 					    	q: document.getElementById("mpn").innerHTML,
-					    	
 					    	start: 0,
-					        limit: 1
+					    	limit: 1
 					    };
-
 					    $.getJSON(url, args, function(search_response) {
+					    	myresults = search_response['results'];
+					    	if(myresults.length > 0){
+					    		myspecs = myresults[0].item.specs;
+					    		imageset = myresults[0].item.imagesets;
+					    		if(typeof (myspecs) != 'undefined'){
+					    			document.getElementById("specsdiv").innerHTML += "<table id='specsTable' class='table table-hover'>"
+					    			$.each(myspecs,function(i, result){
+					    				$('#specsTable').append('<tr><th>' + result.metadata.name + '</th><td>' + result.display_value + '</td></tr>')
+					    			});
 
-					        myresults = search_response['results'];
-					        myspecs = myresults[0].item.specs;
-					      	imageset = myresults[0].item.imagesets;
-
-					       if(typeof (myspecs) != 'undefined'){
-					    	   document.getElementById("specsdiv").innerHTML += "<table id='specsTable' class='table table-hover'>"
-					    	   $.each(myspecs,function(i, result){
-					    	   	$('#specsTable').append('<tr><th>' + result.metadata.name + '</th><td>' + result.display_value + '</td></tr>')
-					   			 });
-					    	   
-					       }
-					       for (i=0; i< imageset.length; i++){
-								        if(imageset[i]['large_image'] != null ){foundImg = imageset[i]['large_image']['url'];  break;}
-								        if (i == imageset.length || foundImg == "/assets/img/img_not_found.jpg"){
-											for (j=0; j< imageset.length; j++){
-										        if(imageset[j]['medium_image'] != null ){foundImg = imageset[j]['medium_image']['url'];  break;}
-										        if (j == imageset.length || foundImg == "/assets/img/img_not_found.jpg"){
-													for (k=0; k< imageset.length; k++){
-												        if(imageset[k]['small_image'] != null ){foundImg = imageset[k]['small_image']['url'];  break;}
-													}}
-											}}
-										}
-
-							        document.getElementById("PartPic").src = foundImg;
-					    });
-					
-			        
-					    
-		    			return false;
-			        
-			     
+					    		}
+					    		for (j=0; j< imageset.length; j++){
+					    			if(imageset[j]['medium_image'] != null ){foundImg = imageset[j]['medium_image']['url'];  break;}
+					    			if (j == imageset.length && foundImg == "/assets/img/img_not_found.jpg"){
+					    				for (k=0; k< imageset.length; k++){
+					    					if(imageset[k]['small_image'] != null ){foundImg = imageset[k]['small_image']['url'];  break;}
+					    				}}
+					    			}
+					    			document.getElementById("PartPic").src = foundImg;
+					    		}
+					    		else document.getElementById("specsdiv").innerHTML += '<h4>No results found...</h4>'
+					    	});
+					    return false;
 					}
-					else alert('Specs are not Available,\nPlease check the Manufacturer PN..');
+					else document.getElementById("specsdiv").innerHTML +='Specs are not Available, Please check the Manufacturer PN..';
 					return true;
-					};
+				};

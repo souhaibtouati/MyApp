@@ -210,7 +210,7 @@
 						<input id="octo-keyword" class="form-control" placeholder="Search Keyword" >
 					</div>
 					<div class="col-xs-2">
-						<button class="btn btn-primary" onclick="OctoSearch()">Go</button>
+						<button class="btn btn-primary" id="octoBtn" onclick="OctoSearch()">Go</button>
 					</div>
 					
 					
@@ -264,6 +264,28 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal Dialog -->
+<div class="modal fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete Parmanently</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure about this ?</p>
+        <input type="hidden" name="type">
+        <input type="hidden" name="table">
+        <input type="hidden" name="id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <!-- Show All Div-->
 
@@ -277,13 +299,13 @@
 
 		<div class="box-body">
 		<div class="form-group">
-			{{Form::open(['url' =>'Altium/'.$Part->getName().'/search'])}}
+			
 			<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
 			<div class="col-md-2">
 			{{Form::label('SearchBy','Search By')}}
 			</div>
 			<div class="col-md-3">
-			{{Form::select('SearchBy',['MPN'=>'Manufacturer PN','SKU'=>'Supplier PN', 'keyword'=>'keyword'],null,['class'=>'form-control'])}}
+			{{Form::select('SearchBy',['MPN'=>'Manufacturer PN','SKU'=>'Supplier PN', 'Description'=>'Description'],null,['class'=>'form-control'])}}
 			</div>
 			<div class="col-md-3">
 			{{Form::text('SearchKeyword',null,['placeholder'=>'Search Keyword', 'class'=>'form-control'])}}
@@ -292,11 +314,33 @@
 			{{ Form::button('<i class="fa fa-search"></i>' , ['class'=>'SearchBtn btn btn-warning'])}}	
 			</div>
 			
-			{{Form::close()}}
-		</div>
-		</div>
 			
 		</div>
+		</div>
+		</div>
+			<div class="box box-warning" id="searchResultDiv" hidden="true">
+			<div class="box-header">
+				<i class="fa fa-list"></i><h3 class="box-title"> Results </h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-hover" id="search-result-table">
+					<thead>
+						<th>Part Nbr</th>
+						<th>Description</th>
+						<th>Manufacturer</th>
+						<th>MPN</th>
+						<th>Symbol</th>
+						<th>Footprint</th>
+						<th></th>
+					</thead>
+					<tbody id="search-result-table-body">
+
+					</tbody>
+				</table>
+			</div>
+		</div>	
+	
+		
 </div>	
 </div>
 
@@ -333,12 +377,28 @@
 				$('#show-all-table-body').empty();
 				$('#show-all-table-body').append(data);
 
-				$('#create-new-div').hide("fade");
+				$('#create-new-div').hide();
 				$('#SearchDiv').hide();
 				$('#show-all-table').DataTable();
 				$('#showall-div').show("fade");
 			});
 		});
+
+	
+			$('input[name=SearchKeyword]').keyup(function () {
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					$('.SearchBtn').trigger('click');
+				}
+			});
+
+			$('#octo-keyword').keyup(function () {
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					$('#octoBtn').trigger('click');
+				}
+			});
+
 
 		$('.SearchBtn').click(function(){
 			var	token = $('input[name=_token]').val();
@@ -350,8 +410,11 @@
 				headers: {'X-CSRF-TOKEN': token},
 				type: 'POST',
 				data: {table: table, SearchBy : SearchBy, keyword : keyword}
-			}).success(function(data){
-				console.log(data);
+			}).success(function(partsTable){
+				$('#search-result-table-body').empty();
+				$('#search-result-table-body').append(partsTable);
+				$('#search-result-table').DataTable();
+				$('#searchResultDiv').show("fade");
 			});
 		});
 
@@ -384,6 +447,28 @@
 	}
 </script>
 
+<script>    
+  $('#confirmDeletePart').on('show.bs.modal', function (e) {
+   
+    $type = $(e.relatedTarget).attr('data-type');
+    $(this).find('.modal-body input[name=type]').val($type);
+    $table = $(e.relatedTarget).attr('data-table');
+    $(this).find('.modal-body input[name=table]').val($table);
+    $id = $(e.relatedTarget).attr('data-id');
+    $(this).find('.modal-body input[name=id]').val($id);
+
+      // Pass form reference to modal for submission on yes/ok
+      var form = $(e.relatedTarget).closest('form');
+      $(this).find('.modal-footer #confirm').data('form', form);
+     
+    });
+
+      // Form confirm (yes/ok) handler, submits form 
+      $('#confirmDeletePart').find('.modal-footer #confirm').on('click', function(){
+        $(this).data('form').submit();
+      });
+
+    </script>
 
 @endsection
 

@@ -42,7 +42,11 @@ class AltiumController extends Controller
             $parts = Altium::getPartRepository($type, $request->table)->findAll();
             $buffer = '';
             foreach ($parts as $key => $part) {
-                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
+                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td style="white-space: nowrap;"><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a>';
+                $buffer .=  Form::open(['url' => '/Altium/'.$type.'/'. $request->table.'/'.$part->id.'/delete', 'method' => 'DELETE', 'class'=>'delete']); 
+                $buffer .= Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'id'=>'delete', 'data-toggle'=>'modal','data-target'=>'#confirmDeletePart' , 'data-type'=>$type , 'data-table' =>$request->table , 'data-id' => $part->id]);
+                $buffer .= Form::close();
+                $buffer .= '</td></tr>';
             }
             
             return($buffer);
@@ -110,6 +114,14 @@ class AltiumController extends Controller
     }
 
 
+    public function destroy($type,$table,$id)
+    {
+        $part = Altium::getPartRepository($type , $table)->Destroy($id);
+        
+        return redirect()->back()->withSuccess('Component Successfully Deleted');
+    }
+
+
     // Search for a records in Database
     public function Search(Request $request,$type)
     {
@@ -118,8 +130,18 @@ class AltiumController extends Controller
             $table = $request->table;
             $SearchBy = $request->SearchBy;
             $keyword = $request->keyword;
-
-            return [$table, $SearchBy, $keyword];
+            $function = 'findPartBy'.$SearchBy;
+            $buffer = '';
+            if(method_exists(\App\Altium\PartRepositoryInterface::class , $function)){
+                $parts = Altium::getPartRepository($type, $table)->$function($keyword);
+                foreach ($parts as $key => $part) {
+                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
+            }
+            
+            return($buffer);
+            }
+            
+            return 'not found';
         }
         
     }
@@ -159,9 +181,10 @@ class AltiumController extends Controller
         }
         else $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
 
-        $Symbol_Log = $Repo->log('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');
-        $Footprint_Log = $Repo->log('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');
-
+        try {$Symbol_Log = $Repo->log('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');}
+            catch (\Exception $e){ $Symbol_Log = [];}
+        try {$Footprint_Log = $Repo->log('FTPT/'.$type.'/'.$part->Footprint_Ref .'.PcbLib');}
+            catch (\Exception $e){ $Footprint_Log = [];}
         return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log , 'ftpt_log'=>$Footprint_Log]);
     }
 

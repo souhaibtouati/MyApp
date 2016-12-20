@@ -12,11 +12,11 @@ interface PartRepositoryInterface {
 
 	public function findPartBySKU($SKU);
 
-	public function findPartByKeyword($keyword);
+	public function findPartByDescription($Description);
 
-	public function create(array $fillables);
+	public function create(array $attributes);
 
-	public function Update(array $fillables);
+	public function Update(array $attributes);
 
 	public function Destroy($id); 
 

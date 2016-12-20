@@ -36,6 +36,7 @@ abstract class EloquentPart extends Model
         'Revision',
         'modified_by',
         'Package'
+
     ];
 
 
@@ -71,6 +72,7 @@ abstract class EloquentPart extends Model
     {
         return $this->table;
     }
+
 
     public function generatePN($table)
     {
@@ -126,6 +128,8 @@ abstract class EloquentPart extends Model
         $symbol->move(storage_path('tmp'),$filename);
         $repo->import(storage_path('tmp/').$filename ,'SYM/'.$type.'/'.$filename , 'Symbol imported');
         $attribute = explode('.', $filename)[0];
+
+        
         return $attribute;
     }
 
@@ -147,6 +151,7 @@ abstract class EloquentPart extends Model
         $footprint->move(storage_path('tmp'),$filename);
         $repo->import(storage_path('tmp/').$filename ,'FTPT/'.$type.'/'.$filename , 'Footprint imported');
         $attribute = explode('.', $filename)[0];
+        
         return $attribute;
     }
 

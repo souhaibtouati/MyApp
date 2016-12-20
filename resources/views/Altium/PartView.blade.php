@@ -103,7 +103,8 @@
 				<tr>
 				<td> 
 					<th>Revision</th><td>{{$Sym->getRevision()}}</td>
-					<th>Updated By</th><td>{{$Sym->getAuthor()}}</td>
+					<th>Author</th><td>{{$Sym->getAuthor()}}</td>
+					<th>Date</th><td>{{$Sym->getDate()->format('d-m-Y H:i')}}</td>
 					<th>Message</th><td>{{$Sym->getMessage()}}</td>
 				</td> 
 				</tr>
@@ -120,7 +121,8 @@
 				<tr>
 				<td> 
 					<th>Revision</th><td>{{$ftpt->getRevision()}}</td>
-					<th>Updated By</th><td>{{$ftpt->getAuthor()}}</td>
+					<th>Author</th><td>{{$ftpt->getAuthor()}}</td>
+					<th>Date</th><td>{{$ftpt->getDate()->format('d-m-Y H:i')}}</td>
 					<th>Message</th><td>{{$ftpt->getMessage()}}</td>
 				</td> 
 				</tr>

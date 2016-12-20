@@ -144,7 +144,7 @@
 						<input id="octo-keyword" class="form-control" placeholder="Search Keyword" >
 					</div>
 					<div class="col-xs-2">
-						<button class="btn btn-primary" onclick="OctoSearch()">Go</button>
+						<button class="btn btn-primary" id="octoBtn" onclick="OctoSearch()">Go</button>
 					</div>
 					
 					
@@ -170,5 +170,13 @@
 
 
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
+<script type="text/javascript">
+	$('#octo-keyword').keyup(function () {
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					$('#octoBtn').trigger('click');
+				}
+			});
+</script>
 
 @endsection

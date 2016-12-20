@@ -118,7 +118,6 @@
       // Pass form reference to modal for submission on yes/ok
       var form = $(e.relatedTarget).closest('form');
       $(this).find('.modal-footer #confirm').data('form', form);
-      console.log(form);
     });
 
       // Form confirm (yes/ok) handler, submits form 
