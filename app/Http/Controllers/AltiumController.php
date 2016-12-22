@@ -65,15 +65,20 @@ class AltiumController extends Controller
         $part->setTable($table);
         $part->Y_PartNr = $part->generatePN($table);
 
-        try{$part->Library_Ref = $part->ImportSymbol($type);}
+        try{$SYMret = Altium::ImportToSVN($type, 'SYM');}
         catch(\Exception $e)
             {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
 
-        try{$part->Footprint_Ref = $part->ImportFootprint($type);}
+        try{$FTPTret = Altium::ImportToSVN($type, 'FTPT');}
         catch(\Exception $e)
             {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
 
-        $part->UploadDatasheet($request, $type);
+        $part->Library_Ref = $SYMret['name'];
+        $part->Footprint_Ref = $FTPTret['name'];
+        $part->SYMPath = $SYMret['path'];
+        $part->FTPTPath = $FTPTret['path'];
+        $part->ComponentLink1URL = Altium::UploadDatasheet($request, $type);
+
         foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) === null) {
                 $part->$fillable = null;
@@ -114,10 +119,16 @@ class AltiumController extends Controller
     }
 
 
-    public function destroy($type,$table,$id)
+    public function destroy($type,$table,$id, $svn = false)
     {
-        $part = Altium::getPartRepository($type , $table)->Destroy($id);
-        
+        $part = Altium::getPartRepository($type , $table)->findPartById($id);
+        if($svn === true){
+            $SVNSymbol = $part->getSYMPath();
+            $SVNFootprint = $part->getFTPTPath();
+            Altium::SVNrmFile($SVNSymbol);  
+            Altium::SVNrmFile($SVNFootprint);  
+        }
+        $part->delete();    
         return redirect()->back()->withSuccess('Component Successfully Deleted');
     }
 
@@ -158,12 +169,16 @@ class AltiumController extends Controller
 
     public function ParseSVNErrors($e, $fileType)
     {
-        if (preg_match('[already]', $e->getMessage())){ 
+        $message = $e->getMessage();
+        if (preg_match('[already]', $message)){ 
             return 'This '.$fileType.' file Already exists with the same name in SVN';
             }
-        else if (preg_match('[choose]', $e->getMessage())){ 
+        else if (preg_match('[choose]', $message)){ 
             return "Please Choose a " . $fileType . ' file';
             }
+        else if (preg_match('[file-type]', $message)){
+            return $message;
+        }
         else { 
             return "Error Imporing " . $fileType. " to SVN";
             }
@@ -174,12 +189,7 @@ class AltiumController extends Controller
     public function PartIndex($type, $table, $id)
     {
         $part = Altium::getPartRepository($type, $table)->findPartById($id);
-        $Repo = new svn(Sentinel::getUser()->svnPath);
-        $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
-        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
-            $Repo->getAdapter()->setExecutable('/usr/bin/svn');
-        }
-        else $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $Repo = Altium::InitSVN();
 
         try {$Symbol_Log = $Repo->log('SYM/'.$type.'/'.$part->Library_Ref .'.Schlib');}
             catch (\Exception $e){ $Symbol_Log = [];}

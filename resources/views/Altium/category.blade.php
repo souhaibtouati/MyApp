@@ -88,6 +88,28 @@
 						<table class="table">
 							<thead>
 								<tr>
+								<th style="text-align: center">
+									<label>New</label>
+									<input type="radio" name="SymType" value="New" checked="true">
+									<input type="radio" name="SymType" value="Existing">
+									<label>Existing</label>
+								</th>
+								<th style="text-align: center">
+									<label>New</label>
+									<input type="radio" name="FTPTType" value="New" checked="true">
+									
+									<input type="radio" name="FTPTType" value="Existing">
+									<label>Existing</label>
+								</th>
+								<th style="text-align: center">
+									<label>New</label>
+									<input type="radio" name="DSType" value="New" checked="true">
+									
+									<input type="radio" name="DSType" value="Existing">
+									<label>Existing</label>
+								</th>
+								</tr>
+								<tr>
 									<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
 									<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
 									<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
@@ -96,15 +118,15 @@
 							<tbody>
 								<tr>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="symbol"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
+										<label class="btn btn-default" for="symbol" id="SymbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
 										<input type="file" name="symbol" id="symbol" />
 									</td>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="footprint"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
+										<label class="btn btn-default" for="footprint" id="FootprintLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
 										<input type="file" name="footprint" id="footprint" />
 									</td>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="ComponentLink1URL"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
+										<label class="btn btn-default" for="ComponentLink1URL" id="DSLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
 										<input type="file" name="ComponentLink1URL" id="ComponentLink1URL" />
 									</td>
 								</tr>
@@ -360,6 +382,25 @@
 
 		});
 	});
+
+	$('input[name=SymType]').on('ifClicked', function(event){
+  if(event.target.value == 'Existing'){
+  	$('#symbol').attr('type','text');
+  	$('#symbol').attr('class','form-control');
+  	$('#symbol').attr('style','opacity:1; position:relative; z-index:1000;');
+  	$('#SymbolLabel').hide();
+  	$('#symbol').show();
+  }
+  else {
+  	$('#symbol').attr('type','file');
+  	$('#symbol').attr('class','form-control');
+  	$('#symbol').attr('style','opacity:0; position:absolute; z-index:-1;');
+  	$('#SymbolLabel').show();
+  	$('#symbol').hide();
+
+	}
+
+});
 </script>
 
 <script type="text/javascript">
