@@ -57,12 +57,12 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="btn-group pull-right">
-				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'style'=>'display: inline']) !!}
-				{!! Form::button('<i class="fa fa-list"></i> List view ', ['class' => 'ShowAll-btn btn btn-primary', 'disabled'=>'true' , 'style'=> "margin-top: 5px;"]) !!}
-				{!! Form::close() !!}
-				{!! Form::button('<i class="fa fa-plus"></i> New '.$Part->getName(), ['class' => 'CreateNew-btn btn btn-success', 'onclick'=>'CreateNew()' , 'style'=> "margin-top: 5px;"]) !!}
-				{!! Form::button('<i class="fa fa-search"></i> Search ', ['class' => 'Search-btn btn btn-warning', 'onclick'=>'Search()' , 'style'=> "margin-top: 5px;"]) !!}
+			<div class="btn-group pull-right" style="display: inline;">
+
+			<button class="btn btn-primary" onclick="ShowAll()"><i class="fa fa-list"></i> Lib view</button>
+			<button class="CreateNew-btn btn btn-success" onclick="CreateNew()"><i class="fa fa-plus"></i> New {{$Part->getName()}}</button>	
+			<button class="Search-btn btn btn-warning" onclick="Search()"><i class="fa fa-search"></i> Search</button>	
+
 
 			</div>
 		</div>
@@ -86,36 +86,34 @@
 
 					<div class="form-group">
 						<table class="table">
-							<thead>
+							<tbody>
 								<tr>
-								<th style="text-align: center">
-									<label>New</label>
+								<td style="text-align: center">
+									<span>New</span>
 									<input type="radio" name="SymType" value="New" checked="true">
 									<input type="radio" name="SymType" value="Existing">
-									<label>Existing</label>
-								</th>
-								<th style="text-align: center">
-									<label>New</label>
+									<span>Existing</span>
+								</td>
+								<td style="text-align: center">
+									<span>New</span>
 									<input type="radio" name="FTPTType" value="New" checked="true">
-									
 									<input type="radio" name="FTPTType" value="Existing">
-									<label>Existing</label>
-								</th>
-								<th style="text-align: center">
-									<label>New</label>
+									<span>Existing</span>
+								</td>
+								<td style="text-align: center">
+									<span>New</span>
 									<input type="radio" name="DSType" value="New" checked="true">
-									
 									<input type="radio" name="DSType" value="Existing">
-									<label>Existing</label>
-								</th>
+									<span>Existing</span>
+								</td>
 								</tr>
 								<tr>
 									<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
 									<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
 									<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
 								</tr>
-							</thead>
-							<tbody>
+						
+							
 								<tr>
 									<td style="text-align: center">
 										<label class="btn btn-default" for="symbol" id="SymbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
@@ -263,12 +261,12 @@
 		<div class="box box-primary">
 			<div class="box-header">
 				<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType" style="color: red"></span></h3>
+				<button class="ShowAll-btn btn btn-primary pull-right"><i class="fa fa-refresh"></i>&nbsp Refresh</button>
 			</div>
 			<div class="box-body">
 				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
 				<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
 				{!! Form::close() !!}
-
 				<table class="table table-hover" id="show-all-table">
 					<thead>
 						<th>Part Nbr</th>
@@ -383,7 +381,7 @@
 		});
 	});
 
-	$('input[name=SymType]').on('ifClicked', function(event){
+$('input[name=SymType]').on('ifClicked', function(event){
   if(event.target.value == 'Existing'){
   	$('#symbol').attr('type','text');
   	$('#symbol').attr('class','form-control');
@@ -401,6 +399,44 @@
 	}
 
 });
+
+$('input[name=FTPTType]').on('ifClicked', function(event){
+  if(event.target.value == 'Existing'){
+  	$('#footprint').attr('type','text');
+  	$('#footprint').attr('class','form-control');
+  	$('#footprint').attr('style','opacity:1; position:relative; z-index:1000;');
+  	$('#FootprintLabel').hide();
+  	$('#footprint').show();
+  }
+  else {
+  	$('#footprint').attr('type','file');
+  	$('#footprint').attr('class','form-control');
+  	$('#footprint').attr('style','opacity:0; position:absolute; z-index:-1;');
+  	$('#FootprintLabel').show();
+  	$('#footprint').hide();
+
+	}
+
+});
+
+$('input[name=DSType]').on('ifClicked', function(event){
+  if(event.target.value == 'Existing'){
+  	$('#ComponentLink1URL').attr('type','text');
+  	$('#ComponentLink1URL').attr('class','form-control');
+  	$('#ComponentLink1URL').attr('style','opacity:1; position:relative; z-index:1000;');
+  	$('#DSLabel').hide();
+  	$('#ComponentLink1URL').show();
+  }
+  else {
+  	$('#ComponentLink1URL').attr('type','file');
+  	$('#ComponentLink1URL').attr('class','form-control');
+  	$('#ComponentLink1URL').attr('style','opacity:0; position:absolute; z-index:-1;');
+  	$('#DSLabel').show();
+  	$('#ComponentLink1URL').hide();
+
+	}
+
+});
 </script>
 
 <script type="text/javascript">
@@ -409,6 +445,15 @@
 		$('.ShowAll-btn').click(function(){
 			var	token = $('input[name=_token]').val();
 			var table = $('.selected-Type').val();
+			
+			if (table === '' || table === 'null') {
+				$(".wrapper").overhang({
+                type: "warn",
+                message: "Please select component type",
+                duration: 2
+            });
+			}
+			else{
 			$.ajax({
 				url: window.location.href + '/ShowAll',
 				headers: {'X-CSRF-TOKEN': token},
@@ -417,12 +462,10 @@
 			}).success(function(data){
 				$('#show-all-table-body').empty();
 				$('#show-all-table-body').append(data);
-
-				$('#create-new-div').hide();
-				$('#SearchDiv').hide();
 				$('#show-all-table').DataTable();
-				$('#showall-div').show("fade");
+
 			});
+			}
 		});
 
 	
@@ -476,9 +519,7 @@
 		$('#create-new-div').hide();
 		$('#SearchDiv').hide();
 		$('#showall-div').show("fade");
-		$('#showURL').submit(function(data){
-
-		});
+		
 	}
 
 	function Search(){

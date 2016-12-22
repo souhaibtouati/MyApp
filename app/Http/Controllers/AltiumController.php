@@ -65,19 +65,42 @@ class AltiumController extends Controller
         $part->setTable($table);
         $part->Y_PartNr = $part->generatePN($table);
 
-        try{$SYMret = Altium::ImportToSVN($type, 'SYM');}
+        $Symbol = Input::get('SymType');
+        if ($Symbol === 'Existing') {
+            $part->Library_Ref = Input::get('symbol');
+        }
+        else{
+        try{
+            $SYMret = Altium::ImportToSVN($type, 'SYM');
+            $part->Library_Ref = $SYMret['name'];
+            $part->SYMPath = $SYMret['path'];
+        }
         catch(\Exception $e)
             {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'Schlib'))->with('showDiv', 'create')->withInput(); }
+        }
 
-        try{$FTPTret = Altium::ImportToSVN($type, 'FTPT');}
+        $Footprint = Input::get('FTPTType');
+        if ($Footprint === 'Existing') {
+            $part->Footprint_Ref = Input::get('footprint');
+        }
+        else{
+        try{
+            $FTPTret = Altium::ImportToSVN($type, 'FTPT');
+            $part->Footprint_Ref = $FTPTret['name'];
+            $part->FTPTPath = $FTPTret['path'];
+        }
         catch(\Exception $e)
             {return redirect()->back()->withErrors($this->ParseSVNErrors($e, 'PCBLib'))->with('showDiv', 'create')->withInput(); }
+        }
+        
 
-        $part->Library_Ref = $SYMret['name'];
-        $part->Footprint_Ref = $FTPTret['name'];
-        $part->SYMPath = $SYMret['path'];
-        $part->FTPTPath = $FTPTret['path'];
+        $Datasheet = Input::get('DSType');
+        if ($Datasheet === 'Existing') {
+            $part->ComponentLink1URL = Input::get('ComponentLink1URL');
+        }
+        else{
         $part->ComponentLink1URL = Altium::UploadDatasheet($request, $type);
+        }
 
         foreach ($part->getFillables() as $key => $fillable) {
             if (Input::get($fillable) === null) {
@@ -122,6 +145,7 @@ class AltiumController extends Controller
     public function destroy($type,$table,$id, $svn = false)
     {
         $part = Altium::getPartRepository($type , $table)->findPartById($id);
+        $part->setTable($table);
         if($svn === true){
             $SVNSymbol = $part->getSYMPath();
             $SVNFootprint = $part->getFTPTPath();
@@ -145,9 +169,12 @@ class AltiumController extends Controller
             $buffer = '';
             if(method_exists(\App\Altium\PartRepositoryInterface::class , $function)){
                 $parts = Altium::getPartRepository($type, $table)->$function($keyword);
+                if($parts){
                 foreach ($parts as $key => $part) {
-                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
-            }
+                $buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part->Manufacturer_Part_Number  .'</td><td>'. $part->Library_Ref .'</td><td>'. $part->Footprint_Ref .'</td><td><a href="/Altium/'. $part->getName(). '/'. $table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
+            }dd($buffer);
+        }
+            else $buffer = 'Not Found...';
             
             return($buffer);
             }
