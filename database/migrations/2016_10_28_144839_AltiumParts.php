@@ -25,6 +25,8 @@ class AltiumParts extends Migration
                     $table->increments('id');
                     $table->string('Y_PartNr');
                     $table->string('Library_Ref');
+                    $table->string('SYMPath');
+                    $table->string('FTPTPath');
                     $table->string('Footprint_Ref');
                     $table->text('Description');
                     $table->string('ComponentLink1URL')->nullable();

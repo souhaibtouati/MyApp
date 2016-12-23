@@ -88,8 +88,10 @@ class Altium
 
     public function SVNrmFile($fileURL)
     {
+
     	$repo = Altium::InitSVN();
-    	$result = $repo->execute('rm', array($fileURL, '-m'=>'Removed '.pathinfo($fileURL, PATHINFO_FILENAME)));
+        $result = $repo->execute('rm', array($fileURL, '-m'=>'Removed '.pathinfo($fileURL, PATHINFO_FILENAME)));
+    	
     	return $result;
     }
 
@@ -107,7 +109,7 @@ class Altium
        if($request->hasFile('ComponentLink1URL'))
         {
             $datasheet = Input::file('ComponentLink1URL');
-            $destination = public_path('\Altium\Datasheets\\'. $type) ;
+            $destination = public_path('/Altium/Datasheets/'. $type) ;
             $filename = $datasheet->getClientOriginalName();
             $datasheet->move($destination, $filename);
             $path = $request->root().'/Altium/Datasheets/' . $type .'/' . $filename;

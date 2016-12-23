@@ -52,10 +52,20 @@ function PopulateRefs(Ref, Attribute) {
 				$('#'+Attribute+'-select').append('<option value=' + value + '>' + value + '</option>');
 			});
 			$('#'+Attribute+'Label').hide();
-			$('#'+Attribute+'-select').select2({placeholder: 'select'+Attribute});
+			$('#'+Attribute+'-select').select2({placeholder: "Select a state"});
 			$('#'+Attribute+'-select-div').show();
 		});
 }
+
+      //Prepare Delete ******************************************************************
+
+   function PrepareDelete(btn){
+   	
+      	$('#dl-type').val($(btn).data('type'));
+      	$('#dl-table').val($(btn).data('table'));
+      	$('#dl-id').val($(btn).data('id'));
+      };
+
 
 
 $(document).ready(function(){
@@ -175,24 +185,24 @@ $('input[name=SymType]').on('ifClicked', function(event){
 		});
 
 	// Confirm delete for Altium Parts ********************************************************
-	$('#confirmDeletePart').on('show.bs.modal', function (e) {
+	// $('#confirmDeletePart').on('show.bs.modal', function (e) {
 
-		$type = $(e.relatedTarget).attr('data-type');
-		$(this).find('.modal-body input[name=type]').val($type);
-		$table = $(e.relatedTarget).attr('data-table');
-		$(this).find('.modal-body input[name=table]').val($table);
-		$id = $(e.relatedTarget).attr('data-id');
-		$(this).find('.modal-body input[name=id]').val($id);
+	// 	$type = $(e.relatedTarget).attr('data-type');
+	// 	$(this).find('.modal-body input[name=type]').val($type);
+	// 	$table = $(e.relatedTarget).attr('data-table');
+	// 	$(this).find('.modal-body input[name=table]').val($table);
+	// 	$id = $(e.relatedTarget).attr('data-id');
+	// 	$(this).find('.modal-body input[name=id]').val($id);
 
-      // Pass form reference to modal for submission on yes/ok
-      var form = $(e.relatedTarget).closest('form');
-      $(this).find('.modal-footer #confirm').data('form', form);
+ //      // Pass form reference to modal for submission on yes/ok
+ //      var form = $(e.relatedTarget).closest('form');
+ //      $(this).find('.modal-footer #confirm').data('form', form);
 
-  });
-      // Form confirm (yes/ok) handler, submits form 
-      $('#confirmDeletePart').find('.modal-footer #confirm').on('click', function(){
-      	$(this).data('form').submit();
-      });
+ //  });
+ //      // Form confirm (yes/ok) handler, submits form 
+ //      $('#confirmDeletePart').find('.modal-footer #confirm').on('click', function(){
+ //      	$(this).data('form').submit();
+ //      });
 
 
 //document Ready function

@@ -72,6 +72,16 @@ abstract class EloquentPart extends Model
         return $this->table;
     }
 
+    public function getSYMPath()
+    {
+        return $this->SYMPath;
+    }
+
+    public function getFTPTPath()
+    {
+        return $this->FTPTPath;
+    }
+
 
     public function generatePN($table)
     {

@@ -28,12 +28,12 @@ class PartRepository implements PartRepositoryInterface
 
 	public function findPartByMPN($MPN)
 	{
-		return $this->model->where('Manufacturer_Part_Number', $MPN)->first();
+		return $this->model->where('Manufacturer_Part_Number', $MPN)->get();
 	}
 
 	public function findPartBySKU($SKU)
 	{
-		return $this->model->where('Supplier_Part_Number_1', $SKU)->first();
+		return $this->model->where('Supplier_Part_Number_1', $SKU)->get();
 	}
 
 	public function findPartByDescription($Description)

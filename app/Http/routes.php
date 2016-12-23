@@ -76,7 +76,7 @@ Route::post('Altium/{type}/search', 'AltiumController@Search');
 
 Route::get('Altium/{type}/{table}/{id}/edit', 'AltiumController@edit');
 Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
-Route::delete('Altium/{type}/{table}/{id}/delete', 'AltiumController@destroy');
+Route::post('Altium/delete', 'AltiumController@destroy');
 Route::get('Altium/{type}/{table}/{id}/view', 'AltiumController@PartIndex');
 Route::post('Altium/{type}/getRefs', 'AltiumController@populateRefs');
 
