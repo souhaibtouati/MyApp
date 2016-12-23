@@ -90,8 +90,6 @@ abstract class EloquentPart extends Model
     }
 
    
-
-    
     
 
 }

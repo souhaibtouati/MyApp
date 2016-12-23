@@ -225,23 +225,23 @@ class AltiumController extends Controller
         return View::make('Altium.PartView', ['part'=>$part, 'sym_log'=>$Symbol_Log , 'ftpt_log'=>$Footprint_Log]);
     }
 
+    public function populateRefs($type, Request $request)
+    {
+        $table = $request->table;
+        $ref = $request->ref;
+        $refs = Altium::populateRefs($type, $table, $ref);
+
+        return $refs;
+    }
+
 
 
 
     public function Test()
     {
-        $repo = new Svn (Sentinel::getUser()->svnPath);
-        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
-            $repo->getAdapter()->setExecutable('/usr/bin/svn');
-        }
-        else $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
-        dd($repo->ls('/'));
 
-    	// $repo = new Svn ("http://yed-muc-ed1/svn/AltiumDesign");
-    	// $repo->setCredentials('souhaib.t', 'souhaibt_01');
-    	// $repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
-    	// dd($repo->ls("/B2062P02"));
-    	
+    	$refs = Altium::populateRefs('Resistor', 'thin_film', 'Footprint_Ref');
+        dd($refs);
     	return 'done';
     }
 }

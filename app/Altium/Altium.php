@@ -93,7 +93,14 @@ class Altium
     	return $result;
     }
 
-   
+   public function populateRefs($type, $table, $ref)
+   {
+   		$parts = $this::getPartRepository($type, $table)->getRefs($ref);
+        foreach ($parts as $key => $part) {
+            $Refs[$key] = $part->$ref; 
+        }
+        return $Refs;
+   }
 
     public function UploadDatasheet($request, $type)
     {

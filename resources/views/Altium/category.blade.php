@@ -76,7 +76,7 @@
 	<div id="create-new-div" {{ Session::get('showDiv') === 'create' ? '' : 'hidden="true"' }}>
 		<div class="col-md-6">
 			{!! Form::model($Part, ['url'=>'/Altium/'.$Part->getName().'/store', 'id'=>'createURL', 'enctype'=>'multipart/form-data']) !!}
-			<input name="selected-Type" class="selected-Type" type="hidden" value= null>
+			<input name="selected-Type" class="selected-Type" style="display: none" value= null>
 			<div class="box box-success">
 				<div class="box-header">
 					<i class="fa fa-plus"></i><h3 class="box-title"> Create New <span class="createType" style="color: red"></span></h3>
@@ -116,16 +116,34 @@
 							
 								<tr>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="symbol" id="SymbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
+										<label class="btn btn-default" for="symbol" id="symbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
 										<input type="file" name="symbol" id="symbol" />
+
+										<div id="symbol-select-div" style="display: none; width: 100%">
+										<select class="form-control" name="symbol-select" id="symbol-select" style="width: 100%">
+											<option>Select Symbol</option>
+										</select>
+										</div>
 									</td>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="footprint" id="FootprintLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
+										<label class="btn btn-default" for="footprint" id="footprintLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
 										<input type="file" name="footprint" id="footprint" />
+
+										<div id="footprint-select-div" style="display: none">
+										<select class="form-control" name="footprint-select" id="footprint-select" style="width: 100%">
+											<option>Select Footprint</option>
+										</select>
+										</div>
 									</td>
 									<td style="text-align: center">
-										<label class="btn btn-default" for="ComponentLink1URL" id="DSLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
+										<label class="btn btn-default" for="ComponentLink1URL" id="DatasheetLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
 										<input type="file" name="ComponentLink1URL" id="ComponentLink1URL" />
+
+										<div id="Datasheet-select-div" style="display: none">
+										<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%">
+											<option>Select Datasheet</option>
+										</select>
+										</div>
 									</td>
 								</tr>
 							</tbody>
@@ -370,187 +388,8 @@
 
 @section ('footer')
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.btn-table').click(function(){
-			$('#CreateButton').prop('disabled', false);
-			$(".ShowAll-btn").attr('disabled',false);
-			$('.createType').text($(this).text());
-			$('.selected-Type').val($(this).val());
-
-		});
-	});
-
-$('input[name=SymType]').on('ifClicked', function(event){
-  if(event.target.value == 'Existing'){
-  	$('#symbol').attr('type','text');
-  	$('#symbol').attr('class','form-control');
-  	$('#symbol').attr('style','opacity:1; position:relative; z-index:1000;');
-  	$('#SymbolLabel').hide();
-  	$('#symbol').show();
-  }
-  else {
-  	$('#symbol').attr('type','file');
-  	$('#symbol').attr('class','form-control');
-  	$('#symbol').attr('style','opacity:0; position:absolute; z-index:-1;');
-  	$('#SymbolLabel').show();
-  	$('#symbol').hide();
-
-	}
-
-});
-
-$('input[name=FTPTType]').on('ifClicked', function(event){
-  if(event.target.value == 'Existing'){
-  	$('#footprint').attr('type','text');
-  	$('#footprint').attr('class','form-control');
-  	$('#footprint').attr('style','opacity:1; position:relative; z-index:1000;');
-  	$('#FootprintLabel').hide();
-  	$('#footprint').show();
-  }
-  else {
-  	$('#footprint').attr('type','file');
-  	$('#footprint').attr('class','form-control');
-  	$('#footprint').attr('style','opacity:0; position:absolute; z-index:-1;');
-  	$('#FootprintLabel').show();
-  	$('#footprint').hide();
-
-	}
-
-});
-
-$('input[name=DSType]').on('ifClicked', function(event){
-  if(event.target.value == 'Existing'){
-  	$('#ComponentLink1URL').attr('type','text');
-  	$('#ComponentLink1URL').attr('class','form-control');
-  	$('#ComponentLink1URL').attr('style','opacity:1; position:relative; z-index:1000;');
-  	$('#DSLabel').hide();
-  	$('#ComponentLink1URL').show();
-  }
-  else {
-  	$('#ComponentLink1URL').attr('type','file');
-  	$('#ComponentLink1URL').attr('class','form-control');
-  	$('#ComponentLink1URL').attr('style','opacity:0; position:absolute; z-index:-1;');
-  	$('#DSLabel').show();
-  	$('#ComponentLink1URL').hide();
-
-	}
-
-});
-</script>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		$('.ShowAll-btn').click(function(){
-			var	token = $('input[name=_token]').val();
-			var table = $('.selected-Type').val();
-			
-			if (table === '' || table === 'null') {
-				$(".wrapper").overhang({
-                type: "warn",
-                message: "Please select component type",
-                duration: 2
-            });
-			}
-			else{
-			$.ajax({
-				url: window.location.href + '/ShowAll',
-				headers: {'X-CSRF-TOKEN': token},
-				type: 'POST',
-				data: {table : table}
-			}).success(function(data){
-				$('#show-all-table-body').empty();
-				$('#show-all-table-body').append(data);
-				$('#show-all-table').DataTable();
-
-			});
-			}
-		});
-
-	
-			$('input[name=SearchKeyword]').keyup(function () {
-				if (event.keyCode == 13) {
-					event.preventDefault();
-					$('.SearchBtn').trigger('click');
-				}
-			});
-
-			$('#octo-keyword').keyup(function () {
-				if (event.keyCode == 13) {
-					event.preventDefault();
-					$('#octoBtn').trigger('click');
-				}
-			});
-
-
-		$('.SearchBtn').click(function(){
-			var	token = $('input[name=_token]').val();
-			var table = $('.selected-Type').val();
-			var SearchBy = $('select[name=SearchBy]').val();
-			var keyword = $('input[name=SearchKeyword]').val();
-			$.ajax({
-				url: window.location.href + '/search',
-				headers: {'X-CSRF-TOKEN': token},
-				type: 'POST',
-				data: {table: table, SearchBy : SearchBy, keyword : keyword}
-			}).success(function(partsTable){
-				$('#search-result-table-body').empty();
-				$('#search-result-table-body').append(partsTable);
-				$('#search-result-table').DataTable();
-				$('#searchResultDiv').show("fade");
-			});
-		});
-
-	});
-</script>
-
+<script src="{{ asset ('/js/Altium.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
-
-<script type="text/javascript">
-
-	function CreateNew(){
-		$('#showall-div').hide();
-		$('#SearchDiv').hide();
-		$('#create-new-div').show("fade");
-	}
-
-	function ShowAll(){
-		$('#create-new-div').hide();
-		$('#SearchDiv').hide();
-		$('#showall-div').show("fade");
-		
-	}
-
-	function Search(){
-		$('#showall-div').hide();
-		$('#create-new-div').hide();
-		$('#SearchDiv').show('fade');
-	}
-</script>
-
-<script>    
-  $('#confirmDeletePart').on('show.bs.modal', function (e) {
-   
-    $type = $(e.relatedTarget).attr('data-type');
-    $(this).find('.modal-body input[name=type]').val($type);
-    $table = $(e.relatedTarget).attr('data-table');
-    $(this).find('.modal-body input[name=table]').val($table);
-    $id = $(e.relatedTarget).attr('data-id');
-    $(this).find('.modal-body input[name=id]').val($id);
-
-      // Pass form reference to modal for submission on yes/ok
-      var form = $(e.relatedTarget).closest('form');
-      $(this).find('.modal-footer #confirm').data('form', form);
-     
-    });
-
-      // Form confirm (yes/ok) handler, submits form 
-      $('#confirmDeletePart').find('.modal-footer #confirm').on('click', function(){
-        $(this).data('form').submit();
-      });
-
-    </script>
 
 @endsection
 

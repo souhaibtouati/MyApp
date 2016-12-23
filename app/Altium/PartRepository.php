@@ -56,6 +56,13 @@ class PartRepository implements PartRepositoryInterface
 		return $this->model->where('id', $id)->delete();	
 	}
 
+
+	public function getRefs($RefKey)
+   {
+       return $this->model->select($RefKey)->distinct()->get();
+   }
+
+
 	public function createModel($type, $table)
     {
         $class = '\App\Altium\Models\\'.$type ;

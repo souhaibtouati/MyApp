@@ -20,4 +20,6 @@ interface PartRepositoryInterface {
 
 	public function Destroy($id); 
 
+	public function getRefs($RefKey);
+
 }
