@@ -20,6 +20,8 @@ abstract class EloquentPart extends Model
 
     protected $Y_PartNr;
 
+    protected $Revision;
+
     protected $fillable = [
    
 
@@ -32,7 +34,6 @@ abstract class EloquentPart extends Model
     	'Supplier_Part_Number_2',
     	'Supplier_3',
     	'Supplier_Part_Number_3',
-        'Revision',
         'modified_by',
         'Package'
 
@@ -80,6 +81,11 @@ abstract class EloquentPart extends Model
     public function getFTPTPath()
     {
         return $this->FTPTPath;
+    }
+
+    public function getRevision()
+    {
+        return $this->Revision;
     }
 
 

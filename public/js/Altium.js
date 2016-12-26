@@ -52,7 +52,7 @@ function PopulateRefs(Ref, Attribute) {
 				$('#'+Attribute+'-select').append('<option value=' + value + '>' + value + '</option>');
 			});
 			$('#'+Attribute+'Label').hide();
-			$('#'+Attribute+'-select').select2({placeholder: "Select a state"});
+			$('#'+Attribute+'-select').select2();
 			$('#'+Attribute+'-select-div').show();
 		});
 }

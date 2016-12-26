@@ -56,7 +56,7 @@ class AltiumController extends Controller
     // Create New records in Database
     public function store(Request $request,$type)
     {
-
+        
         $table = Input::get('selected-Type');
         $class = '\App\Altium\Models\\'.$type ;
         $part = new $class();
@@ -66,6 +66,7 @@ class AltiumController extends Controller
         $Symbol = Input::get('SymType');
         if ($Symbol === 'Existing') {
             $part->Library_Ref = Input::get('symbol-select'); 
+            $part->SYMPath = null;
         }
         else{
         try{
@@ -80,6 +81,7 @@ class AltiumController extends Controller
         $Footprint = Input::get('FTPTType');
         if ($Footprint === 'Existing') {
             $part->Footprint_Ref = Input::get('footprint-select');
+            $part->FTPTPath = null;
         }
         else{
         try{
@@ -109,6 +111,8 @@ class AltiumController extends Controller
             }
 
         }
+        $part->Revision = 1;
+        $part->modified_by = Sentinel::getUser()->getFullName();
         $part->save();
 
         return redirect()->back()->withSuccess('Successfully created')->with('showDiv', 'create');
@@ -120,6 +124,7 @@ class AltiumController extends Controller
     {
         
        $part = Altium::getPartRepository($type, $table)->findPartById($id);
+
        $part->setTable($table);
        $part->ComponentLink1URL = Input::get('ComponentLink1URL');
        $part->Library_Ref = Input::get('Library_Ref');
@@ -133,7 +138,10 @@ class AltiumController extends Controller
             }
 
         }
-
+        $rev = $part->Revision;
+        ++$rev;
+        $part->Revision = $rev;
+        $part->modified_by = Sentinel::getUser()->getFullName();
         $part->save();
         return redirect()->back()->withSuccess( $part->Y_PartNr. ' was Updated Successfully');
 
@@ -152,12 +160,15 @@ class AltiumController extends Controller
         $part->setTable($table);
         if($rmSym === "on"){
             $SVNSymbol = $part->getSYMPath();
-            Altium::SVNrmFile($SVNSymbol);  
-             
+            if($SVNSymbol != null && $SVNSymbol != ''){
+                Altium::SVNrmFile($SVNSymbol); 
+            }
         }
         if ($rmFTPT === "on") {
             $SVNFootprint = $part->getFTPTPath();
-            Altium::SVNrmFile($SVNFootprint); 
+            if ($SVNFootprint != null && $SVNFootprint != '') {
+                Altium::SVNrmFile($SVNFootprint); 
+            }
         }
         $part->delete();    
         return redirect()->back()->withSuccess('Component Successfully Deleted');
@@ -248,8 +259,6 @@ class AltiumController extends Controller
     public function Test()
     {
 
-    	$refs = Altium::populateRefs('Resistor', 'thin_film', 'Footprint_Ref');
-        dd($refs);
     	return 'done';
     }
 }

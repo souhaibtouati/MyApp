@@ -25,9 +25,9 @@ class AltiumParts extends Migration
                     $table->increments('id');
                     $table->string('Y_PartNr');
                     $table->string('Library_Ref');
-                    $table->string('SYMPath');
-                    $table->string('FTPTPath');
+                    $table->string('SYMPath')->nullable();
                     $table->string('Footprint_Ref');
+                    $table->string('FTPTPath')->nullable();
                     $table->text('Description');
                     $table->string('ComponentLink1URL')->nullable();
                     $table->string('ComponentLink2URL')->nullable();
@@ -39,7 +39,7 @@ class AltiumParts extends Migration
                     $table->string('Supplier_Part_Number_2')->nullable();
                     $table->string('Supplier_3')->nullable();
                     $table->string('Supplier_Part_Number_3')->nullable();
-                    $table->string('Revision')->nullable();
+                    $table->integer('Revision')->nullable();
                     $table->string('Package')->nullable();
                     $table->string('modified_by')->nullable();
                     foreach ($this->Part->getChildFill() as $key => $child) {

@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class yproject extends Model
 {
-    $fillables = [
+    protected $table = 'yprojects';
+    protected $ProjNumber;
+
+    protected $fillable = [
     	'Description',
-    	'SWNumber',
-    	'PartNumber',
+    	'SWNumber', //Solid works number
+    	'PartNumber', //Project part number
     	'ProductGroup',
-    	'GW_Planta',
+    	'GW_Planta', // Genesis world / planta number
     	'Application',
     	'Customer',
-    	'contactName',
-    	'Group'
-    ]
+    	'Responsible',
+    	'Group',
+        'Created_By'
+    ];
 }

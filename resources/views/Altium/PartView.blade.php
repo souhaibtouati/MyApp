@@ -57,6 +57,7 @@
 		</div>
 	</div>
 
+
 		<div class="box box-info">
 		<div class="box-header">
 			<i class="fa fa-tags"></i><h3 class="box-title"> Parameters</h3>
@@ -64,6 +65,10 @@
 		<div class="box-body">
 				<div class="row">
 					<div id="parameters-div">
+						<div class="col-xs-3">
+						<label>Package</label>
+						<span class="pull-right" style="color: #99004C">{{ $part->Package}}</span>
+						</div>
 						@foreach( $part->getChildFill() as $child)
 						<div class="col-xs-3">
 						<label>{{str_replace('_' , ' ', $child)}}</label>
@@ -73,6 +78,22 @@
 					</div>
 				</div> 
 		</div>			
+	</div>
+
+			<div class="box box-info">
+		<div class="box-header">
+			<i class="fa fa-database"></i><h3 class="box-title"> Database History <span class="createType"></span></h3>
+		</div>
+		<div class="box-body">
+			<table class="table">
+				<tbody>
+					<tr><th>Revision</th><td>{{$part->Revision}}</td></tr>
+					<tr><th>Created at</th><td>{{$part->created_at}}</td></tr>
+					<tr><th>Updated By</th><td>{{$part->modified_by}}</td></tr>
+					<tr><th>Updated at</th><td>{{$part->updated_at}}</td></tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 </div>

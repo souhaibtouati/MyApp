@@ -31,6 +31,10 @@
 
 	table.table-expandable > tbody > tr div.table-expandable-arrow.up {
 		background-position:0px 0px;
+
+		.bigdrop {
+    width: 250px !important;
+}
 	}
 
 </style>
@@ -135,12 +139,12 @@
 										</select>
 										</div>
 									</td>
-									<td style="text-align: center">
+									<td style="text-align: center; max-width: 200px;">
 										<label class="btn btn-default" for="ComponentLink1URL" id="DatasheetLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
 										<input type="file" name="ComponentLink1URL" id="ComponentLink1URL" />
 
 										<div id="Datasheet-select-div" style="display: none">
-										<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%">
+										<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%;">
 											<option>Select Datasheet</option>
 										</select>
 										</div>
@@ -215,6 +219,10 @@
 					<div class="form-group">
 						<div class="row">
 							<div id="parameters-div">
+								<div class="col-xs-3">
+									{{ Form::label('Package', 'Package')}}
+									{{ Form::text('Package', null, ['placeholder' => 'Package', 'class' => 'form-control']) }}
+								</div>
 								@foreach( $Part->getChildFill() as $child)
 								<div class="col-xs-3">
 									{{ Form::label($child, str_replace('_', ' ', $child))}}
@@ -304,7 +312,7 @@
 	</div>
 
 	<!-- Modal Dialog -->
-<div class="modal fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+<div class="modal modal-danger fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
   <div class="modal-dialog">
   {{ Form::open(['url' => '/Altium/delete']) }}
     <div class="modal-content">
@@ -325,6 +333,8 @@
         <br>
         <input type="checkbox" name="rmFTPT">
         <span>&nbsp Remove Footprint from SVN?</span>
+        <br><br>
+        <p><small>Note: If the component is using shared Symbol and Footprint, they will not be deleted </small></p>
         
       </div>
       <div class="modal-footer">

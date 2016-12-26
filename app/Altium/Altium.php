@@ -9,6 +9,7 @@ use App\Altium\PartRepositoryinterface;
 use Sentinel;
 use Webcreate\Vcs\Svn;
 use File;
+use View;
 
 /**
 * 
@@ -117,6 +118,12 @@ class Altium
             return $path;
         }
         return null;
+    }
+
+
+    public function showLoading()
+    {
+        return View::make('partials.wait');
     }
 
 }

@@ -111,6 +111,11 @@
 			<div class="form-group">
 				<div class="row">
 					<div id="parameters-div">
+						<div class="col-xs-3">
+							{{ Form::label('Package', 'Package')}}
+							{{ Form::text('Package', null, ['placeholder' => 'Package', 'class' => 'form-control']) }}
+							
+						</div>
 						@foreach( $part->getChildFill() as $child)
 						<div class="col-xs-3">
 							{{ Form::label($child, str_replace('_' , ' ', $child))}}
