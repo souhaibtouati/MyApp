@@ -213,6 +213,16 @@
   document.getElementById("avatar").onchange = function() {
     document.getElementById("avatar_path").innerHTML = document.getElementById("avatar").value.split("\\").pop();
   };
+
+
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+
 </script>
 
 @endsection

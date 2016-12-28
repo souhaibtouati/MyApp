@@ -87,7 +87,10 @@ Route::get('altcom', 'AltiumController@Test');
 //Projects
 
 Route::group(['prefix' => 'yproject'], function(){
-	Route::get('/{group}','ProjectsController@ProjectsIndex');
+	Route::get('/show/{group}','ProjectsController@ProjectsIndex');
+	Route::get('/{id}/view', 'ProjectsController@ViewProject');
+	Route::get('/{id}/edit', 'ProjectsController@EditProject');
+	Route::post('/create', 'ProjectsController@CreateProject');
 
 });
 

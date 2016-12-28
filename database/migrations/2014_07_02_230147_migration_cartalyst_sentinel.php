@@ -134,7 +134,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('departement')->nullable();
             $table->string('svnUsername')->nullable();
             $table->string('svnPassword')->nullable();
-            $table->string('svnPath')->nullable();
+            $table->string('svnPath')->default('http://yed-muc-ed1/svn/AltiumLib');
             $table->timestamp('last_login')->nullable();
             $table->timestamps();
 

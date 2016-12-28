@@ -176,6 +176,7 @@
 
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
 <script type="text/javascript">
+$(document.body).addClass('sidebar-collapse');
 	$('#octo-keyword').keyup(function () {
 				if (event.keyCode == 13) {
 					event.preventDefault();

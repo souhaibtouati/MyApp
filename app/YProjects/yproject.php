@@ -11,14 +11,26 @@ class yproject extends Model
 
     protected $fillable = [
     	'Description',
-    	'SWNumber', //Solid works number
+    	'SolidW', 
     	'PartNumber', //Project part number
-    	'ProductGroup',
-    	'GW_Planta', // Genesis world / planta number
+    	'ProductType',
+    	'GenesisW', 
+        'Planta',
     	'Application',
     	'Customer',
     	'Responsible',
     	'Group',
         'Created_By'
     ];
+
+
+    public function GetNewID()
+    {
+        $last = $this->orderby('id', 'desc')->first();
+
+        if($last === null){
+            return 1;
+        }
+        else return ($last->id) + 1;
+    }
 }

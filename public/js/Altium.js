@@ -66,6 +66,15 @@ function PopulateRefs(Ref, Attribute) {
       	$('#dl-id').val($(btn).data('id'));
       };
 
+      //Icheck **********************************************************************
+        $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+
 
 
 $(document).ready(function(){

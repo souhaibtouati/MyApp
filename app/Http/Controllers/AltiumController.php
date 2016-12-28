@@ -115,7 +115,7 @@ class AltiumController extends Controller
         $part->modified_by = Sentinel::getUser()->getFullName();
         $part->save();
 
-        return redirect()->back()->withSuccess('Successfully created')->with('showDiv', 'create');
+        return redirect()->back()->withSuccess($part->Y_PartNr .' was successfully created')->with('showDiv', 'create');
 
     }
 

@@ -15,14 +15,15 @@ class YProjectsMigration extends Migration
         Schema::create('yprojects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ProjNumber');
-            $table->string('Description');
-            $table->string('SWNumber');
-            $table->string('PartNumber');
-            $table->string('ProductGroup');
-            $table->string('GW_Planta');
-            $table->string('Application');
-            $table->string('Customer');
-            $table->string('Responsible');
+            $table->string('Description')->nullable();
+            $table->string('SolidW');
+            $table->string('PartNumber')->nullable();
+            $table->string('ProductType');
+            $table->string('GenesisW')->nullable();
+            $table->string('Planta')->nullable();
+            $table->string('Application')->nullable();
+            $table->string('Customer')->nullable();
+            $table->string('Responsible')->nullable();
             $table->string('Group');
             $table->string('Created_By');
             $table->timestamps();

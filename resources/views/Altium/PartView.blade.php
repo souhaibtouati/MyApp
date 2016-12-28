@@ -159,6 +159,7 @@
 
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
 <script type="text/javascript">
+	$(document.body).addClass('sidebar-collapse');
 	$(document).ready(function(){
 		getpartspecs();
 	});

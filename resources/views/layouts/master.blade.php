@@ -8,7 +8,7 @@
     <!-- Bootstrap 3.3.2 -->
     <link href="{{ asset("/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset("/css/font-awesome-4.7.0/css/font-awesome.min.css") }}" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
@@ -55,14 +55,16 @@
         @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="height: 1000px">
+        <div class="content-wrapper" style="height: 1200px">
             <!-- Content Header (Page header) -->
+            <section class="content-header">
+            @yield('content-header')
+              
+            </section>
 
 
             <!-- Main content -->
             <section class="content">
-                <!-- Your Page Content Here -->
-                
 
                 @include('partials.flash')
 
@@ -92,21 +94,11 @@
 <script type="text/javascript" src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
 
 <script type="text/javascript">
-  $('.select2').select2({
-      placeholder: 'select permissions',
-  });
+  $('.select2').select2();
 </script>
 
 
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
-</script>
+
 
 <script>    
   $('#confirmDelete').on('show.bs.modal', function (e) {
