@@ -1,8 +1,11 @@
 @extends('layouts.master')
 
+@section('content-header')
+<h1><i class="fa fa-cubes"></i> <b>Library</b> Categories</h1>
+@endsection
+
 @section('content')
-<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i> Library Categories</h1>
-<hr>
+
 <!-- Passive Components -->
 
 <div class="row">

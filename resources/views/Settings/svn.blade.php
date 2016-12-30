@@ -1,11 +1,13 @@
 @extends('layouts.master')
 
+@section('content-header')
+	<h1><i class="fa fa-cogs"></i> <b>SVN</b> Settings</h1>
+@endsection
+
 @section('content')
 
 <div class="box box-default">
-				<div class="box-header">
-					<i class="fa fa-cloud"></i><h3 class="box-title"> SVN Settings <span class="createType"></span></h3>
-				</div>
+				
 	<div class="box-body">
 
 	{{Form::open(['url'=>'Settings/Altium/SVN/update', 'method'=>'post'])}}

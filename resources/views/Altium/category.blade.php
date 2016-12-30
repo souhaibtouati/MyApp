@@ -40,27 +40,28 @@
 </style>
 @endsection
 
-
+@section('content-header')
+	<h1><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
+@endsection
 
 @section('content')
 
 
+
+
+
+
 <div class="row">
+
 	<div class="col-md-12">
 
-		
-		<div class="col-md-2">
-			<h1 style="margin-top: 0px"><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
-		</div>
-
-		<div class="col-md-5">
-			<div class="btn-group">
+			<div class="btn-group pull-left">
 				@foreach($Part->getTables() as $Index => $Table)
-				{!! Form::button(str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; margin-top: 5px']) !!}
+				{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue']) !!}
 				@endforeach
 			</div>
-		</div>
-		<div class="col-md-4">
+
+	
 			<div class="btn-group pull-right" style="display: inline;">
 
 			<button class="btn btn-primary" onclick="ShowAll()"><i class="fa fa-list"></i> Lib view</button>
@@ -69,14 +70,9 @@
 
 
 			</div>
-		</div>
-
-		
-		
 	</div>
-</div>
 
-<div class="row">
+
 	<div id="create-new-div" {{ Session::get('showDiv') === 'create' ? '' : 'hidden="true"' }}>
 		<div class="col-md-6">
 			{!! Form::model($Part, ['url'=>'/Altium/'.$Part->getName().'/store', 'id'=>'createURL', 'enctype'=>'multipart/form-data']) !!}
@@ -404,9 +400,8 @@
 		
 </div>	
 </div>
+</div> <!-- Row -->
 
-</div>
-<!-- Content Row -->
 @endsection
 
 @section ('footer')

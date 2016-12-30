@@ -18,6 +18,7 @@ class User extends EloquentUser
         'first_name',
         'last_name',
         'title',
+        'initials',
         'permissions',
         'avatar',
         'departement',
@@ -96,8 +97,8 @@ class User extends EloquentUser
 
     	if($request->hasFile('avatar'))
     	{
-            
-            $deleted = $this->DeleteAvatar();
+        
+            $deleted = $this->DeleteAvatar($this->avatar);
 
 			$avatar = $request->file('avatar');
 			$filename = time(). $this->first_name . $this->last_name . '.' . $avatar->getClientOriginalExtension();
@@ -139,17 +140,17 @@ class User extends EloquentUser
 
     protected function DeleteAvatar($avatar = null)
     {
-
-        if($this->avatar === 'default-avatar.jpg')
+       
+        if($avatar === 'default-avatar.jpg')
         {
             return "default avatar could not be deleted";
         }
-        if($avatar === null){
-            $avatar = $this->avatar;
-        }
-        if (File::exists('img/avatars/'. $avatar)) {
+        if($avatar != null){
+           if (File::exists('img/avatars/'. $avatar)) {
             return File::delete('img/avatars/'. $avatar);
         }
+        }
+        
         
         return false;
     }

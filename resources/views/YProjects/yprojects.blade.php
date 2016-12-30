@@ -9,12 +9,16 @@
 <script src="{{ asset("/plugins/datatables/dataTables.bootstrap.min.js")}}"></script>
 @endsection
 
+@section('content-header')
+	<h1><i class="fa fa-bar-chart"></i><b> Yamaichi</b> Projects</h1>
+@endsection
+
 @section('content')
 
 <div class="box box-primary">
 <div class="box-header">
 
-	<button class="btn btn-success pull-left" data-toggle="modal" data-target="#CreateModal"><i class="fa fa-plus"></i> Create</button>
+	<button class="btn btn-success pull-left" data-toggle="modal" data-target="#CreateModal"><i class="fa fa-plus"></i> New Project</button>
 <div class="btn-group pull-right">
 	<button class="btn btn-default {{(Request::route('group') === 'dev') ? 'active' : '' }}" onclick="location.href = '/yproject/show/dev'"><i class="fa fa-list"></i> DEV</button>
 	<button class="btn btn-default {{(Request::route('group') === 'cs1') ? 'active' : '' }}" onclick="location.href = '/yproject/show/cs1'"><i class="fa fa-list"></i> CS1</button>
@@ -48,14 +52,28 @@
 			<td>{{$project->SolidW}}</td>
 			<td>{{$project->GenesisW}}</td>
 			<td>{{$project->Planta}}</td>
-			<td>{{$project->ProductGroup}}</td>
+			<td>{{$project->ProductType}}</td>
 			<td>{{$project->Customer}}</td>
 			<td>{{$project->Application}}</td>
 			<td>{{$project->Responsible}}</td>
 			<td>{{$project->Created_By}}</td>
-			<td style="white-space: nowrap;">
-				<a href="/yproject/{{$project->id}}/view" class="btn btn-success"><i class="fa fa-eye"></i></a>
-				<a href="/yproject/{{$project->id}}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+			<td style="white-space: nowrap; display: inline-flex;">
+			<div class="input-group">
+				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action &nbsp<span class="fa fa-caret-down"></span></button>
+			<ul class="dropdown-menu" style="width: 120px; min-width: 100px">
+				<li><a href="/yproject/{{$project->id}}/view"><i class="fa fa-eye"></i>View</a></li>
+				<li><a href="/yproject/{{$project->id}}/edit"><i class="fa fa-edit"></i>Edit</a></li>
+				<li>
+				{{Form::open(['url'=>'/yproject/'. $project->id .'/newrev'])}}
+				<button type="submit" class="btn btn-default col-md-12 " style="background-color: white"><i class="fa fa-level-up"></i>&nbsp New Revision</button>
+				{{Form::close()}}
+				</li>
+			</ul> 
+			</div>
+
+				{{ Form::open(['url' => '/yproject/' . $project->id . '/delete', 'method' => 'DELETE', 'class'=>'delete']) }}
+          		{{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'id'=>'delete', 'data-toggle'=>'modal','data-target'=>'#confirmDelete'])}}
+          		{{ Form::close() }}
 			</td>
 			</tr>
 		@endforeach
@@ -63,6 +81,7 @@
 </table>
 </div>
 </div>
+@include('partials.deletemodal')
 
 <div class="modal modal-primary fade" id="CreateModal" role="dialog" aria-labelledby="CreateModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width: 800px">
@@ -75,20 +94,20 @@
 
 			{{Form::open(['url'=>'yproject/create'])}}
 			<input type="hidden" name="Group" value="{{ Request::route('group') }}">
-			<h3>Project</h3>
+				
 				<div class="row">
 				<div class="col-md-4">
 				{{Form::label('ProductType', 'Project Type')}}
-				{{Form::select('ProductType',['pcb'=>'PCB','sw'=>'Software'],null,['class'=>'form-control'])}}
+				{{Form::select('ProductType',['PCB'=>'PCB','Software'=>'Software', 'Connector'=>'Connector', 'Socket'=>'Socket', 'Module'=>'Module', 'K'=>'Kit'],null,['class'=>'form-control'])}}
 				</div>
 
 				<div class="col-md-6">
 				{{Form::label('PartNumber', 'Part Number')}}
 				<div class="input-group">
                         <span class="input-group-addon">
-                          <input type="checkbox" id="PartNumberCheck">
+                          <input type="checkbox" id="PartNumberCheck" checked="true">
                         </span>
-                    <input type="text" name="PartNumber" id="PartNumber" class="form-control" disabled="true">
+                    <input type="text" name="PartNumber" id="PartNumber" class="form-control" required="true">
                   </div>
 				</div>
 
@@ -99,20 +118,25 @@
 
 				</div> <!-- form group -->
 				
-				<h3>Part Numbers</h3>
+				<hr>
 				<div class="row">
 				<div class="col-md-4">
 				{{Form::label('SolidW', 'Solid Works')}}
-				{{Form::text('SolidW', null,['class'=>'form-control'])}}
+				<div class="input-group">
+				<span class="input-group-addon">
+                          <input type="checkbox" id="SolidWCheck" checked="true">
+                        </span>
+				{{Form::text('SolidW', null,['class'=>'form-control', 'id'=>'SolidW', 'required'=>'true'])}}
+				</div>
 				</div>
 
 				<div class="col-md-4">
 				{{Form::label('GenesisW', 'Genesis world')}}
 				<div class="input-group">
                         <span class="input-group-addon">
-                          <input type="checkbox" id="GenesisWCheck">
+                          <input type="checkbox" id="GenesisWCheck" checked="true">
                         </span>
-                    <input type="text" name="GenesisW" id="GenesisW" class="form-control" disabled="true">
+                    <input type="text" name="GenesisW" id="GenesisW" class="form-control" required="true">
                   </div>
 				</div>
 
@@ -120,24 +144,19 @@
 				{{Form::label('Planta', 'Planta')}}
 				<div class="input-group">
                         <span class="input-group-addon">
-                          <input type="checkbox" id="PlantaCheck">
+                          <input type="checkbox" id="PlantaCheck" checked="true">
                         </span>
-                    <input type="text" name="Planta" id="Planta" class="form-control" disabled="true">
+                    <input type="text" name="Planta" id="Planta" class="form-control" required="true">
                   </div>
 				</div>
 
 				</div> <!-- form group -->
 
-				<h3>References</h3>
+				<hr>
 				<div class="row">
 				<div class="col-md-4">
 				{{Form::label('Application', 'Application')}}
-				<div class="input-group">
-                        <span class="input-group-addon">
-                          <input type="checkbox" id="ApplicationCheck">
-                        </span>
-                    <input type="text" name="Application" id="Application" class="form-control" disabled="true">
-                  </div>
+				{{Form::select('Application',['Industrial'=>'Industrial','Internal'=>'Internal', 'Medical'=>'Medical', 'Telecom'=>'Telecom'],null,['class'=>'form-control'])}}
 
 				</div>
 
@@ -145,15 +164,15 @@
 				{{Form::label('Customer', 'Customer')}}
 				<div class="input-group">
                         <span class="input-group-addon">
-                          <input type="checkbox" id="CustomerCheck">
+                          <input type="checkbox" id="CustomerCheck" checked="true">
                         </span>
-                    <input type="text" name="Customer" id="Customer" class="form-control" disabled="true">
+                    <input type="text" name="Customer" id="Customer" class="form-control" required="true">
                   </div>
 				</div>
 
 				<div class="col-md-4">
 				{{Form::label('Responsible', 'Responsible')}}
-				{{Form::text('Responsible', null,['class'=>'form-control'])}}
+				{{Form::text('Responsible', null,['class'=>'form-control', 'required'=>'true'])}}
 				</div>
 
 				</div>
@@ -175,7 +194,9 @@
 @section('footer')
 
 <script type="text/javascript">
-	$('#proj-table').DataTable();
+	$('#proj-table').DataTable({
+		"ordering": false
+	});
 
 	$(document).ready(function(){
 		$(':checkbox').change(function(){

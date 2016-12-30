@@ -1,14 +1,20 @@
 @extends('layouts.master')
 
-@section('content')
+@section('content-header')
+	<!-- <h1><b>Welcome back</b> {{Sentinel::getUser()->first_name}}</h1> -->
+@endsection
 
-<h1>Welcome back {{Sentinel::getUser()->first_name}}</h1>
-<div class="container" style="padding: 15%; margin-left:100px">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <img src="{{asset('img/ylogo.png')}}" >
-        </div>
-    </div>
+@section('content')
+<div class="col-md-6">
+	<div class="box box-primary">
+	<div class="box-header">
+		<h3 class="box-title">My Projects</h3>
+	</div>
+	<div class="box-body">
+		
+	</div>
+	</div>	
 </div>
+
 @endsection
 

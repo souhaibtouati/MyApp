@@ -23,6 +23,15 @@ class yproject extends Model
         'Created_By'
     ];
 
+    public $TypesAb =[
+        'PCB'=>'B',
+        'Software'=>'S',
+        'Connector'=>'P',
+        'Socket'=>'T',
+        'Module'=>'M',
+        'Kit'=>'K'
+    ];
+
 
     public function GetNewID()
     {

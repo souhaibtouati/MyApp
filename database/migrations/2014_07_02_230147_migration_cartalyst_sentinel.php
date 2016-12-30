@@ -130,6 +130,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('title')->nullable();
+            $table->string('initials');
             $table->string('avatar')->default('default-avatar.jpg');
             $table->string('departement')->nullable();
             $table->string('svnUsername')->nullable();

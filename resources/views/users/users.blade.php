@@ -9,23 +9,17 @@
 <script src="{{ asset("/plugins/datatables/dataTables.bootstrap.min.js")}}"></script>
 @endsection
 
+@section('content-header')
+ <h1><i class="fa fa-users"></i> <b>Users</b> Administration </h1>
+
+@endsection
+
 @section('content')
-<div class="panel panel-default">
-
-<div class="panel-body">
-
- <div class="row">
- <div class="col-lg-6">
-   <h1><i class="fa fa-users"></i> Users Administration </h1>
- </div>
-
- <div class="col-lg-6">
- <br>
-   <a href="/user/create" class="btn btn-warning pull-right">Add User &nbsp&nbsp<i class="fa fa-plus"></i></a>
- </div>
- </div>
-    
-
+<div class="box box-default">
+<div class="box-header">
+  <a href="/user/create" class="btn btn-warning pull-left">New User &nbsp&nbsp<i class="fa fa-plus"></i></a>
+</div>
+<div class="box-body">
 
     <table class="table table-hover" id="userslist" name="userslist">
 
@@ -71,8 +65,6 @@
         <td style="white-space: nowrap;">
           <a href="/user/{{ $user->id }}/edit" class="btn btn-primary pull-left" style="margin-right: 3px;"><i class="fa fa-edit"></i></a>
           {{ Form::open(['url' => '/user/' . $user->id, 'method' => 'DELETE', 'class'=>'delete']) }}
-          
-          @include('partials.deletemodal')
           {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'id'=>'delete', 'data-toggle'=>'modal','data-target'=>'#confirmDelete'])}}
           {{ Form::close() }}
         </td>
@@ -81,6 +73,7 @@
     </tbody>
 
   </table>
+  @include('partials.deletemodal')
 
 
   

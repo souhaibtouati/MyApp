@@ -91,11 +91,13 @@ Route::group(['prefix' => 'yproject'], function(){
 	Route::get('/{id}/view', 'ProjectsController@ViewProject');
 	Route::get('/{id}/edit', 'ProjectsController@EditProject');
 	Route::post('/create', 'ProjectsController@CreateProject');
+	Route::post('/newrev', 'ProjectsController@NewRevision');
+	Route::delete('/{id}/delete', 'ProjectsController@DeleteProject');
 
 });
 
 
 //Settings
 
-Route::get('Settings/Altium/SVN', 'UserController@SVNSettingsIndex');
-Route::post('Settings/Altium/SVN/update', 'UserController@SVNSettingsUpdate');
+Route::get('Settings/Altium/SVN', 'PagesController@SVNSettingsIndex');
+Route::post('Settings/Altium/SVN/update', 'PagesController@SVNSettingsUpdate');

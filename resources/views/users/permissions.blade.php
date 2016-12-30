@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('content-header')
+	<h1><i class="fa fa-lock"></i><b> Permissions</b> Management</h1>
+@endsection
+
 @section('content')
 
 <!-- datatables -->
@@ -13,9 +17,10 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="box box-primary">
+		<div class="box-header">
+			<h4 class="box-title"><i class="fa fa-briefcase"></i> Role Permissions</h4>
+		</div>
 			<div class="box-body">
-				<h1><span class="fa fa-briefcase"></span> Role Permissions</h1>
-				<br>
 				<table class="table table-hover">
 					<thead>
 						<th style="width:20%">Role</th>
@@ -49,9 +54,10 @@
 
 	<div class="col-md-6">
 		<div class="box box-success">
+		<div class="box-header">
+			<h4 class="box-title"><i class="fa fa-user-secret"></i> Permissions list</h4>
+		</div>
 			<div class="box-body">
-				<h1><span class="fa fa-user-secret"></span> Permissions list</h1>
-				<br>
 				<table class="table table-hover" id="PermissionsTable">
 					<thead>
 						<th>Id</th>
@@ -88,8 +94,11 @@
 <div class="row">
 <div class="col-md-6">
 	<div class="box box-danger">
+	<div class="box-header">
+		<h4 class="box-title"><i class="fa fa-plus"></i> Add Role</h4>
+	</div>
 		<div class="box-body">
-		<h1><span class="fa fa-plus"></span> Add Role</h1>
+		
 			{{ Form::open(['url' => '/permissions/addrole', 'method' => 'POST']) }}
 			<div class='form-group'>
 				<div class="col-xs-3">
@@ -110,9 +119,10 @@
 </div>
 	<div class="col-md-6">
 				<div class="box box-danger">
+				<div class="box-header">
+					<h4 class="box-title"><i class="fa fa-plus"></i> Add Permissions</h4>
+				</div>
 			<div class="box-body">
-				<h1><span class="fa fa-plus"></span> Add Permissions</h1>
-
 				{{ Form::open(['url' => '/permissions', 'method' => 'POST']) }}
 				<div class='form-group'>
 					<div class="col-xs-3">
@@ -139,8 +149,10 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="box box-info">
+		<div class="box-header">
+			<h4 class="box-title"><i class="fa fa-subway"></i> Routes Access</h4>
+		</div>
 			<div class="box-body">
-				<h1><span class="fa fa-subway"></span> Routes Access</h1>
 				<table class="table table-hover" id="RoutesTable">
 					<thead>
 						<th>Method</th>

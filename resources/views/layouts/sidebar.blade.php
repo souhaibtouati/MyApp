@@ -36,7 +36,7 @@
         <li class="{{(\Request::route()->getName() === 'dashboard') ? 'active' : ''}}"><a href="/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
         <li class="{{(\Request::route()->getName() === 'altium') ? 'active' : ''}}"><a href="/altiumCmp"><i class="fa fa-cubes"></i><span>Altium Library</span></a></li>
         <li class="treeview">
-        <a href="#"><i class="fa fa-flask"></i><span>Projects</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <a href="#"><i class="fa fa-bar-chart"></i><span>Projects</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
                 <li><a href="/yproject/show/dev">DEV</a></li>
                 <li><a href="/yproject/show/cs1">CS1</a></li>

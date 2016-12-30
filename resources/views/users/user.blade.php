@@ -2,8 +2,6 @@
 
 @section('head')
 
-
-
 <style type="text/css">
 
   #avatar {
@@ -53,46 +51,54 @@
 
   <div class="col-md-5">
     <div class="box box-success">
+    <div class="box-header">
+      <h1 class="box-title"><i class='fa fa-user'></i> User details</h1>
+    </div>
       <div class="panel-body">
 
 
-
-
-        <h1><i class='fa fa-user'></i> User details</h1>
-
-
-
-        <div class='form-group'>
+  <div class='form-group col-md-6'>
           {{ Form::label('first_name', 'First Name') }}
           {{ Form::text('first_name', null, ['placeholder' => 'First Name', 'class' => 'form-control']) }}
         </div>
 
-        <div class='form-group'>
+   <div class='form-group col-md-6'>
           {{ Form::label('last_name', 'Last Name') }}
           {{ Form::text('last_name', null, ['placeholder' => 'Last Name', 'class' => 'form-control']) }}
         </div>
-
-        <div class='form-group'>
+       
+        <div class='form-group col-md-12'>
           {{ Form::label('email', 'Email') }}
           {{ Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) }}
         </div>
-
-        <div class='form-group'>
+        
+          <div class='form-group col-md-12'>
           {{ Form::label('title', 'Title') }}
           {{ Form::text('title', null, ['placeholder' => 'Title', 'class' => 'form-control']) }}
         </div>
+ 
+        
 
-        <div class='form-group'>
-          {{ Form::label('Departement', 'departement') }}
-          {{ Form::select('departement', ['DEV' => 'DEV', 'CS1' => 'CS1', 'CS2' => 'CS2','CS3' => 'CS3', 'TS' => 'TS', 'Test Eng' => 'Test Eng'], null, array('class' => 'form-control')) }}
+  <div class='form-group col-md-6'>
+          {{ Form::label('initials', 'Initials') }}
+          {{ Form::text('initials', null, ['placeholder' => 'Initials', 'class' => 'form-control']) }}
         </div>
 
-        <div class='form-group'>
+        
+
+  <div class='form-group col-md-6'>
+          {{ Form::label('departement', 'Departement') }}
+          {{ Form::select('departement', ['DEV' => 'DEV', 'CS1' => 'CS1', 'CS2' => 'CS2','CS3' => 'CS3', 'TS' => 'TS', 'Test Eng' => 'Test Eng'], null, array('class' => 'form-control')) }}
+     
+</div>
+        
+
+        <div class='form-group col-md-6'>
           {{ Form::label('password', 'Password') }}
           {{ Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) }}
         </div>
 
-        <div class='form-group'>
+        <div class='form-group col-md-6'>
           {{ Form::label('password_confirmation', 'Confirm Password') }}
           {{ Form::password('password_confirmation', ['placeholder' => 'Confirm Password', 'class' => 'form-control']) }}
         </div>
@@ -103,8 +109,11 @@
   @if (Sentinel::hasAccess('admin'))
   <div class="col-md-4">
     <div class="box box-warning">
+    <div class="box-header">
+      <h1 class="box-title"><i class="fa fa-database"></i> Admin area</h1>
+    </div>
       <div class="panel-body">
-        <h1><i class="fa fa-database"></i> Admin area</h1>
+        
         <ul class="list-group list-group-unbordered">
           <li class="list-group-item">
             <b>User ID</b> <a class="pull-right">{{$user->id}}</a>
