@@ -10,6 +10,7 @@ use Sentinel;
 use Webcreate\Vcs\Svn;
 use File;
 use View;
+use Webcreate\Vcs\Common\Reference;
 
 /**
 * 
@@ -47,7 +48,7 @@ class Altium
             $Repo->getAdapter()->setExecutable('/usr/bin/svn');
         }
         else $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
-
+        
         return $Repo;
 	}
 

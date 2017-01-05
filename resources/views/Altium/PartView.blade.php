@@ -8,9 +8,13 @@
 
 @endsection
 
+@section('content-header')
+<h1><i class="fa fa-eye"></i> <b>{{$part->Y_PartNr}}</b> Details</h1>
+@endsection
+
 @section('content')
 
-<h1 style="margin-top: 0px"><i class="fa fa-eye"></i> <b>{{$part->Y_PartNr}}</b></h1>
+
 
 <div id="View-div" class="col-md-6">
 

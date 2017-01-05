@@ -138,14 +138,13 @@ class UserController extends Controller
         }
 
 
-		
-
 		$credentials = [
 		'email' => Input::get('email'),
 		'first_name' => Input::get('first_name'),
 		'last_name' => Input::get('last_name'),
 		'title' => Input::get('title'),
 		'departement' => Input::get('departement'),
+		'initials' => Input::get('initials')
 		];
 
 		if (Input::get('password') != ''){

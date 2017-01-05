@@ -53,14 +53,15 @@
 
 <div class="row">
 
-	<div class="col-md-12">
+	<div class="col-md-6 col-sm12">
 
 			<div class="btn-group pull-left">
 				@foreach($Part->getTables() as $Index => $Table)
 				{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue']) !!}
 				@endforeach
 			</div>
-
+	</div>
+	<div class="col-lg-6 col-sm12">
 	
 			<div class="btn-group pull-right" style="display: inline;">
 
@@ -72,7 +73,8 @@
 			</div>
 	</div>
 
-
+</div> <!-- Row -->
+<div class="row">
 	<div id="create-new-div" {{ Session::get('showDiv') === 'create' ? '' : 'hidden="true"' }}>
 		<div class="col-md-6">
 			{!! Form::model($Part, ['url'=>'/Altium/'.$Part->getName().'/store', 'id'=>'createURL', 'enctype'=>'multipart/form-data']) !!}
@@ -83,7 +85,7 @@
 				</div>
 				<div class="box-body">
 					
-
+	
 					<div class="form-group">
 						<table class="table">
 							<tbody>
@@ -118,7 +120,7 @@
 									<td style="text-align: center">
 										<label class="btn btn-default" for="symbol" id="symbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
 										<input type="file" name="symbol" id="symbol" />
-
+	
 										<div id="symbol-select-div" style="display: none; width: 100%">
 										<select class="form-control" name="symbol-select" id="symbol-select" style="width: 100%">
 											<option>Select Symbol</option>
@@ -128,7 +130,7 @@
 									<td style="text-align: center">
 										<label class="btn btn-default" for="footprint" id="footprintLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
 										<input type="file" name="footprint" id="footprint" />
-
+	
 										<div id="footprint-select-div" style="display: none">
 										<select class="form-control" name="footprint-select" id="footprint-select" style="width: 100%">
 											<option>Select Footprint</option>
@@ -138,7 +140,7 @@
 									<td style="text-align: center; max-width: 200px;">
 										<label class="btn btn-default" for="ComponentLink1URL" id="DatasheetLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
 										<input type="file" name="ComponentLink1URL" id="ComponentLink1URL" />
-
+	
 										<div id="Datasheet-select-div" style="display: none">
 										<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%;">
 											<option>Select Datasheet</option>
@@ -148,9 +150,9 @@
 								</tr>
 							</tbody>
 						</table>
-
+	
 					</div>
-
+	
 					<div class="form-group">
 						<div class='row'>
 							
@@ -160,11 +162,11 @@
 							</div>
 						</div>
 					</div>
-
+	
 				</div>
 			</div>
-
-
+	
+	
 			<div class="box box-success">
 				<div class="box-header">
 					<i class="fa fa-plus"></i><h3 class="box-title"> Supply Chain</h3>
@@ -178,7 +180,7 @@
 							<div class="col-xs-3">
 								{{ Form::text('Manufacturer', null, ['placeholder' => 'Manufacturer', 'class' => 'form-control']) }}
 							</div>
-
+	
 							<div class="col-xs-2">
 								{{ Form::label('Manufacturer Part Number', 'Manufacturer PN') }}
 							</div>
@@ -186,7 +188,7 @@
 								{{ Form::text('Manufacturer_Part_Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control']) }}
 							</div>
 						</div>
-
+	
 						<div class='row'>	
 							<div class="col-xs-2">
 								{{ Form::label('Supplier_1', 'Supplier 1') }}
@@ -194,7 +196,7 @@
 							<div class="col-xs-3">
 								{{ Form::text('Supplier_1', null, ['placeholder' => 'Supplier 1', 'class' => 'form-control']) }}
 							</div>
-
+	
 							<div class="col-xs-2">
 								{{ Form::label('Supplier_Part_Number_1', 'Supplier PN 1') }}
 							</div>
@@ -205,13 +207,13 @@
 					</div>
 				</div>
 			</div>
-
+	
 			<div class="box box-success">
 				<div class="box-header">
 					<i class="fa fa-plus"></i><h3 class="box-title"> Parameters</h3>
 				</div>
 				<div class="box-body">
-
+	
 					<div class="form-group">
 						<div class="row">
 							<div id="parameters-div">
@@ -234,13 +236,13 @@
 							</div>
 						</div>	
 					</div>
-
-
+	
+	
 					{{ Form::close()}}
 				</div>			
 			</div>
 		</div>
-
+	
 		<div class="col-md-6">
 			<div class="box box-success">
 				<div class="box-header">
@@ -257,7 +259,7 @@
 					
 					
 					<br><br><br>
-
+	
 					<table class="table table-expandable" id="octo-table" width="100%">
 						<thead>
 							<tr>
@@ -267,18 +269,18 @@
 							</tr>
 						</thead>
 						<tbody id="octo-table-body">
-
+	
 						</tbody>
 					</table>
 					
-
-</div>			
-</div>
-</div>
-</div>
-<!-- Create New Div-->
-
-<div id="showall-div" {{ Session::get('showDiv') === 'showall' ? '' : 'hidden="true"' }} >
+	
+	</div>			
+	</div>
+	</div>
+	</div>
+	<!-- Create New Div-->
+	
+	<div id="showall-div" {{ Session::get('showDiv') === 'showall' ? '' : 'hidden="true"' }} >
 	<div class="col-md-12">
 		<div class="box box-primary">
 			<div class="box-header">
@@ -300,60 +302,60 @@
 						<th></th>
 					</thead>
 					<tbody id="show-all-table-body">
-
+	
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-
+	
 	<!-- Modal Dialog -->
-<div class="modal modal-danger fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-  <div class="modal-dialog">
-  {{ Form::open(['url' => '/Altium/delete']) }}
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Delete Parmanently</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this component from Database ?</p>
-        
-        <input type="text" name="dl-type" id="dl-type" style="display: none">
-        <input type="text" name="dl-table" id="dl-table" style="display: none">
-        <input type="text" name="dl-id" id="dl-id" style="display: none">
-    
-        <input type="checkbox" name="rmSYM">
-        <span>&nbsp Remove Symbol from SVN?</span>
-        
-        <br>
-        <input type="checkbox" name="rmFTPT">
-        <span>&nbsp Remove Footprint from SVN?</span>
-        <br><br>
-        <p><small>Note: If the component is using shared Symbol and Footprint, they will not be deleted </small></p>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        {{ Form::button('Delete' , ['class'=>'btn btn-danger ', 'type'=>'submit'])}}
-        
-      </div>
-      
-    </div>
-  </div>
-  {{ Form::close()}}
-</div>
-</div>
-<!-- Show All Div-->
-
-
-<div id="SearchDiv" hidden="true">
-<div class="col-md-12">	
+	<div class="modal modal-danger fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	  {{ Form::open(['url' => '/Altium/delete']) }}
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title">Delete Parmanently</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Are you sure you want to delete this component from Database ?</p>
+	        
+	        <input type="text" name="dl-type" id="dl-type" style="display: none">
+	        <input type="text" name="dl-table" id="dl-table" style="display: none">
+	        <input type="text" name="dl-id" id="dl-id" style="display: none">
+	    
+	        <input type="checkbox" name="rmSYM">
+	        <span>&nbsp Remove Symbol from SVN?</span>
+	        
+	        <br>
+	        <input type="checkbox" name="rmFTPT">
+	        <span>&nbsp Remove Footprint from SVN?</span>
+	        <br><br>
+	        <p><small>Note: If the component is using shared Symbol and Footprint, they will not be deleted </small></p>
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        {{ Form::button('Delete' , ['class'=>'btn btn-danger ', 'type'=>'submit'])}}
+	        
+	      </div>
+	      
+	    </div>
+	  </div>
+	  {{ Form::close()}}
+	</div>
+	</div>
+	<!-- Show All Div-->
+	
+	
+	<div id="SearchDiv" hidden="true">
+	<div class="col-md-12">	
 		<div class="box box-warning">
 		<div class="box-header">
 			<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType" style="color: red"></span></h3>
 		</div>
-
+	
 		<div class="box-body">
 		<div class="form-group">
 			
@@ -391,16 +393,16 @@
 						<th></th>
 					</thead>
 					<tbody id="search-result-table-body">
-
+	
 					</tbody>
 				</table>
 			</div>
 		</div>	
 	
 		
-</div>	
+	</div>	
+	</div>
 </div>
-</div> <!-- Row -->
 
 @endsection
 

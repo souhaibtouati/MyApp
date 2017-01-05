@@ -55,7 +55,7 @@
         @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="height: 1200px">
+        <div class="content-wrapper" style="min-width: 470px">
             <!-- Content Header (Page header) -->
             <section class="content-header">
             @yield('content-header')
@@ -71,14 +71,15 @@
                 @yield('content')
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
+        @include('layouts.footer')
+
+       
     </div><!-- ./wrapper -->
 
 
 <section class="footer">
         <!-- Footer -->
-        @include('layouts.footer')
-
-        @yield('footer')
+         @yield('footer')
     <!-- REQUIRED JS SCRIPTS -->
     <script type="text/javascript">
         $('div.alert').not('.alert-important').delay(2500).slideUp(500);

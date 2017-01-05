@@ -16,7 +16,6 @@
 
 
 
-
 <div class="row">
   {{ Form::model($user, array('route' => $formRoute ,'method'=>$formMethod, 'enctype'=>'multipart/form-data')) }}
   <div class="col-md-3">

@@ -98,7 +98,7 @@
 				<div class="row">
 				<div class="col-md-4">
 				{{Form::label('ProductType', 'Project Type')}}
-				{{Form::select('ProductType',['PCB'=>'PCB','Software'=>'Software', 'Connector'=>'Connector', 'Socket'=>'Socket', 'Module'=>'Module', 'K'=>'Kit'],null,['class'=>'form-control'])}}
+				{{Form::select('ProductType',['PCB'=>'PCB','K'=>'Kit','Module'=>'Module','Connector'=>'Connector','Software'=>'Software',  'Socket'=>'Socket', 'BurnIn'=>'BurnIn' ],null,['class'=>'form-control'])}}
 				</div>
 
 				<div class="col-md-6">
@@ -120,15 +120,7 @@
 				
 				<hr>
 				<div class="row">
-				<div class="col-md-4">
-				{{Form::label('SolidW', 'Solid Works')}}
-				<div class="input-group">
-				<span class="input-group-addon">
-                          <input type="checkbox" id="SolidWCheck" checked="true">
-                        </span>
-				{{Form::text('SolidW', null,['class'=>'form-control', 'id'=>'SolidW', 'required'=>'true'])}}
-				</div>
-				</div>
+
 
 				<div class="col-md-4">
 				{{Form::label('GenesisW', 'Genesis world')}}
@@ -156,7 +148,7 @@
 				<div class="row">
 				<div class="col-md-4">
 				{{Form::label('Application', 'Application')}}
-				{{Form::select('Application',['Industrial'=>'Industrial','Internal'=>'Internal', 'Medical'=>'Medical', 'Telecom'=>'Telecom'],null,['class'=>'form-control'])}}
+				{{Form::select('Application',['Automotive'=>'Automotive', 'Y-Circ M12'=>'Y-Circ M12', 'Y-CircP'=>'Y-CircP', 'Industrial'=>'Industrial','Internal'=>'Internal', 'Medical'=>'Medical','Semicomductor'=>'Semicomductor', 'Telecom'=>'Telecom'],null,['class'=>'form-control'])}}
 
 				</div>
 

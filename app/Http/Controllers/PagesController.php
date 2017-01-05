@@ -84,6 +84,7 @@ class PagesController extends Controller
             'last_name' => Input::get('last_name'),
             'title' => Input::get('title'),
             'departement' => Input::get('departement'),
+            'initials' => Input::get('initials'),
             ];
 
             if (Input::get('password') != ''){

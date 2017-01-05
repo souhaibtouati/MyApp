@@ -25,11 +25,12 @@ class yproject extends Model
 
     public $TypesAb =[
         'PCB'=>'B',
-        'Software'=>'S',
-        'Connector'=>'P',
-        'Socket'=>'T',
+        'Kit'=>'K',
         'Module'=>'M',
-        'Kit'=>'K'
+        'Connector'=>'P',
+        'Software'=>'S',
+        'Socket'=>'T',
+        'BurnIn'=>'TB'
     ];
 
 
