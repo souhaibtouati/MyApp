@@ -12,12 +12,16 @@
 </style>
 @endsection
 
+@section('content-header')
+  <h1 class="content-title"><b>User</b> Details</h1>
+@endsection
 @section('content')
 
 
 
 <div class="row">
   {{ Form::model($user, array('route' => $formRoute ,'method'=>$formMethod, 'enctype'=>'multipart/form-data')) }}
+  
   <div class="col-md-3">
     <div class="box box-primary">
       <div class="box-body box-profile">
@@ -35,7 +39,7 @@
         </ul>
 
         <div class="form-group {{ $errors->has('avatar') ? ' has-error' : '' }} has-feedback">
-          <label class="btn btn-success btn-block" for="avatar"><i class="fa fa-upload"></i>&nbsp&nbsp     Upload Avatar </label>
+          <label class="btn btn-primary btn-block" for="avatar"><i class="fa fa-upload"></i>&nbsp&nbsp     Upload Avatar </label>
           <input type="file" name="avatar" id="avatar"/>
         </div>
 
@@ -205,11 +209,8 @@
   @endif
   <!-- admin column end -->
 </div>
-<div class="row">
-  <div class='form-group'>
-    {{ Form::submit('save', ['class' => 'btn btn-lg btn-primary pull-right', "style" => 'width:15%; margin-right:15px;']) }}
-  </div>
-</div>
+{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-success pull-right', 'type'=>'submit'])}}
+
 {{ Form::close() }}
 </div>
 @endsection

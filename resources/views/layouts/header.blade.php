@@ -1,3 +1,5 @@
+
+
 <!-- Main Header -->
 <header class="main-header">
 
@@ -7,7 +9,7 @@
     <a href="/" class="logo"><b>Yamaichi</b>Electronics</a>
  
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top fixed" role="navigation">
+    <nav class="navbar navbar-static-top fixed" role="navigation" style="">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>

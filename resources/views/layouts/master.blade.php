@@ -71,8 +71,7 @@
                 @yield('content')
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
-        @include('layouts.footer')
-
+        
        
     </div><!-- ./wrapper -->
 

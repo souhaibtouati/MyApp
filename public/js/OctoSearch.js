@@ -68,6 +68,12 @@ function OctoSearch(){
 	function addSupplier(i , j){
 		var supplier = myresults[i].item.offers[j].seller.name;
 		var supplierPN =  myresults[i].item.offers[j].sku;
+		var manufacturer = myresults[i].item.manufacturer.name;
+		var mpn = myresults[i].item.mpn;
+		console.log(manufacturer);
+		$('#Manufacturer').val(manufacturer);
+		$('#Manufacturer_Part_Number').val(mpn);
+
 		if (supp_Count > 3) {
 			$(".wrapper").overhang({
 				type: "error",

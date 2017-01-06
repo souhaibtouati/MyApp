@@ -57,7 +57,7 @@
 
 			<div class="btn-group pull-left">
 				@foreach($Part->getTables() as $Index => $Table)
-				{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue']) !!}
+				{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);']) !!}
 				@endforeach
 			</div>
 	</div>
@@ -148,6 +148,11 @@
 										</div>
 									</td>
 								</tr>
+								<tr>
+									<td style="text-align: center;" id="SymFname"></td>
+									<td style="text-align: center;" id="ftptFname"></td>
+									<td style="text-align: center;" id="dsFname"></td>
+								</tr>
 							</tbody>
 						</table>
 	
@@ -178,14 +183,14 @@
 								{{ Form::label('Manufacturer', 'Manufacturer') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Manufacturer', null, ['placeholder' => 'Manufacturer', 'class' => 'form-control']) }}
+								{{ Form::text('Manufacturer', null, ['placeholder' => 'Manufacturer', 'class' => 'form-control', 'id'=>'Manufacturer']) }}
 							</div>
 	
 							<div class="col-xs-2">
 								{{ Form::label('Manufacturer Part Number', 'Manufacturer PN') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Manufacturer_Part_Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control']) }}
+								{{ Form::text('Manufacturer_Part_Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control', 'id'=>'Manufacturer_Part_Number']) }}
 							</div>
 						</div>
 	
@@ -403,6 +408,29 @@
 	</div>	
 	</div>
 </div>
+
+
+<!-- Please wait -->
+<div id="waitModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content" style="margin-top: 30%">
+			<div class="modal-body">
+				<div class="box-body">
+
+		
+						<img src="{{asset('img/wait.gif')}}" style="margin-left: 30%">
+				
+						<img src="{{asset('img/wait2.gif')}}" style="width: 90%">
+					
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
 
 @endsection
 

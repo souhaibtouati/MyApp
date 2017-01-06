@@ -133,6 +133,21 @@ $('input[name=SymType]').on('ifClicked', function(event){
 
 	});
 
+	// Select file *********************************************************************
+	$('#symbol').change(
+    function(e){
+    	$('#SymFname').html(e.target.files[0].name);
+    });
+
+    $('#footprint').change(
+    function(e){
+    	$('#ftptFname').html(e.target.files[0].name);
+    });
+
+    $('#ComponentLink1URL').change(
+    function(e){
+    	$('#dsFname').html(e.target.files[0].name);
+    });
 
 	//Show All Clicked **********************************************************************
 	$('.ShowAll-btn').click(function(){
@@ -177,6 +192,10 @@ $('input[name=SymType]').on('ifClicked', function(event){
 			});
 		});
 
+		// Please wait Modal ******************************************************************
+		$('#CreateButton').click(function(){
+			$('#waitModal').modal();
+		});
 
 		// Enter Pressed for Ajax ************************************************************
 		$('input[name=SearchKeyword]').keyup(function () {

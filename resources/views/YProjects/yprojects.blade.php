@@ -60,14 +60,11 @@
 			<td style="white-space: nowrap; display: inline-flex;">
 			<div class="input-group">
 				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action &nbsp<span class="fa fa-caret-down"></span></button>
-			<ul class="dropdown-menu" style="width: 120px; min-width: 100px">
+			<ul class="dropdown-menu" style="min-width: 100px">
 				<li><a href="/yproject/{{$project->id}}/view"><i class="fa fa-eye"></i>View</a></li>
 				<li><a href="/yproject/{{$project->id}}/edit"><i class="fa fa-edit"></i>Edit</a></li>
-				<li>
-				{{Form::open(['url'=>'/yproject/'. $project->id .'/newrev'])}}
-				<button type="submit" class="btn btn-default col-md-12 " style="background-color: white"><i class="fa fa-level-up"></i>&nbsp New Revision</button>
-				{{Form::close()}}
-				</li>
+				<li><a href="/yproject/{{$project->id}}/copy"><i class="fa fa-copy"></i>Copy</a></li>
+				<li><a href="/yproject/{{$project->id}}/newrev"><i class="fa fa-recycle"></i>New Revision</a></li>
 			</ul> 
 			</div>
 
