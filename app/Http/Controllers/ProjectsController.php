@@ -19,6 +19,15 @@ class ProjectsController extends Controller
     	return View::make('YProjects.yprojects', ['projects' => $projects]);
     }
 
+    public function MyProjects(Request $request)
+    {
+        if ($request->ajax()) {
+           $MyProjects = yproject::where('Created_By', Sentinel::getUser()->initials)->get();
+         return  $MyProjects;
+        }
+        
+    }
+
 
     public function CreateProject()
     {

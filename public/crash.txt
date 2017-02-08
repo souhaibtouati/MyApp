@@ -1,0 +1,78 @@
+date/time         : 2017-01-26, 10:17:19, 423ms
+computer name     : PC-YTE-00004
+user name         : souhaib.t
+registered owner  : user / Hewlett-Packard Company
+operating system  : Windows 7 x64 Service Pack 1 build 7601
+system language   : French
+system up time    : 58 minutes 39 seconds
+program up time   : 12 seconds
+processors        : 8x Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+physical memory   : 3825/8151 MB (free/total)
+free disk space   : (C:) 709,82 GB
+display mode      : 1920x1080, 32 bit
+process id        : $1d10
+allocated memory  : 50,90 MB
+command line      : "C:\xampp\sendmail\sendmail.exe" -t -fpostmaster@yamaichi.de
+executable        : sendmail.exe
+exec. date/time   : 2012-04-16 18:30
+compiled with     : Delphi 2006/07
+madExcept version : 3.0l
+callstack crc     : $524b9ad3, $92ff1f01, $92ff1f01
+exception number  : 1
+exception class   : EIdConnectTimeout
+exception message : Connect timed out.
+
+main thread ($14b4):
+0041fa42 +000e sendmail.exe IdException                    112   +1 EIdException.Toss
+0044092e +014e sendmail.exe IdIOHandlerStack               279  +38 DoConnectTimeout
+00440b4c +01d8 sendmail.exe IdIOHandlerStack               346  +55 TIdIOHandlerStack.ConnectClient
+0046554d +0031 sendmail.exe IdSSLOpenSSL                  2086   +8 TIdSSLIOHandlerSocketOpenSSL.ConnectClient
+00444a9f +0063 sendmail.exe IdIOHandlerSocket              335  +13 TIdIOHandlerSocket.Open
+00465637 +0007 sendmail.exe IdSSLOpenSSL                  2122   +1 TIdSSLIOHandlerSocketOpenSSL.Open
+0044157d +0235 sendmail.exe IdTCPClient                    318  +53 TIdTCPClientCustom.Connect
+00445cc8 +00a4 sendmail.exe IdExplicitTLSClientServerBase  257  +23 TIdExplicitTLSClient.Connect
+0045ab7b +0017 sendmail.exe IdSMTP                         373   +2 TIdSMTP.Connect
+004b5f14 +1060 sendmail.exe sendmail                       808 +326 initialization
+76213368 +0010 kernel32.dll                                         BaseThreadInitThunk
+
+thread $498:
+77041f4f +0b ntdll.dll     NtWaitForWorkViaWorkerFactory
+76213368 +10 kernel32.dll  BaseThreadInitThunk
+
+thread $242c:
+77040166 +0e ntdll.dll     NtWaitForMultipleObjects
+76213368 +10 kernel32.dll  BaseThreadInitThunk
+
+stack dump:
+0018fcc4  47 fa 41 00 de fa ed 0e - 01 00 00 00 07 00 00 00  G.A.............
+0018fcd4  d8 fc 18 00 47 fa 41 00 - 90 50 17 02 34 b0 43 00  ....G.A..P..4.C.
+0018fce4  88 b1 18 02 5c fd 18 00 - 28 fd 18 00 f4 fc 18 00  ....\...(.......
+0018fcf4  7d 00 00 00 00 00 00 00 - 33 09 44 00 0c fd 18 00  }.......3.D.....
+0018fd04  c8 4b 40 00 28 fd 18 00 - 34 fd 18 00 c8 4b 40 00  .K@.(...4....K@.
+0018fd14  28 fd 18 00 4b 02 00 00 - 00 00 00 00 00 00 00 00  (...K...........
+0018fd24  b0 b4 13 02 60 fd 18 00 - 51 0b 44 00 60 fd 18 00  ....`...Q.D.`...
+0018fd34  68 fd 18 00 c8 4b 40 00 - 60 fd 18 00 f8 01 03 77  h....K@.`......w
+0018fd44  b0 f5 10 02 b0 f5 10 02 - 50 6a 16 02 00 00 00 00  ........Pj......
+0018fd54  00 00 00 00 00 00 00 00 - b0 f5 10 02 7c fd 18 00  ............|...
+0018fd64  52 55 46 00 90 fd 18 00 - c8 4b 40 00 7c fd 18 00  RUF......K@.|...
+0018fd74  f8 01 03 01 b0 f5 10 02 - c4 fd 18 00 a5 4a 44 00  .............JD.
+0018fd84  b0 f5 10 02 3c 56 46 00 - 83 15 44 00 9c fd 18 00  ....<VF...D.....
+0018fd94  5f 4d 40 00 c4 fd 18 00 - f0 fd 18 00 c8 4b 40 00  _M@..........K@.
+0018fda4  c4 fd 18 00 f8 01 03 77 - b0 f5 10 02 50 f4 10 02  .......w....P...
+0018fdb4  12 57 46 00 b0 f5 10 02 - 00 00 00 00 50 f4 10 02  .WF.........P...
+0018fdc4  e8 fd 18 00 cd 5c 44 00 - 88 41 03 77 00 00 00 00  .....\D..A.w....
+0018fdd4  80 ab 45 00 f8 01 03 77 - 88 41 03 77 00 00 00 00  ..E....w.A.w....
+0018fde4  50 f4 10 02 88 ff 18 00 - 1a 5f 4b 00 fc fd 18 00  P........_K.....
+0018fdf4  c8 4b 40 00 88 ff 18 00 - 08 fe 18 00 c8 4b 40 00  .K@..........K@.
+
+disassembling:
+[...]
+0041fa38       mov     ebx, eax
+0041fa3a 112   mov     ecx, esi
+0041fa3c       mov     dl, 1
+0041fa3e       mov     eax, ebx
+0041fa40       call    dword ptr [eax]
+0041fa42     > call    -$1ad5b ($404cec)      ; System.@RaiseExcept
+0041fa47 113   pop     esi
+0041fa48       pop     ebx
+0041fa49       ret
