@@ -87,7 +87,7 @@ $('input[name=SymType]').on('ifClicked', function(event){
 		if (table == 'null') { 
 			return ShowWarn();
 		}
-		PopulateRefs('Library_Ref', 'symbol');
+		PopulateRefs('Library Ref', 'symbol');
 	}
 	else {
 		$('#symbol-select-div').hide();
@@ -104,7 +104,7 @@ $('input[name=SymType]').on('ifClicked', function(event){
 			if (table == 'null') { 
 			return ShowWarn();
 		}
-		PopulateRefs('Footprint_Ref', 'footprint');
+		PopulateRefs('Footprint Ref', 'footprint');
 		}
 		else {
 

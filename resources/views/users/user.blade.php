@@ -8,7 +8,14 @@
    opacity: 0;
    position: absolute;
    z-index: -1;
- }    
+ }  
+
+ .btn-lg{
+  display: block;
+  margin: auto;
+  text-align: center;
+  width: 30%;
+ }  
 </style>
 @endsection
 
@@ -209,7 +216,7 @@
   @endif
   <!-- admin column end -->
 </div>
-{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-success pull-right', 'type'=>'submit'])}}
+{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-lg btn-success', 'type'=>'submit'])}}
 
 {{ Form::close() }}
 </div>

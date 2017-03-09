@@ -70,7 +70,7 @@ function OctoSearch(){
 		var supplierPN =  myresults[i].item.offers[j].sku;
 		var manufacturer = myresults[i].item.manufacturer.name;
 		var mpn = myresults[i].item.mpn;
-		console.log(manufacturer);
+		
 		$('#Manufacturer').val(manufacturer);
 		$('#Manufacturer_Part_Number').val(mpn);
 
@@ -82,19 +82,27 @@ function OctoSearch(){
 			});
 		}
 		else if (1 < supp_Count && supp_Count <= 3) {
+
+			if($('#Supplier_'+supp_Count+'').length || $('#Supplier_Part_Number_'+supp_Count+'').Length){
+				$('#Supplier_'+supp_Count+'').val(supplier);
+				$('#Supplier_Part_Number_'+supp_Count+'').val(supplierPN);
+				++supp_Count;
+			}
+			else {
+				console.log($('#Supplier_'+supp_Count+'').length);
 			$('#supply_chain').append(
 				'<div class="row">	\
 				<div class="col-xs-2">\
 					<label for="Supplier_'+supp_Count+'">Supplier '+supp_Count+'</label>\
 				</div>\
 				<div class="col-xs-3">\
-					<input type="text" id="Supplier_'+supp_Count+'" class="form-control" placeholder="Supplier '+supp_Count+'">\
+					<input type="text" id="Supplier_'+supp_Count+'" name ="Supplier '+supp_Count+'" class="form-control" placeholder="Supplier '+supp_Count+'">\
 				</div>\
 				<div class="col-xs-2">\
 					<label for="Supplier_Part_Number_'+supp_Count+'">Supplier PN '+supp_Count+'</label>\
 				</div>\
 				<div class="col-xs-3">\
-					<input type="text" id="Supplier_Part_Number_'+supp_Count+'" class="form-control" placeholder="Supplier PN '+supp_Count+'">\
+					<input type="text" id="Supplier_Part_Number_'+supp_Count+'" name="Supplier Part Number '+supp_Count+'" class="form-control" placeholder="Supplier PN '+supp_Count+'">\
 				</div>\
 				<div class="col-xs-1">\
 					<label class="btn btn-danger" onclick="$(this).closest(\'.row\').remove(); --supp_Count;"><i class="fa fa-minus"></i></label>\
@@ -104,6 +112,7 @@ function OctoSearch(){
 			$('#Supplier_'+supp_Count+'').val(supplier);
 			$('#Supplier_Part_Number_'+supp_Count+'').val(supplierPN);
 			++supp_Count;
+			}
 		}
 		else if(supp_Count === 1){
 			$('#Supplier_1').val(supplier);
@@ -119,7 +128,15 @@ function OctoSearch(){
 	function getpartspecs(){
 		var myresults;
 		var myspecs;
-		if (document.getElementById("mpn").innerHTML != ""){
+		var mpn = null;
+
+		if(document.getElementById("mpn") != null){
+			mpn = document.getElementById("mpn").innerHTML;
+		}
+		else if (document.getElementById("Manufacturer_Part_Number") != null){
+			mpn = $("#Manufacturer_Part_Number").val();
+		}
+		if (mpn != null){
 
 			var url = "http://octopart.com/api/v3/parts/search";
 			url += "?callback=?";
@@ -129,7 +146,7 @@ function OctoSearch(){
 					    // NOTE: Use your API key here (https://octopart.com/api/register)
 					    url += "&apikey=a49294f9";
 					    var args = {
-					    	q: document.getElementById("mpn").innerHTML,
+					    	q: mpn,
 					    	start: 0,
 					    	limit: 1
 					    };

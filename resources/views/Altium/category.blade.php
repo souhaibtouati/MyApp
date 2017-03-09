@@ -33,15 +33,15 @@
 		background-position:0px 0px;
 
 		.bigdrop {
-    width: 250px !important;
-}
+			width: 250px !important;
+		}
 	}
 
 </style>
 @endsection
 
 @section('content-header')
-	<h1><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
+<h1><i class="fa fa-cubes"></i><b> {{$Part->getName()}}</b></h1>
 @endsection
 
 @section('content')
@@ -55,22 +55,22 @@
 
 	<div class="col-md-6 col-sm12">
 
-			<div class="btn-group pull-left">
-				@foreach($Part->getTables() as $Index => $Table)
-				{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);']) !!}
-				@endforeach
-			</div>
+		<div class="btn-group pull-left">
+			@foreach($Part->getTables() as $Index => $Table)
+			{!! Form::button('<i class="fa fa-cube"></i> '.str_replace('_',' ',strtoupper($Table)), ['class' => 'btn-table btn btn-default','value'=>$Table, 'style'=>'background-color: white; color: DarkBlue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);']) !!}
+			@endforeach
+		</div>
 	</div>
 	<div class="col-lg-6 col-sm12">
-	
-			<div class="btn-group pull-right" style="display: inline;">
+
+		<div class="btn-group pull-right" style="display: inline;">
 
 			<button class="btn btn-primary" onclick="ShowAll()"><i class="fa fa-list"></i> Lib view</button>
 			<button class="CreateNew-btn btn btn-success" onclick="CreateNew()"><i class="fa fa-plus"></i> New {{$Part->getName()}}</button>	
 			<button class="Search-btn btn btn-warning" onclick="Search()"><i class="fa fa-search"></i> Search</button>	
 
 
-			</div>
+		</div>
 	</div>
 
 </div> <!-- Row -->
@@ -85,66 +85,66 @@
 				</div>
 				<div class="box-body">
 					
-	
+
 					<div class="form-group">
 						<table class="table">
 							<tbody>
 								<tr>
-								<td style="text-align: center">
-									<span>New</span>
-									<input type="radio" name="SymType" value="New" checked="true">
-									<input type="radio" name="SymType" value="Existing">
-									<span>Existing</span>
-								</td>
-								<td style="text-align: center">
-									<span>New</span>
-									<input type="radio" name="FTPTType" value="New" checked="true">
-									<input type="radio" name="FTPTType" value="Existing">
-									<span>Existing</span>
-								</td>
-								<td style="text-align: center">
-									<span>New</span>
-									<input type="radio" name="DSType" value="New" checked="true">
-									<input type="radio" name="DSType" value="Existing">
-									<span>Existing</span>
-								</td>
+									<td style="text-align: center">
+										<span>New</span>
+										<input type="radio" name="SymType" value="New" checked="true">
+										<input type="radio" name="SymType" value="Existing">
+										<span>Existing</span>
+									</td>
+									<td style="text-align: center">
+										<span>New</span>
+										<input type="radio" name="FTPTType" value="New" checked="true">
+										<input type="radio" name="FTPTType" value="Existing">
+										<span>Existing</span>
+									</td>
+									<td style="text-align: center">
+										<span>New</span>
+										<input type="radio" name="DSType" value="New" checked="true">
+										<input type="radio" name="DSType" value="Existing">
+										<span>Existing</span>
+									</td>
 								</tr>
 								<tr>
 									<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
 									<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
 									<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
 								</tr>
-						
-							
+
+
 								<tr>
 									<td style="text-align: center">
 										<label class="btn btn-default" for="symbol" id="symbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
 										<input type="file" name="symbol" id="symbol" />
-	
+
 										<div id="symbol-select-div" style="display: none; width: 100%">
-										<select class="form-control" name="symbol-select" id="symbol-select" style="width: 100%">
-											<option>Select Symbol</option>
-										</select>
+											<select class="form-control" name="symbol-select" id="symbol-select" style="width: 100%">
+												<option>Select Symbol</option>
+											</select>
 										</div>
 									</td>
 									<td style="text-align: center">
 										<label class="btn btn-default" for="footprint" id="footprintLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Footprint </label>
 										<input type="file" name="footprint" id="footprint" />
-	
+
 										<div id="footprint-select-div" style="display: none">
-										<select class="form-control" name="footprint-select" id="footprint-select" style="width: 100%">
-											<option>Select Footprint</option>
-										</select>
+											<select class="form-control" name="footprint-select" id="footprint-select" style="width: 100%">
+												<option>Select Footprint</option>
+											</select>
 										</div>
 									</td>
 									<td style="text-align: center; max-width: 200px;">
 										<label class="btn btn-default" for="ComponentLink1URL" id="DatasheetLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Datasheet </label>
 										<input type="file" name="ComponentLink1URL" id="ComponentLink1URL" />
-	
+
 										<div id="Datasheet-select-div" style="display: none">
-										<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%;">
-											<option>Select Datasheet</option>
-										</select>
+											<select class="form-control" name="Datasheet-select" id="Datasheet-select" style="width: 100%;">
+												<option>Select Datasheet</option>
+											</select>
 										</div>
 									</td>
 								</tr>
@@ -155,9 +155,9 @@
 								</tr>
 							</tbody>
 						</table>
-	
+
 					</div>
-	
+
 					<div class="form-group">
 						<div class='row'>
 							
@@ -167,11 +167,11 @@
 							</div>
 						</div>
 					</div>
-	
+
 				</div>
 			</div>
-	
-	
+
+
 			<div class="box box-success">
 				<div class="box-header">
 					<i class="fa fa-plus"></i><h3 class="box-title"> Supply Chain</h3>
@@ -185,40 +185,41 @@
 							<div class="col-xs-3">
 								{{ Form::text('Manufacturer', null, ['placeholder' => 'Manufacturer', 'class' => 'form-control', 'id'=>'Manufacturer']) }}
 							</div>
-	
+
 							<div class="col-xs-2">
 								{{ Form::label('Manufacturer Part Number', 'Manufacturer PN') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Manufacturer_Part_Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control', 'id'=>'Manufacturer_Part_Number']) }}
+								{{ Form::text('Manufacturer Part Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control', 'id'=>'Manufacturer_Part_Number']) }}
 							</div>
+							<button class="btn btn-flat" onclick="getpartspecs();" type="button">Specs &nbsp<i class="fa fa-arrow-circle-right"></i></button>
 						</div>
-	
+
 						<div class='row'>	
 							<div class="col-xs-2">
-								{{ Form::label('Supplier_1', 'Supplier 1') }}
+								{{ Form::label('Supplier 1', 'Supplier 1') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Supplier_1', null, ['placeholder' => 'Supplier 1', 'class' => 'form-control']) }}
+								{{ Form::text('Supplier 1', null, ['id'=>'Supplier_1', 'placeholder' => 'Supplier 1', 'class' => 'form-control']) }}
 							</div>
-	
+
 							<div class="col-xs-2">
-								{{ Form::label('Supplier_Part_Number_1', 'Supplier PN 1') }}
+								{{ Form::label('Supplier Part Number 1', 'Supplier PN 1') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Supplier_Part_Number_1', null, ['placeholder' => 'Supplier Part Number 1', 'class' => 'form-control']) }}
+								{{ Form::text('Supplier Part Number 1', null, ['id'=>'Supplier_Part_Number_1', 'placeholder' => 'Supplier Part Number 1', 'class' => 'form-control']) }}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-	
+
 			<div class="box box-success">
 				<div class="box-header">
 					<i class="fa fa-plus"></i><h3 class="box-title"> Parameters</h3>
 				</div>
 				<div class="box-body">
-	
+
 					<div class="form-group">
 						<div class="row">
 							<div id="parameters-div">
@@ -236,18 +237,18 @@
 						</div>
 						<div class='row'>
 							<br>
-							<div class="col-xs-3 pull-right">
-								{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-success ', 'type'=>'submit', 'disabled'=>'true', 'id'=>'CreateButton'])}}
+							<div class="col-xs-12" style="margin: auto; text-align: center">
+								{{ Form::button('<i class="fa fa-save"></i> Save' , ['class'=>'btn btn-lg btn-success ', 'type'=>'submit', 'disabled'=>'true', 'id'=>'CreateButton', 'style'=>'width:30%'])}}
 							</div>
 						</div>	
 					</div>
-	
-	
+
+
 					{{ Form::close()}}
 				</div>			
 			</div>
 		</div>
-	
+
 		<div class="col-md-6">
 			<div class="box box-success">
 				<div class="box-header">
@@ -264,7 +265,7 @@
 					
 					
 					<br><br><br>
-	
+
 					<table class="table table-expandable" id="octo-table" width="100%">
 						<thead>
 							<tr>
@@ -274,138 +275,137 @@
 							</tr>
 						</thead>
 						<tbody id="octo-table-body">
-	
+
 						</tbody>
 					</table>
-					
-	
-	</div>			
-	</div>
-	</div>
+				</div>			
+			</div>
+
+			<div class="box box-success">
+				<div class="box-header">
+					<i class="fa fa-globe"></i><h3 class="box-title"> Live Specs</h3>
+				</div>
+				<div class="box-body" id="specsdiv">
+					<img id="PartPic" style="display: block;  width:auto;" class="pull-left">
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Create New Div-->
 	
 	<div id="showall-div" {{ Session::get('showDiv') === 'showall' ? '' : 'hidden="true"' }} >
-	<div class="col-md-12">
-		<div class="box box-primary">
-			<div class="box-header">
-				<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType" style="color: red"></span></h3>
-				<button class="ShowAll-btn btn btn-primary pull-right"><i class="fa fa-refresh"></i>&nbsp Refresh</button>
-			</div>
-			<div class="box-body">
-				{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
-				<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
-				{!! Form::close() !!}
-				<table class="table table-hover" id="show-all-table">
-					<thead>
-						<th>Part Nbr</th>
-						<th>Description</th>
-						<th>Manufacturer</th>
-						<th>MPN</th>
-						<th>Symbol</th>
-						<th>Footprint</th>
-						<th></th>
-					</thead>
-					<tbody id="show-all-table-body">
-	
-					</tbody>
-				</table>
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header">
+					<i class="fa fa-list"></i><h3 class="box-title"> Library <span class="createType" style="color: red"></span></h3>
+					<button class="ShowAll-btn btn btn-primary pull-right"><i class="fa fa-refresh"></i>&nbsp Refresh</button>
+				</div>
+				<div class="box-body">
+					{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
+					<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
+					{!! Form::close() !!}
+					<table class="table table-hover" id="show-all-table">
+						<thead>
+							<th>Part Nbr</th>
+							<th>Description</th>
+							<th>Manufacturer</th>
+							<th>MPN</th>
+							<th>Symbol</th>
+							<th>Footprint</th>
+							<th></th>
+						</thead>
+						<tbody id="show-all-table-body">
+
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- Modal Dialog -->
-	<div class="modal modal-danger fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	  {{ Form::open(['url' => '/Altium/delete']) }}
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title">Delete Parmanently</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>Are you sure you want to delete this component from Database ?</p>
-	        
-	        <input type="text" name="dl-type" id="dl-type" style="display: none">
-	        <input type="text" name="dl-table" id="dl-table" style="display: none">
-	        <input type="text" name="dl-id" id="dl-id" style="display: none">
-	    
-	        <input type="checkbox" name="rmSYM">
-	        <span>&nbsp Remove Symbol from SVN?</span>
-	        
-	        <br>
-	        <input type="checkbox" name="rmFTPT">
-	        <span>&nbsp Remove Footprint from SVN?</span>
-	        <br><br>
-	        <p><small>Note: If the component is using shared Symbol and Footprint, they will not be deleted </small></p>
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        {{ Form::button('Delete' , ['class'=>'btn btn-danger ', 'type'=>'submit'])}}
-	        
-	      </div>
-	      
-	    </div>
-	  </div>
-	  {{ Form::close()}}
-	</div>
+
+		<!-- Modal Dialog -->
+		<div class="modal modal-danger fade" id="confirmDeletePart" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				{{ Form::open(['url' => '/Altium/delete']) }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Delete Parmanently</h4>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete this component from Database ?</p>
+
+						<input type="text" name="dl-type" id="dl-type" style="display: none">
+						<input type="text" name="dl-table" id="dl-table" style="display: none">
+						<input type="text" name="dl-id" id="dl-id" style="display: none">
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						{{ Form::button('Delete' , ['class'=>'btn btn-danger ', 'type'=>'submit'])}}
+
+					</div>
+
+				</div>
+			</div>
+			{{ Form::close()}}
+		</div>
 	</div>
 	<!-- Show All Div-->
 	
 	
 	<div id="SearchDiv" hidden="true">
-	<div class="col-md-12">	
-		<div class="box box-warning">
-		<div class="box-header">
-			<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType" style="color: red"></span></h3>
-		</div>
-	
-		<div class="box-body">
-		<div class="form-group">
-			
-			<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
-			<div class="col-md-2">
-			{{Form::label('SearchBy','Search By')}}
+		<div class="col-md-12">	
+			<div class="box box-warning">
+				<div class="box-header">
+					<i class="fa fa-search"></i><h3 class="box-title"> Find <span class="createType" style="color: red"></span></h3>
+				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+
+						<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
+						<div class="col-md-2">
+							{{Form::label('SearchBy','Search By')}}
+						</div>
+						<div class="col-md-3">
+							{{Form::select('SearchBy',['MPN'=>'Manufacturer PN','SKU'=>'Supplier PN', 'Description'=>'Description'],null,['class'=>'form-control'])}}
+						</div>
+						<div class="col-md-3">
+							{{Form::text('SearchKeyword',null,['placeholder'=>'Search Keyword', 'class'=>'form-control'])}}
+						</div>
+						<div class="col-md-3">
+							{{ Form::button('<i class="fa fa-search"></i>' , ['class'=>'SearchBtn btn btn-warning'])}}	
+						</div>
+
+
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3">
-			{{Form::select('SearchBy',['MPN'=>'Manufacturer PN','SKU'=>'Supplier PN', 'Description'=>'Description'],null,['class'=>'form-control'])}}
-			</div>
-			<div class="col-md-3">
-			{{Form::text('SearchKeyword',null,['placeholder'=>'Search Keyword', 'class'=>'form-control'])}}
-			</div>
-			<div class="col-md-3">
-			{{ Form::button('<i class="fa fa-search"></i>' , ['class'=>'SearchBtn btn btn-warning'])}}	
-			</div>
-			
-			
-		</div>
-		</div>
-		</div>
 			<div class="box box-warning" id="searchResultDiv" hidden="true">
-			<div class="box-header">
-				<i class="fa fa-list"></i><h3 class="box-title"> Results </h3>
-			</div>
-			<div class="box-body">
-				<table class="table table-hover" id="search-result-table">
-					<thead>
-						<th>Part Nbr</th>
-						<th>Description</th>
-						<th>Manufacturer</th>
-						<th>MPN</th>
-						<th>Symbol</th>
-						<th>Footprint</th>
-						<th></th>
-					</thead>
-					<tbody id="search-result-table-body">
-	
-					</tbody>
-				</table>
-			</div>
+				<div class="box-header">
+					<i class="fa fa-list"></i><h3 class="box-title"> Results </h3>
+				</div>
+				<div class="box-body">
+					<table class="table table-hover" id="search-result-table">
+						<thead>
+							<th>Part Nbr</th>
+							<th>Description</th>
+							<th>Manufacturer</th>
+							<th>MPN</th>
+							<th>Symbol</th>
+							<th>Footprint</th>
+							<th></th>
+						</thead>
+						<tbody id="search-result-table-body">
+
+						</tbody>
+					</table>
+				</div>
+			</div>	
+
+
 		</div>	
-	
-		
-	</div>	
 	</div>
 </div>
 
@@ -417,10 +417,10 @@
 			<div class="modal-body">
 				<div class="box-body">
 
-		
-						<img src="{{asset('img/wait.gif')}}" style="margin-left: 30%">
-				
-						<img src="{{asset('img/wait2.gif')}}" style="width: 90%">
+
+					<img src="{{asset('img/wait.gif')}}" style="margin-left: 30%">
+
+					<img src="{{asset('img/wait2.gif')}}" style="width: 90%">
 					
 				</div>
 

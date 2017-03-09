@@ -80,12 +80,12 @@
 </div>
 @include('partials.deletemodal')
 
-<div class="modal modal-primary fade" id="CreateModal" role="dialog" aria-labelledby="CreateModalLabel" aria-hidden="true">
+<div class="modal fade" id="CreateModal" role="dialog" aria-labelledby="CreateModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width: 800px">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #23B562">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title"><i class="fa fa-plus"></i> New Project</h4>
+        <h4 class="modal-title" style="color:white"><i class="fa fa-plus"></i> New Project</h4>
       </div>
       <div class="modal-body">
 

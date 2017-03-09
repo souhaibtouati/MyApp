@@ -27,13 +27,7 @@ abstract class EloquentPart extends Model
 
     	'Description',
     	'Manufacturer',
-    	'Manufacturer_Part_Number',
-    	'Supplier_1',
-    	'Supplier_Part_Number_1',
-    	'Supplier_2',
-    	'Supplier_Part_Number_2',
-    	'Supplier_3',
-    	'Supplier_Part_Number_3',
+    	
         'modified_by',
         'Package'
 
@@ -88,17 +82,27 @@ abstract class EloquentPart extends Model
         return $this->Revision;
     }
 
+    public function getLibRef()
+    {
+        return $this['Library Ref'];
+    }
+
+    public function getFtptRef()
+    {
+        return $this['Footprint Ref'];
+    }
+
 
     public function generatePN($table)
     {
         $record = DB::connection('Altium')->table($table)->orderby('id', 'desc')->first();
        
         if($record === null){
-            $this->Y_PartNr = $this->Designator . "1";
+            $this->Y_PartNr = 'Y_'. $this->Designator . "000001";
         }
         else {
         $lastRecord = intval($record->id);
-        $this->Y_PartNr =  $this->Designator . ++$lastRecord;
+        $this->Y_PartNr = 'Y_'. $this->Designator . sprintf('%06d', ++$lastRecord);
         }
 
         return $this->Y_PartNr;

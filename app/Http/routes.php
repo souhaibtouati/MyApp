@@ -79,7 +79,7 @@ Route::post('Altium/{type}/{table}/{id}/update', 'AltiumController@update');
 Route::post('Altium/delete', 'AltiumController@destroy');
 Route::get('Altium/{type}/{table}/{id}/view', 'AltiumController@PartIndex');
 Route::post('Altium/{type}/getRefs', 'AltiumController@populateRefs');
-
+Route::get('Altium/{type}/getsvn', 'AltiumController@getSVNinfos');
 Route::get('altcom', 'AltiumController@Test');
 
 
