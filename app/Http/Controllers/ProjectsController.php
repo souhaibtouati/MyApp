@@ -9,14 +9,26 @@ use View;
 use App\YProjects\yproject;
 use Illuminate\Support\Facades\Input;
 use Sentinel;
+use App\YProjects\manufacturer;
+use App\YProjects\order;
 
 class ProjectsController extends Controller
 {
     public function ProjectsIndex($group)
     {
+        $pcb_mans =[];
+        $Stencil_mans =[];
+        $project = new yproject;
+        $manuf = new manufacturer;
+        foreach ($manuf->getPCBmanufs() as $key => $pcbman) {
+            $pcb_mans[$pcbman->id] = $pcbman->name;
+        }
+        foreach ($manuf->getStencilmanufs() as $key => $stenman) {
+            $Stencil_mans[$stenman->id] = $stenman->name;
+        }
     	$projects = yproject::where('Group', $group)->orderBy('id', 'desc')->get();
 
-    	return View::make('YProjects.yprojects', ['projects' => $projects]);
+    	return View::make('YProjects.yprojects', ['projects' => $projects, 'proj'=>$project, 'PCBmanufs'=>$pcb_mans, 'StenMans'=>$Stencil_mans]);
     }
 
     public function MyProjects(Request $request)
@@ -28,20 +40,68 @@ class ProjectsController extends Controller
         
     }
 
-
-    public function CreateProject()
+    public function newProject()
     {
-    	$project = new yproject(Input::all());
-    	$project->Created_By = Sentinel::getUser()->initials;
-    	$project->ProjNumber = $project->TypesAb[$project->ProductType]. sprintf("%04d", $project->getNewID()). 'P01';
-    	$project->save();
-    	return redirect()->back()->withSuccess('Project '. $project->ProjNumber .' successfully Created');
+        $project = new yproject;
+        $manuf = new manufacturer;
+        foreach ($manuf->getPCBmanufs() as $key => $pcbman) {
+            $pcb_mans[$pcbman] = $pcbman;
+        }
+        foreach ($manuf->getStencilmanufs() as $key => $stenman) {
+            $Stencil_mans[$stenman] = $stenman;
+        }
+         
+       // $project->ProjNumber = $project->TypesAb[$project->ProductType]. sprintf("%04d", $project->getNewID()). 'P01';
+        return View::make('YProjects.newproj', ['proj'=>$project, 'PCBmanufs'=>$pcb_mans, 'StenMans'=>$Stencil_mans]);
+    }
+
+
+    public function Store()
+    {
+    	$user = Sentinel::getUser();
+    	$proj = new yproject;
+        
+        $proj->PCBType = Input::get('PCBType');
+        $proj->ProjNbr = Input::get('ProjNbr');
+        $proj->Description = Input::get('Description');
+        $proj->BIOS = Input::get('BIOS');
+        $proj->Planta = Input::get('Planta');
+        $proj->SolidW = Input::get('SolidW');
+        $proj->Conn_typ = Input::get('Conn_typ');
+        $proj->PCB_Manuf = Input::get('PCB_Manuf');
+        $proj->Stencil_Manuf = Input::get('Stencil_Manuf');
+        $proj->Created_By = $user->initials;
+        $proj->Group = $user->departement; 
+        
+        $created = $proj->save();
+
+        $pcb_order = new order;
+        $pcb_order->type = 'PCB';
+        $pcb_order->status = 1;
+        $pcb_order->project_id = $created->id;
+        $pcb_order->manufacturer_id = $proj->PCB_Manuf;
+        $pcb_order->save();
+
+        if ($proj->Stencil_Manuf) {
+            $stencil_order = new order;
+            $stencil_order->type = 'Stencil';
+            $stencil_order->status = 1;
+            $stencil_order->project_id = $created->id;
+            $stencil_order->manufacturer_id = $proj->PCB_Manuf;
+            $stencil_order->save();
+        }
+        return redirect()->back()->withSuccess('Project '. $proj->ProjNbr .' successfully Created');
     }
 
     public function ViewProject($id)
     {
+        $Stencil_Man = null;
     	$project = yproject::where('id',$id)->first();
-    	return View::make('YProjects.viewproject', ['project'=>$project]);
+        $PCB_Man = manufacturer::where('id',$project->PCB_Manuf)->first();
+        if ($project->Stencil_Manuf) {
+            $Stencil_Man = manufacturer::where('id',$project->Stencil_Manuf)->first();
+        }
+    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_man'=>$PCB_Man, 'stencil_man'=>$Stencil_Man]);
     }
 
     public function EditProject($id)
@@ -68,6 +128,26 @@ class ProjectsController extends Controller
     	}
 
     	
+    }
+
+    public function manuf()
+    {
+        $manuf_list = manufacturer::all();
+        return View::make('YProjects.manufacturers', ['manufs'=>$manuf_list]);
+    }
+
+    public function manufStore()
+    {
+       $manuf = new manufacturer;
+       $manuf->name = Input::get('name');
+       $manuf->email = Input::get('email');
+       $manuf->adress = Input::get('adress');
+       $manuf->phone = Input::get('phone');
+       $manuf->BIOS = Input::get('BIOS');
+       $manuf->product = Input::get('product');
+       $manuf->save();
+       return redirect()->back()->withSuccess($manuf->name .' was successfully created');
+    
     }
 }
 

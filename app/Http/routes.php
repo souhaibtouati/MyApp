@@ -91,9 +91,13 @@ Route::group(['prefix' => 'yproject'], function(){
 	Route::get('/{id}/view', 'ProjectsController@ViewProject');
 	Route::get('/myprojects', 'ProjectsController@MyProjects');
 	Route::get('/{id}/edit', 'ProjectsController@EditProject');
-	Route::post('/create', 'ProjectsController@CreateProject');
+	Route::get('/{id}/view','ProjectsController@ViewProject');
+	Route::post('/save', 'ProjectsController@Store');
 	Route::post('/newrev', 'ProjectsController@NewRevision');
 	Route::delete('/{id}/delete', 'ProjectsController@DeleteProject');
+	Route::get('/manufacturers', 'ProjectsController@manuf');
+	Route::get('/orders', 'ProjectsController@orders');
+	Route::post('/new_manuf', 'ProjectsController@manufStore');
 
 });
 

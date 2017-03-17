@@ -6,32 +6,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class yproject extends Model
 {
+    protected $connection = "projects";
     protected $table = 'yprojects';
-    protected $ProjNumber;
 
     protected $fillable = [
+        'ProjNbr',
+        'order_id',
     	'Description',
     	'SolidW', 
-    	'PartNumber', //Project part number
-    	'ProductType',
-    	'GenesisW', 
+    	'PartNumber', //PCB part number
+    	'PCBType',
+    	'BIOS', 
         'Planta',
-    	'Application',
-    	'Customer',
-    	'Responsible',
+        'Stencil_Manuf',
+        'Conn_typ',
+    	'PCB_Manuf',
     	'Group',
         'Created_By'
     ];
 
-    public $TypesAb =[
-        'PCB'=>'B',
-        'Kit'=>'K',
-        'Module'=>'M',
-        'Connector'=>'P',
-        'Software'=>'S',
-        'Socket'=>'T',
-        'BurnIn'=>'TB'
+    public static $PCBTypes =[
+        'QB'=>'Qualification Board',
+        'HFT'=>'HF Test board',
+        'INT'=>'Internal PCB',
+        'RIFL'=>'Rigid-Flex',
+        'FL'=>'Flex',
+        'S'=>'Solderability Test',
+        'C'=>'Customer'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany('App\yprojects\order');
+    }
 
 
     public function GetNewID()

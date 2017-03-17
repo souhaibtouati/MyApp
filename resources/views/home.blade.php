@@ -32,7 +32,7 @@
 					<tr>
 						<th>Project</th>
 						<th>Description</th>
-						<th>Planta</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody id="my-projs">
@@ -110,6 +110,14 @@
 @section('footer')
 
 <script type="text/javascript">
+const StatusList = {
+        Design: '#FFFF99',
+        Quotation:'#FFB266',
+        Approval:'#99CCFF',
+        Production:'#CC99FF',
+        Delivered:'#00CC00',
+        Cancelled:'#FFFFFF'};
+    
 var	token = $('input[name=_token]').val();
 	$.ajax({
 		url: 'yproject/myprojects',
@@ -118,7 +126,7 @@ var	token = $('input[name=_token]').val();
 	}).success(function(projs){
 		
 		$.each(projs, function(key, data){
-			$('#my-projs').append('<tr><td>'+ data.ProjNumber +'</td><td>'+ data.Description +'</td><td>'+ data.Planta +'</td></tr>');
+			$('#my-projs').append('<tr><td>'+ data.ProjNbr +'</td><td>'+ data.Description +'</td><td style="background-color:'+StatusList[data.Status]+'";>'+ data.Status +'</td></tr>');
 		});
 	}).done(function(){
 		$('#projtab').DataTable();
