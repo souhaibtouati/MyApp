@@ -9,10 +9,10 @@ class order extends Model
     protected $connection = "projects";
     protected $table = 'orders';
 
+    protected $type;
+
     protected $fillable = [
-	    'type',
-	    'yproject_id',
-	    'manufacturer_id',
+
 	    'quot_date',
 	    'offer_date',
 	    'approv_date',
@@ -23,6 +23,8 @@ class order extends Model
 	    'delivery_date',
 	    'status'
     ];
+
+
 
     public static $StatusList = [
         1=>['name'=>'Design','color'=>'#FFFF99'],
@@ -40,7 +42,7 @@ class order extends Model
 
     public function manufacturer()
     {
-        return $this->hasOne('App\YProjects\manufacturer');
+        return $this->belongsToMany('App\YProjects\manufacturer');
     }
 
     public static function getStatusList()

@@ -11,33 +11,59 @@ class yproject extends Model
 
     protected $fillable = [
         'ProjNbr',
-        'order_id',
     	'Description',
     	'SolidW', 
+        'stencil',
     	'PartNumber', //PCB part number
     	'PCBType',
     	'BIOS', 
         'Planta',
-        'Stencil_Manuf',
         'Conn_typ',
-    	'PCB_Manuf',
     	'Group',
         'Created_By'
     ];
 
-    public static $PCBTypes =[
-        'QB'=>'Qualification Board',
-        'HFT'=>'HF Test board',
-        'INT'=>'Internal PCB',
-        'RIFL'=>'Rigid-Flex',
-        'FL'=>'Flex',
-        'S'=>'Solderability Test',
-        'C'=>'Customer'
-    ];
+    // public static $PCBTypes =[
+    //     'QB'=>'Qualification Board',
+    //     'HFT'=>'HF Test board',
+    //     'INT'=>'Internal PCB',
+    //     'RIFL'=>'Rigid-Flex',
+    //     'FL'=>'Flex',
+    //     'S'=>'Solderability Test',
+    //     'C'=>'Customer'
+    // ];
 
     public function orders()
     {
-        return $this->hasMany('App\yprojects\order');
+        return $this->hasMany('App\YProjects\order');
+    }
+
+    public function getPCBStatus()
+    {
+        return $this->orders()->where('type','PCB')->first()->status;
+    }
+
+    public function getStencilStatus()
+    {
+        return $this->orders()->where('type','Stencil')->first()->status;
+    }
+
+    public function getOrderStatusName($type)
+    {
+        if ($type=='Stencil' && $this->stencil == false) {
+            return 'NA';
+        }
+        $order_status = $this->orders()->where('type',$type)->first()->status;
+        return order::$StatusList[$order_status]['name'];
+    }
+
+    public function getOrderStatusColor($type)
+    {
+        if ($type=='Stencil' && $this->stencil == false) {
+            return '#FFFFFF';
+        }
+        $order_status = $this->orders()->where('type',$type)->first()->status;
+        return order::$StatusList[$order_status]['color'];
     }
 
 

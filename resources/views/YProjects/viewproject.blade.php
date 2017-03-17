@@ -10,7 +10,7 @@
 
 @section('content-header')
 <h1><i class="fa fa-eye"></i><b> View</b> Project
-	<a class="btn btn-flat pull-right" style="background-color: {{$project::$StatusList[$project->Status]['color']}}">{{$project::$StatusList[$project->Status]['name']}}</a>
+	<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</a>
 </h1>
 
 @endsection
@@ -29,7 +29,7 @@
 				<label>PCB Type</label>
 			</div>
 			<div class="col-md-2">
-				<a>{{$project::$PCBTypes[$project->PCBType]}}</a>
+				<a>{{$project->PCBType}}</a>
 			</div>
 
 			<div class="col-md-1">
@@ -79,7 +79,7 @@
 <div class="box box-success">
 	<div class="box-header">
 		<h3 class="box-title">PCB Order</h3>
-		<a class="btn btn-flat pull-right" style="background-color: {{$project::$StatusList[$project->Status]['color']}}">{{$project::$StatusList[$project->Status]['name']}}</a>
+		<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</a>
 	</div>
 	<div class="box-body">
 
@@ -88,10 +88,10 @@
 				<tbody>
 					<tr>
 						<td><a class="btn btn-app" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>Quotation</a></td>
-						<td><a class="btn btn-app {{$project->Status < 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-handshake-o"></i>Offer</a></td>
-						<td><a class="btn btn-app {{$project->Status < 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-check-circle"></i>Approval</a></td>
-						<td><a class="btn btn-app {{$project->Status < 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-paper-plane"></i>Order</a></td>
-						<td><a class="btn btn-app {{$project->Status < 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$project->getPCBStatus() < 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-handshake-o"></i>Offer</a></td>
+						<td><a class="btn btn-app {{$project->getPCBStatus() < 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-check-circle"></i>Approval</a></td>
+						<td><a class="btn btn-app {{$project->getPCBStatus() < 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-paper-plane"></i>Order</a></td>
+						<td><a class="btn btn-app {{$project->getPCBStatus() < 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
 						<td>12/01/1989</td>
@@ -110,7 +110,7 @@
 					<label>Manufacturer</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$pcb_man->name}}</a>
+					<a></a>
 				</div>
 			</div>
 			
@@ -119,7 +119,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$pcb_man->email}}</a>
+					<a></a>
 				</div>
 			</div>
 			
@@ -128,7 +128,7 @@
 					<label>Phone</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$pcb_man->phone}}</a>
+					<a></a>
 				</div>
 			</div>
 		</div>
@@ -150,10 +150,11 @@
 
 
 
-@if($project->Stencil_Manuf)
+@if($project->stencil)
 <div class="box box-default">
 	<div class="box-header">
 		<h3 class="box-title">Stencil Order</h3>
+		<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('Stencil')}}">{{$project->getOrderStatusName('Stencil')}}</a>
 	</div>
 	<div class="box-body">
 
@@ -162,10 +163,10 @@
 				<tbody>
 					<tr>
 						<td><a class="btn btn-app" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>Quotation</a></td>
-						<td><a class="btn btn-app {{$project->Status < 2 ? 'disabled': ''}}"><i class="fa fa-handshake-o"></i>Offer</a></td>
-						<td><a class="btn btn-app {{$project->Status < 3 ? 'disabled': ''}}"><i class="fa fa-check-circle"></i>Approval</a></td>
-						<td><a class="btn btn-app {{$project->Status < 4 ? 'disabled': ''}}"><i class="fa fa-paper-plane"></i>Order</a></td>
-						<td><a class="btn btn-app {{$project->Status < 5 ? 'disabled': ''}}"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$project->getStencilStatus() < 2 ? 'disabled': ''}}"><i class="fa fa-handshake-o"></i>Offer</a></td>
+						<td><a class="btn btn-app {{$project->getStencilStatus() < 3 ? 'disabled': ''}}"><i class="fa fa-check-circle"></i>Approval</a></td>
+						<td><a class="btn btn-app {{$project->getStencilStatus() < 4 ? 'disabled': ''}}"><i class="fa fa-paper-plane"></i>Order</a></td>
+						<td><a class="btn btn-app {{$project->getStencilStatus() < 5 ? 'disabled': ''}}"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
 						<td>12/01/1989</td>
@@ -184,7 +185,7 @@
 					<label>Manufacturer</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$stencil_man->name}}</a>
+					<a></a>
 				</div>
 			</div>
 			
@@ -193,7 +194,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$stencil_man->email}}</a>
+					<a></a>
 				</div>
 			</div>
 			
@@ -202,7 +203,7 @@
 					<label>Phone</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$stencil_man->phone}}</a>
+					<a></a>
 				</div>
 			</div>
 		</div>

@@ -33,7 +33,15 @@
 						<div class="row">
 							<div class="col-md-2">
 								{{Form::label('PCBType', 'Project Type')}}
-								{{Form::select('PCBType',$proj::$PCBTypes,null,['class'=>'form-control'])}}
+								<select class="form-control" id="PCBType" name="PCBType">
+									<option value="Qualification Board">Qualification Board</option>
+									<option value="HF Test board">HF Test board</option>
+									<option value="Internal PCB">Internal PCB</option>
+									<option value="Rigid-Flex">Rigid-Flex</option>
+									<option value="Flex">Flex</option>
+									<option value="Solderability Test">Solderability Test</option>
+									<option value="Customer">Customer</option>
+								</select>
 							</div>
 
 							<div class="col-md-2">
@@ -80,19 +88,8 @@
 
 							<div class="col-md-2">
 								<label>Stencil</label>
-								<input type="checkbox" id="stencil" class="checkbox iCheck">
+								<input type="checkbox" name="stencil" id="stencil" class="checkbox iCheck">
 
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-2">
-								{{Form::label('PCB_Manuf', 'PCB Manufacturer')}}
-								{{Form::select('PCB_Manuf',$PCBmanufs,null,['class'=>'form-control'])}}
-							</div>
-							<div class="col-md-2">
-								{{Form::label('Stencil_Manuf', 'Stencil Manufacturer')}}
-								{{Form::select('Stencil_Manuf',$StenMans,null,['class'=>'form-control', 'disabled'=>'true'])}}
 							</div>
 						</div>
 
@@ -147,12 +144,12 @@
 			<tr>
 				<td>{{$project->ProjNbr}}</td>
 				<td>{{$project->Description}}</td>
-				<td>{{$project::$PCBTypes[$project->PCBType]}}</td>
+				<td>{{$project->PCBType}}</td>
 				<td>{{$project->SolidW}}</td>
 				<td>{{$project->Planta}}</td>
 				<td>{{$project->Created_By}}</td>
-				<td style="background-color: {{\App\YProjects\order::$StatusList[1]['color']}}">{{\App\YProjects\order::$StatusList[1]['name']}}</td>
-				<td style="background-color: {{\App\YProjects\order::$StatusList[1]['color']}}">{{\App\YProjects\order::$StatusList[1]['name']}}</td>
+				<td style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</td>
+				<td style="background-color: {{$project->getOrderStatusColor('Stencil')}}">{{$project->getOrderStatusName('Stencil')}}</td>
 				<td style="white-space: nowrap; display: inline-flex;">
 					<div class="input-group">
 						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action &nbsp<span class="fa fa-caret-down"></span></button>

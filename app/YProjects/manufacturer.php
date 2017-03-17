@@ -10,7 +10,6 @@ class manufacturer extends Model
     protected $table = 'manufacturers';
 
     protected $fillable = [
-        'order_id',
     	'name',
     	'adress',
     	'phone',
@@ -20,6 +19,11 @@ class manufacturer extends Model
     ];
 
     public $products =['PCB', 'Stencil'];
+
+    public function orders()
+    {
+        return $this->belongsToMany('App\YProjects\order');
+    }
 
     public function getPCBmanufs()
     {

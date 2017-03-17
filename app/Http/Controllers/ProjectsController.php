@@ -16,19 +16,12 @@ class ProjectsController extends Controller
 {
     public function ProjectsIndex($group)
     {
-        $pcb_mans =[];
-        $Stencil_mans =[];
-        $project = new yproject;
-        $manuf = new manufacturer;
-        foreach ($manuf->getPCBmanufs() as $key => $pcbman) {
-            $pcb_mans[$pcbman->id] = $pcbman->name;
-        }
-        foreach ($manuf->getStencilmanufs() as $key => $stenman) {
-            $Stencil_mans[$stenman->id] = $stenman->name;
-        }
+       
+       
+        
     	$projects = yproject::where('Group', $group)->orderBy('id', 'desc')->get();
 
-    	return View::make('YProjects.yprojects', ['projects' => $projects, 'proj'=>$project, 'PCBmanufs'=>$pcb_mans, 'StenMans'=>$Stencil_mans]);
+    	return View::make('YProjects.yprojects', ['projects' => $projects]);
     }
 
     public function MyProjects(Request $request)
@@ -59,49 +52,51 @@ class ProjectsController extends Controller
     public function Store()
     {
     	$user = Sentinel::getUser();
-    	$proj = new yproject;
-        
-        $proj->PCBType = Input::get('PCBType');
-        $proj->ProjNbr = Input::get('ProjNbr');
-        $proj->Description = Input::get('Description');
-        $proj->BIOS = Input::get('BIOS');
-        $proj->Planta = Input::get('Planta');
-        $proj->SolidW = Input::get('SolidW');
-        $proj->Conn_typ = Input::get('Conn_typ');
-        $proj->PCB_Manuf = Input::get('PCB_Manuf');
-        $proj->Stencil_Manuf = Input::get('Stencil_Manuf');
-        $proj->Created_By = $user->initials;
-        $proj->Group = $user->departement; 
-        
-        $created = $proj->save();
+        $attributes = [
+            'PCBType'=>Input::get('PCBType'),
+            'ProjNbr'=>Input::get('ProjNbr'),
+            'Description'=>Input::get('Description'),
+            'BIOS'=>Input::get('BIOS'),
+            'Planta'=>Input::get('Planta'),
+            'SolidW'=>Input::get('SolidW'),
+            'Conn_typ'=>Input::get('Conn_typ'),
+            'Created_By'=>$user->initials,
+            'Group'=>$user->departement
+        ];
+        if (Input::get('stencil') == 'on') {
+            $attributes['stencil'] = true;
+        }
+        else{$attributes['stencil'] = false;}
+
+        $proj = yproject::create($attributes);
+
+
 
         $pcb_order = new order;
         $pcb_order->type = 'PCB';
         $pcb_order->status = 1;
-        $pcb_order->project_id = $created->id;
-        $pcb_order->manufacturer_id = $proj->PCB_Manuf;
-        $pcb_order->save();
-
-        if ($proj->Stencil_Manuf) {
-            $stencil_order = new order;
-            $stencil_order->type = 'Stencil';
-            $stencil_order->status = 1;
-            $stencil_order->project_id = $created->id;
-            $stencil_order->manufacturer_id = $proj->PCB_Manuf;
-            $stencil_order->save();
+        $proj->orders()->save($pcb_order);
+        if($proj->stencil){
+            $sten_order = new order;
+            $sten_order->type = 'Stencil';
+            $sten_order->status = 1;
+            $proj->orders()->save($sten_order);
         }
+
+
         return redirect()->back()->withSuccess('Project '. $proj->ProjNbr .' successfully Created');
     }
 
     public function ViewProject($id)
     {
-        $Stencil_Man = null;
+        
     	$project = yproject::where('id',$id)->first();
-        $PCB_Man = manufacturer::where('id',$project->PCB_Manuf)->first();
-        if ($project->Stencil_Manuf) {
-            $Stencil_Man = manufacturer::where('id',$project->Stencil_Manuf)->first();
-        }
-    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_man'=>$PCB_Man, 'stencil_man'=>$Stencil_Man]);
+        $Stencil_Man = $project->orders()->where('type','Stencil')->first()->manufacturer();
+        $PCB_Man = $project->orders()->where('type','PCB')->first()->manufacturer();
+        $pcb_status = $project->getPCBStatus();
+        $sten_status = $project->getStencilStatus();
+       
+    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_man'=>$PCB_Man, 'stencil_man'=>$Stencil_Man, 'pcb_status'=>$pcb_status, 'sten_status'=>$sten_status]);
     }
 
     public function EditProject($id)
