@@ -90,13 +90,11 @@ class ProjectsController extends Controller
     public function ViewProject($id)
     {
         
-    	$project = yproject::where('id',$id)->first();
-        $Stencil_Man = $project->orders()->where('type','Stencil')->first()->manufacturer();
-        $PCB_Man = $project->orders()->where('type','PCB')->first()->manufacturer();
-        $pcb_status = $project->getPCBStatus();
-        $sten_status = $project->getStencilStatus();
+    	$project = yproject::find($id);
+        $pcb_order = $project->getPCBOrder();
+        $stencil_order = $project->getStencilOrder();
        
-    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_man'=>$PCB_Man, 'stencil_man'=>$Stencil_Man, 'pcb_status'=>$pcb_status, 'sten_status'=>$sten_status]);
+    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_order'=>$pcb_order, 'stencil_order'=>$stencil_order]);
     }
 
     public function EditProject($id)
@@ -143,6 +141,13 @@ class ProjectsController extends Controller
        $manuf->save();
        return redirect()->back()->withSuccess($manuf->name .' was successfully created');
     
+    }
+
+    public function processorder(Request $req)
+    {
+        $orderId = $req->orderId;
+        $orderStatus = $req->orderStatus;
+        return View::make('YProjects.process',['orderId'=>$orderId, 'orderStatus'=>$orderStatus]);
     }
 }
 

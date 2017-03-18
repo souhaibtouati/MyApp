@@ -10,7 +10,6 @@
 
 @section('content-header')
 <h1><i class="fa fa-eye"></i><b> View</b> Project
-	<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</a>
 </h1>
 
 @endsection
@@ -79,7 +78,7 @@
 <div class="box box-success">
 	<div class="box-header">
 		<h3 class="box-title">PCB Order</h3>
-		<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</a>
+		<a class="btn btn-flat pull-right" style="background-color: {{$pcb_order->getStatusColor()}}">{{$pcb_order->getStatusName()}}</a>
 	</div>
 	<div class="box-body">
 
@@ -87,18 +86,22 @@
 			<table class="table" style="text-align: center; width: 50%; margin: auto">
 				<tbody>
 					<tr>
-						<td><a class="btn btn-app" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>Quotation</a></td>
-						<td><a class="btn btn-app {{$project->getPCBStatus() < 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-handshake-o"></i>Offer</a></td>
-						<td><a class="btn btn-app {{$project->getPCBStatus() < 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-check-circle"></i>Approval</a></td>
-						<td><a class="btn btn-app {{$project->getPCBStatus() < 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-paper-plane"></i>Order</a></td>
-						<td><a class="btn btn-app {{$project->getPCBStatus() < 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-edit"></i>Quotation</a></td>
+
+						<td><a class="btn btn-app {{$pcb_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
+
+						<td><a class="btn btn-app {{$pcb_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-check-circle"></i>Approval</a></td>
+
+						<td><a class="btn btn-app {{$pcb_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-paper-plane"></i>Order</a></td>
+
+						<td><a class="btn btn-app {{$pcb_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
+						<td>{{ $pcb_order->quot_date }}</td>
+						<td>{{ $pcb_order->offer_date }}</td>
+						<td>{{ $pcb_order->approv_date }}</td>
+						<td>{{ $pcb_order->order_date }}</td>
+						<td>{{ $pcb_order->delivery_date }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -136,10 +139,10 @@
 		<div class="panel col-md-6">
 			<table class="table table-hover">
 				<thead>
-					<tr><th>Qty</th><th>Initial Cost</th><th>Cost/Piece</th><th>Total</th><th>pdf</th></tr>
+					<tr><th>Qty</th><th>Initial Cost <i class="fa fa-euro"></i></th><th>Cost/Piece  <i class="fa fa-euro"></i></th><th>Total  <i class="fa fa-euro"></i></th><th>pdf</th></tr>
 				</thead>
 				<tbody>
-					<td>12/01/1989</td><td>12/01/1989</td><td>12/01/1989</td><td>12/01/1989</td><td><a class="fa fa-file-pdf-o" style="color: red" href="/altium"></a></td>
+					<td>{{$pcb_order->qty}}</td><td>{{$pcb_order->Initial_cost}}</td><td>{{$pcb_order->cost_piece}}</td><td>{{$pcb_order->Initial_cost + ($pcb_order->cost_piece * $pcb_order->qty)}}</td><td><a href="{{$pcb_order->offer_pdf}}" class="fa fa-file-pdf-o" style="color: red"></a></td>
 				</tbody>
 			</table>
 		</div>
@@ -154,7 +157,7 @@
 <div class="box box-default">
 	<div class="box-header">
 		<h3 class="box-title">Stencil Order</h3>
-		<a class="btn btn-flat pull-right" style="background-color: {{$project->getOrderStatusColor('Stencil')}}">{{$project->getOrderStatusName('Stencil')}}</a>
+		<a class="btn btn-flat pull-right" style="background-color: {{$stencil_order->getStatusColor()}}">{{$stencil_order->getStatusName()}}</a>
 	</div>
 	<div class="box-body">
 
@@ -162,18 +165,22 @@
 			<table class="table" style="text-align: center; width: 50%; margin: auto">
 				<tbody>
 					<tr>
-						<td><a class="btn btn-app" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>Quotation</a></td>
-						<td><a class="btn btn-app {{$project->getStencilStatus() < 2 ? 'disabled': ''}}"><i class="fa fa-handshake-o"></i>Offer</a></td>
-						<td><a class="btn btn-app {{$project->getStencilStatus() < 3 ? 'disabled': ''}}"><i class="fa fa-check-circle"></i>Approval</a></td>
-						<td><a class="btn btn-app {{$project->getStencilStatus() < 4 ? 'disabled': ''}}"><i class="fa fa-paper-plane"></i>Order</a></td>
-						<td><a class="btn btn-app {{$project->getStencilStatus() < 5 ? 'disabled': ''}}"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-edit"></i>Quotation</a></td>
+
+						<td><a class="btn btn-app {{$stencil_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
+
+						<td><a class="btn btn-app {{$stencil_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-check-circle"></i>Approval</a></td>
+
+						<td><a class="btn btn-app {{$stencil_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-paper-plane"></i>Order</a></td>
+
+						<td><a class="btn btn-app {{$stencil_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
-						<td>12/01/1989</td>
+						<td>{{ $stencil_order->quot_date }}</td>
+						<td>{{ $stencil_order->offer_date }}</td>
+						<td>{{ $stencil_order->approv_date }}</td>
+						<td>{{ $stencil_order->order_date }}</td>
+						<td>{{ $stencil_order->delivery_date }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -211,10 +218,10 @@
 		<div class="panel col-md-6">
 			<table class="table table-hover">
 				<thead>
-					<tr><th>Qty</th><th>Initial Cost</th><th>Cost/Piece</th><th>Total</th></tr>
+					<tr><th>Qty</th><th>Initial Cost <i class="fa fa-euro"></i></th><th>Cost/Piece  <i class="fa fa-euro"></i></th><th>Total  <i class="fa fa-euro"></i></th><th>pdf</th></tr>
 				</thead>
 				<tbody>
-					<td>12/01/1989</td><td>12/01/1989</td><td>12/01/1989</td><td>12/01/1989</td>
+					<td>{{$stencil_order->qty}}</td><td>{{$stencil_order->Initial_cost}}</td><td>{{$stencil_order->cost_piece}}</td><td>{{$stencil_order->Initial_cost + ($stencil_order->cost_piece * $stencil_order->qty)}}</td><td><a href="{{$stencil_order->offer_pdf}}" class="fa fa-file-pdf-o" style="color: red"></a></td>
 				</tbody>
 			</table>
 		</div>
@@ -226,17 +233,8 @@
 
 <div id="myModal" class="modal fade" role="dialog" style="background-color: transparent;">
 	<div class="modal-dialog" style="width: 60%; margin-top: 10%">
-		<div class="modal-content">
-			<div class="modal-body" style="padding: 0">
-				<div class="box box-primary">
-				<div class="box-header">
-						<h3 class="box-title">Title</h3>
-					</div>
-				<div class="box-body">
-					
-				</div>
-				</div>
-			</div>
+		<div class="modal-content" id="model_process">
+			
 		</div>
 	</div>
 </div>
@@ -245,6 +243,7 @@
 
 @section('footer')
 <script type="text/javascript">
+
 	$(function () {
 		$('input').iCheck({
 			checkboxClass: 'icheckbox_square-blue',
@@ -259,5 +258,16 @@
 	$('#stencil').on('ifUnchecked', function(event){
 		$('#Stencil_Manuf').prop('disabled',true);
 	});
+
+	function processOrder(orderId, orderStatus) {
+		$.ajax({
+			url: '/yproject/processorder',
+			headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+			type: 'POST',
+			data: {orderId : orderId, orderStatus: orderStatus}
+		}).success(function(data){
+			$('#model_process').html(data);
+		});
+	}
 </script>
 @endsection

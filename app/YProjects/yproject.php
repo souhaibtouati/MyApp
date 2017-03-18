@@ -38,14 +38,18 @@ class yproject extends Model
         return $this->hasMany('App\YProjects\order');
     }
 
-    public function getPCBStatus()
+    
+    public function getPCBOrder()
     {
-        return $this->orders()->where('type','PCB')->first()->status;
+        return $this->orders()->where('type','PCB')->first();
     }
 
-    public function getStencilStatus()
+    public function getStencilOrder()
     {
-        return $this->orders()->where('type','Stencil')->first()->status;
+        if (!$this->stencil) {
+            return null;
+        }
+        return $this->orders()->where('type','Stencil')->first();
     }
 
     public function getOrderStatusName($type)

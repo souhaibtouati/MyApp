@@ -21,7 +21,8 @@ class order extends Model
 	   	'Initial_cost',
 	    'cost_piece',
 	    'delivery_date',
-	    'status'
+	    'status',
+        'offer_pdf'
     ];
 
 
@@ -48,5 +49,15 @@ class order extends Model
     public static function getStatusList()
     {
         return self::$StatusList;
+    }
+
+    public function getStatusColor()
+    {
+        return self::$StatusList[$this->status]['color'];
+    }
+
+    public function getStatusName()
+    {
+        return self::$StatusList[$this->status]['name'];
     }
 }

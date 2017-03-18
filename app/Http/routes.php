@@ -98,6 +98,19 @@ Route::group(['prefix' => 'yproject'], function(){
 	Route::get('/manufacturers', 'ProjectsController@manuf');
 	Route::get('/orders', 'ProjectsController@orders');
 	Route::post('/new_manuf', 'ProjectsController@manufStore');
+	Route::post('/processorder', 'ProjectsController@processorder');
+
+});
+
+//orders
+
+Route::group(['prefix' => 'yproject/order'], function(){
+	Route::post('/{id}/quotation', 'OrdersController@quotation');
+	Route::post('/{id}/offer', 'OrdersController@offer');
+	Route::post('/{id}/approve', 'OrdersController@approve');
+	Route::post('/{id}/order', 'OrdersController@order');
+	Route::post('/{id}/delivery', 'OrdersController@delivery');
+	Route::post('/{id}/cancel', 'OrdersController@cancel');
 
 });
 

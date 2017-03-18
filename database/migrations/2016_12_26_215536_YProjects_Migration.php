@@ -51,10 +51,11 @@ class YProjectsMigration extends Migration
             $table->date('approv_date')->nullable();
             $table->date('order_date')->nullable();
             $table->integer('qty')->nullable()->unsigned();
-            $table->decimal('Initial_cost',3,2)->nullable();
-            $table->decimal('cost_piece',3,2)->nullable();
+            $table->decimal('Initial_cost',6,2)->nullable()->unsigned();
+            $table->decimal('cost_piece',5,2)->nullable()->unsigned();
             $table->date('delivery_date')->nullable();
             $table->tinyInteger('status');
+            $table->string('offer_pdf')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
            
