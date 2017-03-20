@@ -99,6 +99,7 @@ Route::group(['prefix' => 'yproject'], function(){
 	Route::get('/orders', 'ProjectsController@orders');
 	Route::post('/new_manuf', 'ProjectsController@manufStore');
 	Route::post('/processorder', 'ProjectsController@processorder');
+	Route::post('/cancelorder', 'ProjectsController@cancelorder');
 
 });
 

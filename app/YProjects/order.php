@@ -9,10 +9,11 @@ class order extends Model
     protected $connection = "projects";
     protected $table = 'orders';
 
-    protected $type;
+
 
     protected $fillable = [
-
+        'type',
+        'owner',
 	    'quot_date',
 	    'offer_date',
 	    'approv_date',
@@ -22,7 +23,8 @@ class order extends Model
 	    'cost_piece',
 	    'delivery_date',
 	    'status',
-        'offer_pdf'
+        'offer_pdf',
+        'approv_by'
     ];
 
 
@@ -31,7 +33,7 @@ class order extends Model
         1=>['name'=>'Design','color'=>'#FFFF99'],
         2=>['name'=>'Quotation','color'=>'#FFB266'],
         3=>['name'=>'Approval', 'color'=>'#99CCFF'],
-        4=>['name'=>'Production','color'=>'#CC99FF'],
+        4=>['name'=>'Order','color'=>'#CC99FF'],
         5=>['name'=>'Delivered', 'color'=>'#00CC00'],
         6=>['name'=>'Cancelled','color'=>'#FFFFFF']
     ];
@@ -44,6 +46,11 @@ class order extends Model
     public function manufacturer()
     {
         return $this->belongsToMany('App\YProjects\manufacturer');
+    }
+
+    public function getManufacturer()
+    {
+        return $this->manufacturer()->first();
     }
 
     public static function getStatusList()
@@ -59,5 +66,21 @@ class order extends Model
     public function getStatusName()
     {
         return self::$StatusList[$this->status]['name'];
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getManList()
+    {
+        $man_list = [];
+        $manufs = manufacturer::where('product',$this->type)->get();
+        foreach ($manufs as $key => $man) {
+            $man_list[$man->id] = $man->name;
+        }
+        
+        return $man_list;
     }
 }

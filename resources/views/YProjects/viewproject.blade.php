@@ -1,11 +1,6 @@
 @extends('layouts.master')
 @section ('head')
-<style type="text/css">
-	.btn-success, .btn-default{
-		width:100px;
-		height: 50px;
-	}
-</style>
+
 @endsection
 
 @section('content-header')
@@ -78,7 +73,14 @@
 <div class="box box-success">
 	<div class="box-header">
 		<h3 class="box-title">PCB Order</h3>
-		<a class="btn btn-flat pull-right" style="background-color: {{$pcb_order->getStatusColor()}}">{{$pcb_order->getStatusName()}}</a>
+		<div class="input-group pull-right">
+			<button class="btn btn-flat" style="background-color: {{$pcb_order->getStatusColor()}}" data-toggle="dropdown">{{$pcb_order->getStatusName()}}</button>
+			<ul class="dropdown-menu" style="min-width: 100px">
+				<li>
+					<a type="button" data-toggle="modal" data-target="#myModal" href="" onclick="CancelOrder({{$pcb_order->id}})"><i class="fa fa-window-close"></i> Cancel order</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="box-body">
 
@@ -86,15 +88,15 @@
 			<table class="table" style="text-align: center; width: 50%; margin: auto">
 				<tbody>
 					<tr>
-						<td><a class="btn btn-app {{$pcb_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-edit"></i>Quotation</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}})"><i class="fa fa-edit"></i>Quotation</a></td>
 
-						<td><a class="btn btn-app {{$pcb_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
 
-						<td><a class="btn btn-app {{$pcb_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-check-circle"></i>Approval</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}})"><i class="fa fa-check-circle"></i>Approval</a></td>
 
-						<td><a class="btn btn-app {{$pcb_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-paper-plane"></i>Order</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}})"><i class="fa fa-paper-plane"></i>Order</a></td>
 
-						<td><a class="btn btn-app {{$pcb_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}}, {{$pcb_order->status}})"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$pcb_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$pcb_order->id}})"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
 						<td>{{ $pcb_order->quot_date }}</td>
@@ -102,6 +104,9 @@
 						<td>{{ $pcb_order->approv_date }}</td>
 						<td>{{ $pcb_order->order_date }}</td>
 						<td>{{ $pcb_order->delivery_date }}</td>
+					</tr>
+					<tr>
+						<td></td><td></td><td>{{$pcb_order->approv_by}}</td><td></td><td></td>
 					</tr>
 				</tbody>
 			</table>
@@ -113,7 +118,7 @@
 					<label>Manufacturer</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$pcb_man ? $pcb_man->name : ''}}</a>
 				</div>
 			</div>
 			
@@ -122,7 +127,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$pcb_man ? $pcb_man->email : ''}}</a>
 				</div>
 			</div>
 			
@@ -131,7 +136,7 @@
 					<label>Phone</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$pcb_man ? $pcb_man->phone : ''}}</a>
 				</div>
 			</div>
 		</div>
@@ -157,7 +162,14 @@
 <div class="box box-default">
 	<div class="box-header">
 		<h3 class="box-title">Stencil Order</h3>
-		<a class="btn btn-flat pull-right" style="background-color: {{$stencil_order->getStatusColor()}}">{{$stencil_order->getStatusName()}}</a>
+		<div class="input-group pull-right">
+			<button class="btn btn-flat" style="background-color: {{$stencil_order->getStatusColor()}}" data-toggle="dropdown">{{$stencil_order->getStatusName()}}</button>
+			<ul class="dropdown-menu" style="min-width: 100px">
+				<li>
+					<a type="button" data-toggle="modal" data-target="#myModal" href="" onclick="CancelOrder({{$stencil_order->id}})"><i class="fa fa-window-close"></i> Cancel order</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="box-body">
 
@@ -165,15 +177,15 @@
 			<table class="table" style="text-align: center; width: 50%; margin: auto">
 				<tbody>
 					<tr>
-						<td><a class="btn btn-app {{$stencil_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-edit"></i>Quotation</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 1 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}})"><i class="fa fa-edit"></i>Quotation</a></td>
 
-						<td><a class="btn btn-app {{$stencil_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 2 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}})"><i class="fa fa-handshake-o"></i>Offer</a></td>
 
-						<td><a class="btn btn-app {{$stencil_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-check-circle"></i>Approval</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 3 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}})"><i class="fa fa-check-circle"></i>Approval</a></td>
 
-						<td><a class="btn btn-app {{$stencil_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-paper-plane"></i>Order</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 4 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}})"><i class="fa fa-paper-plane"></i>Order</a></td>
 
-						<td><a class="btn btn-app {{$stencil_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}}, {{$stencil_order->status}})"><i class="fa fa-archive"></i>Delivery</a></td>
+						<td><a class="btn btn-app {{$stencil_order->status != 5 ? 'disabled': ''}}" type="button" data-toggle="modal" data-target="#myModal" onclick="processOrder({{$stencil_order->id}})"><i class="fa fa-archive"></i>Delivery</a></td>
 					</tr>
 					<tr>
 						<td>{{ $stencil_order->quot_date }}</td>
@@ -181,6 +193,9 @@
 						<td>{{ $stencil_order->approv_date }}</td>
 						<td>{{ $stencil_order->order_date }}</td>
 						<td>{{ $stencil_order->delivery_date }}</td>
+					</tr>
+					<tr>
+						<td></td><td></td><td>{{$stencil_order->approv_by}}</td><td></td><td></td>
 					</tr>
 				</tbody>
 			</table>
@@ -192,7 +207,7 @@
 					<label>Manufacturer</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$sten_man ? $sten_man->name : ''}}</a>
 				</div>
 			</div>
 			
@@ -201,7 +216,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$sten_man ? $sten_man->email : ''}}</a>
 				</div>
 			</div>
 			
@@ -210,7 +225,7 @@
 					<label>Phone</label>
 				</div>
 				<div class="col-md-4">
-					<a></a>
+					<a>{{$sten_man ? $sten_man->phone : ''}}</a>
 				</div>
 			</div>
 		</div>
@@ -259,12 +274,23 @@
 		$('#Stencil_Manuf').prop('disabled',true);
 	});
 
-	function processOrder(orderId, orderStatus) {
+	function processOrder(orderId, cancel = false) {
 		$.ajax({
 			url: '/yproject/processorder',
 			headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
 			type: 'POST',
-			data: {orderId : orderId, orderStatus: orderStatus}
+			data: {orderId : orderId}
+		}).success(function(data){
+			$('#model_process').html(data);
+		});
+	}
+
+	function CancelOrder(orderId) {
+		$.ajax({
+			url: '/yproject/cancelorder',
+			headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+			type: 'POST',
+			data: {orderId : orderId}
 		}).success(function(data){
 			$('#model_process').html(data);
 		});

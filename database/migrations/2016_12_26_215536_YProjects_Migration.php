@@ -45,6 +45,7 @@ class YProjectsMigration extends Migration
         Schema::connection('projects')->create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
+            $table->integer('owner');
             $table->integer('yproject_id');
             $table->date('quot_date')->nullable();
             $table->date('offer_date')->nullable();
@@ -56,6 +57,7 @@ class YProjectsMigration extends Migration
             $table->date('delivery_date')->nullable();
             $table->tinyInteger('status');
             $table->string('offer_pdf')->nullable();
+            $table->string('approv_by')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
            

@@ -16,8 +16,6 @@ class ProjectsController extends Controller
 {
     public function ProjectsIndex($group)
     {
-       
-       
         
     	$projects = yproject::where('Group', $group)->orderBy('id', 'desc')->get();
 
@@ -75,11 +73,13 @@ class ProjectsController extends Controller
         $pcb_order = new order;
         $pcb_order->type = 'PCB';
         $pcb_order->status = 1;
+        $pcb_order->owner = $user->id;
         $proj->orders()->save($pcb_order);
         if($proj->stencil){
             $sten_order = new order;
             $sten_order->type = 'Stencil';
             $sten_order->status = 1;
+            $sten_order->owner = $user->id;
             $proj->orders()->save($sten_order);
         }
 
@@ -93,8 +93,14 @@ class ProjectsController extends Controller
     	$project = yproject::find($id);
         $pcb_order = $project->getPCBOrder();
         $stencil_order = $project->getStencilOrder();
+        $sten_man = null;
+        $pcb_man = $pcb_order->getManufacturer();
+        if ($stencil_order) {
+            $sten_man = $stencil_order->getManufacturer();
+        }
+        
        
-    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_order'=>$pcb_order, 'stencil_order'=>$stencil_order]);
+    	return View::make('YProjects.viewproject', ['project'=>$project, 'pcb_order'=>$pcb_order, 'stencil_order'=>$stencil_order, 'pcb_man'=>$pcb_man, 'sten_man'=>$sten_man]);
     }
 
     public function EditProject($id)
@@ -145,9 +151,14 @@ class ProjectsController extends Controller
 
     public function processorder(Request $req)
     {
-        $orderId = $req->orderId;
-        $orderStatus = $req->orderStatus;
-        return View::make('YProjects.process',['orderId'=>$orderId, 'orderStatus'=>$orderStatus]);
+        $order = order::find($req->orderId);
+        return View::make('YProjects.process',['order'=>$order]);
+    }
+
+    public function cancelorder(Request $req)
+    {
+        $order = order::find($req->orderId);
+        return View::make('YProjects.cancel',['order'=>$order]);
     }
 }
 

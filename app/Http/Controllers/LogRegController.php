@@ -107,7 +107,8 @@ class LogRegController extends Controller
 		$validator = Validator::make($request->all(), [
             'first_name' => 'required|max:255|',
 			'last_name' => 'required|max:255|',
-			'tite' => 'registered|max255',
+			'tite' => 'registered|max:255',
+			'initials'=>'required|max:5',
 			'email' => 'required|email|max:255|unique:users',
 			'password' => 'required|min:6|confirmed',
         ]);
