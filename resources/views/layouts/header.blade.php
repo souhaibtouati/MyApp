@@ -15,7 +15,9 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
         <ul class="nav navbar-nav">
+        <li><a href="/Altium/PWR"><i class="fa fa-flash"></i> POWER</a></li>
         <li><a href="/Altium/Connector"><i class="fa fa-plug"></i> CONNECTORS</a></li>
+        <li><a href="/Altium/Signal"><i class="fa fa-random"></i> SIGNAL</a></li>
         <li><a href="/yproject/show/dev"><i class="fa fa-microchip"></i> PCB PROJECTS</a></li>
         </ul>
 

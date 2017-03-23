@@ -9,12 +9,27 @@ use Illuminate\Support\Facades\Input;
 use App\YProjects\order;
 use App\YProjects\manufacturer;
 use Sentinel;
-
+use Mail;
 class OrdersController extends Controller
 {
+	
+
 	public function quotation($id)
 	{
+		\Config::set('mail.username','souhaib.t@yamaichi.de');
+			\Config::set('mail.password','Sto15801yte');
+
+			Mail::send('emails.pcboffer', ['user'=>null],function ($m) {
+				$m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
+				$m->to('souhaib.touati@gmail.com', 'Souhaib Touati')->subject('PCB offer');
+			});
+
+
+
 		$order = order::find($id);
+		if (!$order->checkOwner()) {
+			return redirect()->back()->withErrors('You are not the owner of this order');
+		} 
 
 		if ($order->status != 1) {
 			return false;
@@ -26,7 +41,7 @@ class OrdersController extends Controller
 			$order->quot_date = date("Y-m-d");
 			$order->save();
 			$order->manufacturer()->save($manuf);
-
+			
 			return redirect()->back()->withSuccess('Quotation ready');
 
 		}
@@ -36,6 +51,9 @@ class OrdersController extends Controller
 	{
 
 		$order = order::find($id);
+		if (!$order->checkOwner()) {
+			return redirect()->back()->withErrors('You are not the owner of this order');
+		} 
 		if ($order->status != 2) {
 			return false;
 		}
@@ -61,14 +79,16 @@ class OrdersController extends Controller
 			return false;
 		}
 		$user = Sentinel::getUser();
-		if (!$user->hasAccess('POR')) {
-			return redirect()->back()->withErrors('You do not have the right to approve this order');
-		}
+
 		$credentials = ['email'=>$user->email, 'password'=>Input::get('password')];
 
 		if(!Sentinel::validateCredentials($user, $credentials))	{
 			return redirect()->back()->withErrors('wrong password');
 		}
+		if (!$user->hasAccess('POR')) {
+			return redirect()->back()->withErrors('You have no permission to approve this order');
+		}
+		
 		$order->approv_date = date('Y-m-d');
 		$order->approv_by = $user->initials;
 		$order->status = 4;
@@ -81,9 +101,19 @@ class OrdersController extends Controller
 	public function order($id)
 	{
 		$order = order::find($id);
+		if (!$order->checkOwner()) {
+			return redirect()->back()->withErrors('You are not the owner of this order');
+		} 
 		if ($order->status != 4) {
 			return false;
 		}
+		$file_content = file_get_contents(Input::file('order_json'));
+		// $filename = Input::file('order_json')->getClientOriginalName();
+		// $destination = storage_path('Uploads/orders/order/json/');
+		// Input::file('order_json')->move($destination, $filename);
+		// $file_content = file_get_contents($destination .'/'. $filename);
+		$json = json_decode($file_content, true);
+		dd($json);
 	}
 
 	public function delivery($id)
@@ -97,11 +127,11 @@ class OrdersController extends Controller
 	public function cancel($id)
 	{
 		$order = order::find($id);
+		if (!$order->checkOwner()) {
+			return redirect()->back()->withErrors('You are not the owner of this order');
+		} 
 		$user = Sentinel::getUser();
-
-		if ($order->owner != $user->id) {
-			return redirect()->back()->withErrors('Only order owner can cancel it');
-		}
+		
 		$credentials = ['email'=>$user->email, 'password'=>Input::get('password')];
 
 		if(!Sentinel::validateCredentials($user, $credentials))	{
@@ -112,4 +142,5 @@ class OrdersController extends Controller
 		return redirect()->back()->withSuccess('Order Cancelled');
 	}
 
+	
 }

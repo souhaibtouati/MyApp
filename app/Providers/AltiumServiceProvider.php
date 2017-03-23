@@ -33,7 +33,7 @@ class AltiumServiceProvider extends ServiceProvider
     public function registerPartsRepository()
     {
         $this->app->bind('Altium.PartRepository', function($app){
-            return new PartRepository;
+            return new PartRepository(null);
         });
     }
 

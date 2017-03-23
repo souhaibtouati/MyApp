@@ -23,6 +23,16 @@
                   </div>
                   @endif
 
+                   @if ($errors->has('user-not-found'))
+                  <br>
+                  <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Sorry!</h4>
+                    {{ $errors->first('user-not-found') }}
+
+                  </div>
+                  @endif
+
             @if (session()->has('success'))
                   <br>
                   <div class="alert alert-success alert-dismissible">
@@ -33,23 +43,10 @@
                   </div>
                   @endif
             <!-- form start -->
-            {{Form::open(array('url' => 'pwd-reset', 'method' => 'put', 'class' => 'form-horizontal'))}}
+            {{Form::open(array('url' => 'pwd-reset/update/'.$id.'/'.$code, 'class' => 'form-horizontal'))}}
                 
               <div class="box-body">
-                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
-                  <label for="email" class="col-sm-2 control-label">Email</label>
-
-                  <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}">
-                  </div>
-                </div>
-                <div class="form-group {{ $errors->has('Code') ? ' has-error' : '' }} has-feedback">
-                  <label for="Code" class="col-sm-2 control-label">Code</label>
-
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Code" name="Code" placeholder="Code" value="{{old('Code')}}">
-                  </div>
-                </div>
+                
                 <div class="form-group {{ $errors->has('newpassword') ? ' has-error' : '' }} has-feedback">
                   <label for="newpassword" class="col-sm-2 control-label">New Password</label>
 
@@ -68,7 +65,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <a class="btn btn-default" href="login">Back</a>
+                <a class="btn btn-default" href="/login">Back</a>
                 <button type="submit" class="btn btn-info pull-right">Reset</button>
               </div>
               <!-- /.box-footer -->

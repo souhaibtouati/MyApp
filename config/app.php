@@ -149,6 +149,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+
         
 
         /*
@@ -227,6 +229,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'SentinelEx' => \App\Users\Facades\Sentinel_exFacade::class,
         'Altium' => \App\Altium\Facades\AltiumFacade::class,
+
 
         /*
          * Acacha Llum Aliases...

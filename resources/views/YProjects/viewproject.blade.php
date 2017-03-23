@@ -1,6 +1,14 @@
 @extends('layouts.master')
 @section ('head')
-
+<style type="text/css">
+	.btn-app {
+		
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.btn-app.disabled {
+		background-color: #f4f4f4;
+	}
+</style>
 @endsection
 
 @section('content-header')
@@ -147,7 +155,7 @@
 					<tr><th>Qty</th><th>Initial Cost <i class="fa fa-euro"></i></th><th>Cost/Piece  <i class="fa fa-euro"></i></th><th>Total  <i class="fa fa-euro"></i></th><th>pdf</th></tr>
 				</thead>
 				<tbody>
-					<td>{{$pcb_order->qty}}</td><td>{{$pcb_order->Initial_cost}}</td><td>{{$pcb_order->cost_piece}}</td><td>{{$pcb_order->Initial_cost + ($pcb_order->cost_piece * $pcb_order->qty)}}</td><td><a href="{{$pcb_order->offer_pdf}}" class="fa fa-file-pdf-o" style="color: red"></a></td>
+					<td>{{$pcb_order->qty}}</td><td>{{$pcb_order->Initial_cost}}</td><td>{{$pcb_order->cost_piece}}</td><td>{{$pcb_order->Initial_cost + ($pcb_order->cost_piece * $pcb_order->qty)}}</td><td><a href="{{$pcb_order->offer_pdf}}" target="_blank" class="fa fa-file-pdf-o" style="color: red"></a></td>
 				</tbody>
 			</table>
 		</div>
@@ -236,7 +244,7 @@
 					<tr><th>Qty</th><th>Initial Cost <i class="fa fa-euro"></i></th><th>Cost/Piece  <i class="fa fa-euro"></i></th><th>Total  <i class="fa fa-euro"></i></th><th>pdf</th></tr>
 				</thead>
 				<tbody>
-					<td>{{$stencil_order->qty}}</td><td>{{$stencil_order->Initial_cost}}</td><td>{{$stencil_order->cost_piece}}</td><td>{{$stencil_order->Initial_cost + ($stencil_order->cost_piece * $stencil_order->qty)}}</td><td><a href="{{$stencil_order->offer_pdf}}" class="fa fa-file-pdf-o" style="color: red"></a></td>
+					<td>{{$stencil_order->qty}}</td><td>{{$stencil_order->Initial_cost}}</td><td>{{$stencil_order->cost_piece}}</td><td>{{$stencil_order->Initial_cost + ($stencil_order->cost_piece * $stencil_order->qty)}}</td><td><a href="{{$stencil_order->offer_pdf}}" class="fa fa-file-pdf-o" target="_blank" style="color: red"></a></td>
 				</tbody>
 			</table>
 		</div>

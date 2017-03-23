@@ -24,9 +24,9 @@ Route::get('register', 'LogRegController@AuthenticationIndex');
 Route::post('register', 'LogRegController@RegisterPost')->name('register');
 
 // Password Reset...
-Route::get('pwd-reset', 'LogRegController@PassResetIndex');
-Route::post('pwd-reset', 'LogRegController@NewPassRequest');
-Route::put('pwd-reset', 'LogRegController@PassResetUpdate');
+Route::get('/pwd-reset/{id}/{code}', 'LogRegController@PassResetIndex');
+Route::post('/pwd-reset', 'LogRegController@NewPassRequest');
+Route::post('/pwd-reset/update/{id}/{code}', 'LogRegController@PassResetUpdate');
 
 // Application Landing route...
 Route::get('/', 'LogRegController@rootshow');
@@ -120,3 +120,8 @@ Route::group(['prefix' => 'yproject/order'], function(){
 
 Route::get('Settings/Altium/SVN', 'PagesController@SVNSettingsIndex');
 Route::post('Settings/Altium/SVN/update', 'PagesController@SVNSettingsUpdate');
+
+Route::get('/mailtest', function(){
+	
+	return View::make('emails.pcboffer');
+});

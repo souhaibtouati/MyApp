@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset("/css/AdminLTE.min.css")}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset("/plugins/iCheck/square/blue.css")}}"">
+
   <!-- jQuery 2.2.3 -->
 <script src="{{ asset("/plugins/jQuery/jquery-2.2.3.min.js")}}"></script>
 
@@ -36,6 +37,7 @@
 <script src="{{ asset ("/js/bootstrap.min.js")}}"></script>
 <!-- iCheck -->
 <script src="{{ asset ("/plugins/iCheck/icheck.min.js")}}"></script>
+
 <script>
   $(function () {
     $('input').iCheck({
@@ -44,6 +46,8 @@
       increaseArea: '20%' // optional
     });
   });
+
 </script>
+
 </body>
 </html>

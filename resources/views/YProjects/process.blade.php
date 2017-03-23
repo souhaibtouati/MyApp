@@ -10,18 +10,27 @@
 
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/quotation'])}}
 			
-			<div class="col-md-3">
-				{{Form::label('manufacturer', 'Manufacturer')}}
-				{{Form::select('manufacturer', $order->getManList(), null, ['class'=>'form-control'])}}
+			<div class="row">
+				<div class="col-md-3">
+					{{Form::label('json','JSON File')}}
+					{{Form::file('json')}}
+				</div>
 			</div>
-			<div class="col-md-4">
-				{{Form::label('qty', 'Qty')}}
-
-				<div class="input-group">
-					{{Form::text('qty', null, ['class'=>'form-control'])}}
-					<span class="input-group-btn">
-						{{ Form::button('<i class="fa fa-save"></i> Submit' , ['class'=>'btn btn-success pull-left' , 'type'=>'submit'])}}
-					</span>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					{{Form::label('manufacturer', 'Manufacturer')}}
+					{{Form::select('manufacturer', $order->getManList(), null, ['class'=>'form-control'])}}
+				</div>
+				<div class="col-md-4">
+					{{Form::label('qty', 'Qty')}}
+				
+					<div class="input-group">
+						{{Form::text('qty', null, ['class'=>'form-control'])}}
+						<span class="input-group-btn">
+							{{ Form::button('<i class="fa fa-save"></i> Submit' , ['class'=>'btn btn-success pull-left' , 'type'=>'submit'])}}
+						</span>
+					</div>
 				</div>
 			</div>
 
@@ -69,7 +78,7 @@
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/approve'])}}
 
 			<div class="col-md-12">
-			<div class="row">
+				<div class="row">
 					<p>Do you want to approve this order?</p>
 				</div>
 
@@ -100,8 +109,11 @@
 			<h3 class="box-title">Send Order</h3>
 		</div>
 		<div class="box-body">
-			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/order'])}}
+			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/order', 'files'=>true])}}
+			{{Form::label('order_json', 'Order JSON')}}
+			{{Form::file('order_json')}}
 
+			{{ Form::button('<i class="fa fa-save"></i> Submit' , ['class'=>'btn btn-success pull-right' , 'type'=>'submit'])}}
 			{{Form::close()}}
 
 		</div>

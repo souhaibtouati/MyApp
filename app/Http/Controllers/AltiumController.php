@@ -19,6 +19,11 @@ use Webcreate\Vcs\Common;
 
 class AltiumController extends Controller
 {
+	function __construct()
+    {
+    	$this->middleware('SentinelAuth');
+    }
+    
 	public function index()
 	{
 		return view('Altium.category');
@@ -72,6 +77,7 @@ class AltiumController extends Controller
 		else{
 			try{
 				$SYMret = Altium::ImportToSVN($type, 'SYM');
+
 				$part['Library Ref'] = $SYMret['name'];
 				$part->SYMPath = $SYMret['path'];
 			}

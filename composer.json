@@ -12,7 +12,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "laravelcollective/html": "~5.0",
         "intervention/image": "^2.3",
-        "webcreate/vcs": "dev-master"
+        "webcreate/vcs": "dev-master",
+        "adldap2/adldap2-laravel": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -3,6 +3,7 @@
 namespace App\YProjects;
 
 use Illuminate\Database\Eloquent\Model;
+use Sentinel;
 
 class order extends Model
 {
@@ -30,10 +31,10 @@ class order extends Model
 
 
     public static $StatusList = [
-        1=>['name'=>'Design','color'=>'#FFFF99'],
-        2=>['name'=>'Quotation','color'=>'#FFB266'],
-        3=>['name'=>'Approval', 'color'=>'#99CCFF'],
-        4=>['name'=>'Order','color'=>'#CC99FF'],
+        1=>['name'=>'Design','color'=>'#E0E0E0'],
+        2=>['name'=>'Quotation','color'=>'#FF9999'],
+        3=>['name'=>'Approval', 'color'=>'#FFFF99'],
+        4=>['name'=>'Order','color'=>'#99CCFF'],
         5=>['name'=>'Delivered', 'color'=>'#00CC00'],
         6=>['name'=>'Cancelled','color'=>'#FFFFFF']
     ];
@@ -83,4 +84,13 @@ class order extends Model
         
         return $man_list;
     }
+
+    public function checkOwner()
+    {
+        if ($this->owner != Sentinel::getUser()->id) {
+            return false;
+        }
+        return true;
+    }
+
 }

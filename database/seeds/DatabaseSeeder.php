@@ -32,7 +32,9 @@ class DatabaseSeeder extends Seeder
 			'email'    => 'souhaib.touati@gmail.com',
 			'password' => 'admin123',
 			'first_name' => 'Souhaib',
-			'last_name' => 'touati'
+			'last_name' => 'touati',
+			'initials'=>'STO',
+			'departement'=>'DEV'
 		];
 
 		$adminUser = Sentinel::registerAndActivate($admin);

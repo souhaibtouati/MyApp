@@ -45,8 +45,9 @@ class YProjectsMigration extends Migration
         Schema::connection('projects')->create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->integer('owner');
-            $table->integer('yproject_id');
+            $table->integer('owner')->unsigned();
+            $table->integer('yproject_id')->unsigned();
+            $table->integer('manufacturer_id')->unsigned();
             $table->date('quot_date')->nullable();
             $table->date('offer_date')->nullable();
             $table->date('approv_date')->nullable();

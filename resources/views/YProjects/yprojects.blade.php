@@ -177,6 +177,7 @@
 	<table class="table table-hover" id="proj-table">
 		<thead>
 			<tr>
+			<th></th>
 				<th>Project</th>
 				<th>Description</th>
 				<th>Type</th>
@@ -185,12 +186,25 @@
 				<th>Created By</th>
 				<th>PCB</th>
 				<th>Stencil</th>
-				<th></th>
+				
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($projects as $project)
 			<tr>
+			<td>
+					<!-- <div class="input-group">
+						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action &nbsp<span class="fa fa-caret-down"></span></button>
+						<ul class="dropdown-menu" style="min-width: 100px">
+							<li><a href="/yproject/{{$project->id}}/view"><i class="fa fa-eye"></i>View</a></li>
+							<li><a href="/yproject/{{$project->id}}/edit"><i class="fa fa-edit"></i>Edit</a></li>
+							<li><a href="/yproject/{{$project->id}}/copy"><i class="fa fa-copy"></i>Copy</a></li>
+							<li><a href="/yproject/{{$project->id}}/newrev"><i class="fa fa-recycle"></i>New Revision</a></li>
+						</ul> 
+					</div> -->
+					<a class="btn btn-primary" href="/yproject/{{$project->id}}/view"><i class="fa fa-external-link"></i></a>
+					
+				</td>
 				<td>{{$project->ProjNbr}}</td>
 				<td>{{$project->Description}}</td>
 				<td>{{$project->PCBType}}</td>
@@ -199,21 +213,7 @@
 				<td>{{$project->Created_By}}</td>
 				<td style="background-color: {{$project->getOrderStatusColor('PCB')}}">{{$project->getOrderStatusName('PCB')}}</td>
 				<td style="background-color: {{$project->getOrderStatusColor('Stencil')}}">{{$project->getOrderStatusName('Stencil')}}</td>
-				<td style="white-space: nowrap; display: inline-flex;">
-					<div class="input-group">
-						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action &nbsp<span class="fa fa-caret-down"></span></button>
-						<ul class="dropdown-menu" style="min-width: 100px">
-							<li><a href="/yproject/{{$project->id}}/view"><i class="fa fa-eye"></i>View</a></li>
-							<li><a href="/yproject/{{$project->id}}/edit"><i class="fa fa-edit"></i>Edit</a></li>
-							<li><a href="/yproject/{{$project->id}}/copy"><i class="fa fa-copy"></i>Copy</a></li>
-							<li><a href="/yproject/{{$project->id}}/newrev"><i class="fa fa-recycle"></i>New Revision</a></li>
-						</ul> 
-					</div>
-
-					{{ Form::open(['url' => '/yproject/' . $project->id . '/delete', 'method' => 'DELETE', 'class'=>'delete']) }}
-					{{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'id'=>'delete', 'data-toggle'=>'modal','data-target'=>'#confirmDelete'])}}
-					{{ Form::close() }}
-				</td>
+				
 			</tr>
 			@endforeach
 		</tbody>

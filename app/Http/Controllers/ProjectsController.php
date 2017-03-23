@@ -14,6 +14,11 @@ use App\YProjects\order;
 
 class ProjectsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('SentinelAuth');
+    }
+    
     public function ProjectsIndex($group)
     {
         
