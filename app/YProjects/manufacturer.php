@@ -13,7 +13,9 @@ class manufacturer extends Model
     	'name',
     	'adress',
     	'phone',
-    	'email',
+    	'email1',
+        'email2',
+        'email3',
     	'product',
     	'BIOS'
     ];

@@ -219,9 +219,6 @@ public function RegisterPost(Request $request)
 	public function sendEmailReminder($code, $user)
 	{
 
-		\Config::set('mail.username','souhaib.t@yamaichi.de');
-		\Config::set('mail.password','Sto15801yte');
-
 		Mail::send('emails.reminder', ['id' => $user->id, 'code' => $code], function ($m) use ($user) {
 			$m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
 			$m->to($user->email, $user->first_name .' '. $user->last_name)->subject('Password Reset!');

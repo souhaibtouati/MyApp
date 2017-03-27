@@ -220,7 +220,7 @@
 	</table>
 </div>
 </div>
-<div class="col-md-12" style="display: inline;">
+<div class="col-md-12" style="display: inline; margin-bottom: 50px">
 	@foreach(App\YProjects\order::getStatusList() as $status)
 	<div class="col-lg-1" style="height: 15px; width: 15px; background-color: {{$status['color']}};"></div>
 	<span class="col-lg-1">{{$status['name']}}</span>
@@ -242,13 +242,13 @@
 
 	$(document).ready(function(){
 		$('#pcb_type').change(function(){
-			projtab.column(2).search(this.value).draw();
+			projtab.column(3).search(this.value).draw();
 		});
 		$('#pcb_status').change(function(){
-			projtab.column(6).search(this.value).draw();
+			projtab.column(7).search(this.value).draw();
 		});
 		$('#stencil_status').change(function(){
-			projtab.column(7).search(this.value).draw();
+			projtab.column(8).search(this.value).draw();
 		});
 	});
 

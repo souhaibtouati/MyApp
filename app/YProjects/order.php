@@ -4,6 +4,7 @@ namespace App\YProjects;
 
 use Illuminate\Database\Eloquent\Model;
 use Sentinel;
+use Mail;
 
 class order extends Model
 {
@@ -13,30 +14,31 @@ class order extends Model
 
 
     protected $fillable = [
-        'type',
-        'owner',
-	    'quot_date',
-	    'offer_date',
-	    'approv_date',
-	    'order_date',
-	    'qty',
-	   	'Initial_cost',
-	    'cost_piece',
-	    'delivery_date',
-	    'status',
-        'offer_pdf',
-        'approv_by'
+    'type',
+    'owner',
+    'quot_date',
+    'offer_date',
+    'approv_date',
+    'order_date',
+    'qty',
+    'Initial_cost',
+    'cost_piece',
+    'delivery_date',
+    'status',
+    'offer_pdf',
+    'approv_by',
+    'manufacturer_id'
     ];
 
 
 
     public static $StatusList = [
-        1=>['name'=>'Design','color'=>'#E0E0E0'],
-        2=>['name'=>'Quotation','color'=>'#FF9999'],
-        3=>['name'=>'Approval', 'color'=>'#FFFF99'],
-        4=>['name'=>'Order','color'=>'#99CCFF'],
-        5=>['name'=>'Delivered', 'color'=>'#00CC00'],
-        6=>['name'=>'Cancelled','color'=>'#FFFFFF']
+    1=>['name'=>'Design','color'=>'#E0E0E0'],
+    2=>['name'=>'Quotation','color'=>'#FF9999'],
+    3=>['name'=>'Approval', 'color'=>'#FFFF99'],
+    4=>['name'=>'Order','color'=>'#99CCFF'],
+    5=>['name'=>'Delivered', 'color'=>'#00CC00'],
+    6=>['name'=>'Cancelled','color'=>'#FFFFFF']
     ];
 
     public function project()
@@ -44,14 +46,10 @@ class order extends Model
         return $this->belongsTo('App\YProjects\yproject');
     }
 
-    public function manufacturer()
-    {
-        return $this->belongsToMany('App\YProjects\manufacturer');
-    }
-
+    
     public function getManufacturer()
     {
-        return $this->manufacturer()->first();
+        return manufacturer::where('id',$this->manufacturer_id)->first();
     }
 
     public static function getStatusList()
@@ -91,6 +89,36 @@ class order extends Model
             return false;
         }
         return true;
+    }
+
+    public function sendQuotMail($json)
+    {
+
+        $applicant=Sentinel::getUser();
+        $manuf = $this->getManufacturer();
+        $emails = [$manuf->email1];
+        if ($manuf->email2) {
+            array_push($emails, $manuf->email2);
+        }
+        if ($manuf->email3) {
+            array_push($emails, $manuf->email3);
+        }
+        
+        if ($this->type == 'PCB') {
+            Mail::send('emails.pcboffer', ['json'=>$json],function ($m) use($json, $applicant, $emails) {
+                $m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
+                $m->to($emails)->subject('Offer Request for '.$json->project);
+                $m->cc($applicant->email,$applicant->getFullName());
+                $m->replyTo($applicant->email,$applicant->getFullName());
+                $m->attach(storage_path('tmp/orderZip/').$json->attachment);
+            });
+            return true;
+        }
+        if ($this->type == 'Stencil') {
+            return true;
+        }
+
+        return false;
     }
 
 }

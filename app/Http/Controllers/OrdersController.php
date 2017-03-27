@@ -16,15 +16,6 @@ class OrdersController extends Controller
 
 	public function quotation($id)
 	{
-		\Config::set('mail.username','souhaib.t@yamaichi.de');
-			\Config::set('mail.password','Sto15801yte');
-
-			Mail::send('emails.pcboffer', ['user'=>null],function ($m) {
-				$m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
-				$m->to('souhaib.touati@gmail.com', 'Souhaib Touati')->subject('PCB offer');
-			});
-
-
 
 		$order = order::find($id);
 		if (!$order->checkOwner()) {
@@ -34,17 +25,67 @@ class OrdersController extends Controller
 		if ($order->status != 1) {
 			return false;
 		}
-		else{
-			$order->qty = Input::get('qty');
-			$manuf = manufacturer::find(Input::get('manufacturer'));
+
+		$order->qty = Input::get('qty');
+		$manuf = manufacturer::find(Input::get('manufacturer'));
+		$order->manufacturer_id = Input::get('manufacturer');
+		$order->save();
+		
+
+		if (Input::get('sendmail') == '1' || Input::get('sendmail') == 'on') {
+			
+			$json_file = Input::file("json");
+			$json_extension = pathinfo($json_file->getClientOriginalName(), PATHINFO_EXTENSION);
+			if (strcasecmp($json_extension, 'json') <> 0) {
+				return redirect()->back()->withErrors('JSON File Type mismatch');
+			}
+			$attachment = Input::file('attachment');
+			$attachment_extension = pathinfo($attachment->getClientOriginalName(), PATHINFO_EXTENSION);
+			if (strcasecmp($attachment_extension, 'zip') <> 0) {
+				return redirect()->back()->withErrors('Only Zip Files are accepted as attachment');
+			}
+			$json=json_decode(file_get_contents($json_file));
+			$attachment->move(storage_path('/tmp/orderZip/'), $attachment->getClientOriginalName());
+			switch (Input::get('Overlay')) {
+				case '0':
+					$json->top_silk = 'Yes';
+					$json->bottom_silk = 'No';
+					break;
+				case '1':
+					$json->top_silk = 'No';
+					$json->bottom_silk = 'Yes';
+					break;
+				case '2':
+					$json->top_silk = 'Yes';
+					$json->bottom_silk = 'Yes';
+					break;
+				default:
+					# code...
+					break;
+			}
+			$json->qty = Input::get('qty');
+			$json->delivery = Input::get('delivery');
+			$json->solder_mask = Input::get('SolderMask');
+			$json->pcb_core = Input::get('pcb_core');
+			$json->surface = Input::get('surface');
+			$json->min_clearance = Input::get('clearance');
+			$json->impedance = Input::get('impedance');
+			
+			$filename = storage_path('/Uploads/orders/order/json/') . $json->project . '_'. $order->type . '.json';
+			$server_json = fopen($filename, "w");
+			fwrite($server_json, json_encode($json));
+			fclose($server_json);
+			
+			$order->sendQuotMail($json);
 			$order->status = 2;
 			$order->quot_date = date("Y-m-d");
 			$order->save();
-			$order->manufacturer()->save($manuf);
-			
-			return redirect()->back()->withSuccess('Quotation ready');
-
 		}
+		
+
+		return redirect()->back()->withSuccess('Quotation ready');
+
+
 	}
 
 	public function offer($id)

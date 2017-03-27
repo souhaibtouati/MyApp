@@ -34,7 +34,9 @@ class YProjectsMigration extends Migration
             $table->string('name');
             $table->string('adress')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email');
+            $table->string('email1');
+            $table->string('email2')->nullable();
+            $table->string('email3')->nullable();
             $table->string('product');
             $table->string('BIOS')->nullable();
             $table->timestamps();
@@ -64,14 +66,6 @@ class YProjectsMigration extends Migration
            
         });
 
-        Schema::connection('projects')->create('manufacturer_order', function (Blueprint $table) {
-            $table->integer('manufacturer_id')->unsigned();
-            $table->integer('order_id')->unsigned();
-            $table->nullableTimestamps();
-
-            $table->engine = 'InnoDB';
-            $table->primary(['manufacturer_id', 'order_id']);
-        });
     }
 
     /**
@@ -84,7 +78,6 @@ class YProjectsMigration extends Migration
         Schema::connection('projects')->drop('yprojects');
         Schema::connection('projects')->drop('manufacturers');
         Schema::connection('projects')->drop('orders');
-        Schema::connection('projects')->drop('manufacturer_order');
 
     }
 }

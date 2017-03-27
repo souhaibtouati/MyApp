@@ -144,7 +144,21 @@ class ProjectsController extends Controller
     {
        $manuf = new manufacturer;
        $manuf->name = Input::get('name');
-       $manuf->email = Input::get('email');
+       $manuf->email1 = Input::get('email1');
+
+       if (Input::get('email2') == '') {
+           $manuf->email2 = null;
+       }
+       else {
+            $manuf->email2 = Input::get('email2');
+       }
+       if (Input::get('email3') == '') {
+           $manuf->email3 = null;
+       }
+       else {
+            $manuf->email3 = Input::get('email3');
+       }
+       
        $manuf->adress = Input::get('adress');
        $manuf->phone = Input::get('phone');
        $manuf->BIOS = Input::get('BIOS');

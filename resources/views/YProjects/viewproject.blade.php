@@ -135,7 +135,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$pcb_man ? $pcb_man->email : ''}}</a>
+					<a>{{$pcb_man ? $pcb_man->email1 : ''}}</a>
 				</div>
 			</div>
 			
@@ -224,7 +224,7 @@
 					<label>Email</label>
 				</div>
 				<div class="col-md-4">
-					<a>{{$sten_man ? $sten_man->email : ''}}</a>
+					<a>{{$sten_man ? $sten_man->email1 : ''}}</a>
 				</div>
 			</div>
 			
