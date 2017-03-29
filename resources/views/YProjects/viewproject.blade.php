@@ -93,6 +93,7 @@
 	<div class="box-body">
 
 		<div class="panel">
+		
 			<table class="table" style="text-align: center; width: 50%; margin: auto">
 				<tbody>
 					<tr>
@@ -117,7 +118,9 @@
 						<td></td><td></td><td>{{$pcb_order->approv_by}}</td><td></td><td></td>
 					</tr>
 				</tbody>
+				<img class="pull-right" src="{{asset('img/pcb.jpg')}}" style="width: 150px;">
 			</table>
+
 		</div>
 
 		<div class="panel col-md-6">
@@ -206,6 +209,7 @@
 						<td></td><td></td><td>{{$stencil_order->approv_by}}</td><td></td><td></td>
 					</tr>
 				</tbody>
+				<img class="pull-right" src="{{asset('img/stencil.png')}}" style="width: 150px;">
 			</table>
 		</div>
 

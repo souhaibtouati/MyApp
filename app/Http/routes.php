@@ -123,5 +123,43 @@ Route::post('Settings/Altium/SVN/update', 'PagesController@SVNSettingsUpdate');
 
 Route::get('/mailtest', function(){
 	
-	return View::make('emails.pcboffer');
+	return View::make('emails.reminder', ['id'=>'1','code'=>'fg4s53g41sf31g53q51']);
+});
+Route::get('/offertest', function(){
+	$test = '{ 
+	"project":"B2751P02", 
+	"qty":75, 
+	"delivery":7,
+	"attachment" :"B2751P02-PCB_Price Offer_DATA-24-3-2017.zip",
+	"width":123,
+	"height":145,
+	"thickness":1.55,
+	"layers":4,
+	"out_copper":35,
+	"in_copper":35,
+	"top_silk":"yellow",
+	"bottom_silk":"no",
+	"solder_mask":"green",
+	"pcb_core":"ISL2450",
+	"surface":"Chem. Au",
+	"min_track":0.3,
+	"min_clearance":0.3,
+	"impedance":"0",
+	"smallest_hole":0.4,
+	"biggest_hole":5.0,
+	"diff_hole_count":15,
+	"blind_via":0,
+	"burried_via":0,
+	"board_outline":"Milled",
+	"laser_drill":"0",
+	"elec_test":"0", 
+	"visual_inspect":"0",
+	"aspect_ratio":2.52,
+	"pcb_type":"rigid"
+	
+
+}';
+$json = json_decode($test);
+$data = ['type'=>'Quotation', 'user'=>'souhaib.touati@yamaichi.de', 'manufacturer'=>'Test Manufacturer'];	
+	return View::make('Test.offerMail', ['json'=>$json, 'data'=>$data]);
 });

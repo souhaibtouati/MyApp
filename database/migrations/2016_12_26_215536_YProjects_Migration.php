@@ -61,6 +61,7 @@ class YProjectsMigration extends Migration
             $table->tinyInteger('status');
             $table->string('offer_pdf')->nullable();
             $table->string('approv_by')->nullable();
+            $table->string('jsonpath')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
            

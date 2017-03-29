@@ -27,7 +27,8 @@ class order extends Model
     'status',
     'offer_pdf',
     'approv_by',
-    'manufacturer_id'
+    'manufacturer_id',
+    'jsonpath'
     ];
 
 
@@ -96,6 +97,14 @@ class order extends Model
 
         $applicant=Sentinel::getUser();
         $manuf = $this->getManufacturer();
+        $data = ['type'=>'name', 'user'=>$applicant->email, 'manufacturer'=>$manuf->name];
+        if ($this->status == 1) {
+            $data['type'] = 'Quotation';
+        }
+        if($this->status == 3) {
+            $data['type'] = 'Order';
+        }
+      
         $emails = [$manuf->email1];
         if ($manuf->email2) {
             array_push($emails, $manuf->email2);
@@ -105,7 +114,8 @@ class order extends Model
         }
         
         if ($this->type == 'PCB') {
-            Mail::send('emails.pcboffer', ['json'=>$json],function ($m) use($json, $applicant, $emails) {
+
+            Mail::send('emails.pcboffer', ['json'=>$json, 'data'=>$data],function ($m) use($json, $applicant, $emails) {
                 $m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
                 $m->to($emails)->subject('Offer Request for '.$json->project);
                 $m->cc($applicant->email,$applicant->getFullName());

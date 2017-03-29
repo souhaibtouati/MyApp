@@ -45,43 +45,22 @@ class OrdersController extends Controller
 				return redirect()->back()->withErrors('Only Zip Files are accepted as attachment');
 			}
 			$json=json_decode(file_get_contents($json_file));
-			$attachment->move(storage_path('/tmp/orderZip/'), $attachment->getClientOriginalName());
-			switch (Input::get('Overlay')) {
-				case '0':
-					$json->top_silk = 'Yes';
-					$json->bottom_silk = 'No';
-					break;
-				case '1':
-					$json->top_silk = 'No';
-					$json->bottom_silk = 'Yes';
-					break;
-				case '2':
-					$json->top_silk = 'Yes';
-					$json->bottom_silk = 'Yes';
-					break;
-				default:
-					# code...
-					break;
+			if ($json->attachment != $attachment->getClientOriginalName()) {
+				return redirect()->back()->withErrors('Wrong Zip File Selected');
 			}
+			$attachment->move(storage_path('/tmp/orderZip/'), $attachment->getClientOriginalName());
 			$json->qty = Input::get('qty');
 			$json->delivery = Input::get('delivery');
-			$json->solder_mask = Input::get('SolderMask');
-			$json->pcb_core = Input::get('pcb_core');
-			$json->surface = Input::get('surface');
-			$json->min_clearance = Input::get('clearance');
-			$json->impedance = Input::get('impedance');
-			
 			$filename = storage_path('/Uploads/orders/order/json/') . $json->project . '_'. $order->type . '.json';
 			$server_json = fopen($filename, "w");
 			fwrite($server_json, json_encode($json));
 			fclose($server_json);
-			
+			$order->jsonpath = $filename;
 			$order->sendQuotMail($json);
+		}
 			$order->status = 2;
 			$order->quot_date = date("Y-m-d");
 			$order->save();
-		}
-		
 
 		return redirect()->back()->withSuccess('Quotation ready');
 

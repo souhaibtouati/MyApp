@@ -14,10 +14,10 @@
 				<tbody>
 					<tr>
 						<td>
-							<img src="{{$message->embed(public_path('/img/pcb-collage.jpg'))}}" style="width: 227px; margin-top: 50px" />
+							<img src="{{url('/img/pcb-collage.jpg')}}" style="width: 227px; margin-top: 50px" />
 						</td>
 						<td>
-							<img src="{{$message->embed(public_path('/img/ylogo.png'))}}" alt="Yamaichi Electronics" style="width: 300px;margin-top: 10px; margin-left: 120px;" /><br>
+							<img src="{{url('/img/ylogo.png')}}" alt="Yamaichi Electronics" style="width: 300px;margin-top: 10px; margin-left: 120px;" /><br>
 							<span style="color: black; font-size:35px; ">
 								<strong>
 									@if($data['type'] == 'Quotation')
@@ -192,20 +192,19 @@
 			</tbody>
 		</table>
 
-
 		<div style="background-color: #c2c2c2; color: white; padding: 30px; text-align: center; margin-top: 20px">
 			Yamaichi Electronics {{date('Y')}}
 			<table cellspacing="0" cellpadding="30" width="100%">
 				<tr>
 					<td style="text-align:center; padding:0 !important; margin-top: 20px">
 						<a href="http://www.facebook.com/yamaichielectronics">
-							<img width="50" src="{{$message->embed(public_path('/img/icons/facebook.png'))}}" alt="facebook" />
+							<img width="50" src="{{url('/img/icons/facebook.png')}}" alt="facebook" />
 						</a>
 						<a href="http://www.kununu.com/yamaichielectronics">
-							<img width="100" src="{{$message->embed(public_path('/img/icons/kununu.png'))}}" alt="Kununu" />
+							<img width="100" src="{{url('/img/icons/kununu.png')}}" alt="Kununu" />
 						</a>
 						<a href="https://www.xing.com/companies/yamaichielectronicsdeutschlandgmbh">
-							<img width="50" src="{{$message->embed(public_path('/img/icons/xing.png'))}}" alt="Xing" />
+							<img width="50" src="{{url('/img/icons/xing.png')}}" alt="Xing" />
 						</a>
 
 					</td>
