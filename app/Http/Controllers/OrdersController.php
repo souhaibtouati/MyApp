@@ -89,6 +89,7 @@ class OrdersController extends Controller
 		$order->status = 3;
 		$order->offer_date = date('Y-m-d');
 		$order->save();
+		$order->sendPORMail();
 		return redirect()->back()->withSuccess('Offer updated');
 	}
 

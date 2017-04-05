@@ -17,34 +17,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('displayError', function($expression)
-        {
-        $view = 'partials.error'; // Path to your view
-
-        if (!$expression)
-        {
-            $expression = '([])';
-        }
-
-        return "<?php echo \$__env->make('{$view}', array_except(get_defined_vars(), ['__data', '__path']))->with{$expression}->render(); ?>";
-    });
-
-        Blade::directive('errorMessage', function ($error)
-        {
-            $view = view('partials.error');
-            
-            return str_replace('%errorMessage%', 'this error', $view);
-        });
-
-
-        Blade::directive('UserName', function ()
-        {
+        view()->composer('layouts.header', function($view) {
             $user = Sentinel::getUser();
-            return $user->first_name .' '. $user->last_name;
+            $view->with(['ConnectedUser' => $user]);
         });
-
-        Blade::directive('Avatar', function(){
-            return '/img/avatars/'. Sentinel::getUser()->avatar;
+        view()->composer('layouts.sidebar', function($view) {
+            $user = Sentinel::getUser();
+            $view->with(['ConnectedUser' => $user]);
         });
 
         Blade::directive('Today', function(){

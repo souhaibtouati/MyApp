@@ -6,7 +6,7 @@
     <!-- Logo -->
 
  
-    <a href="/" class="logo"><b>Yamaichi</b>Electronics</a>
+    <a href="{{url('/')}}" class="logo"><b>Yamaichi</b>Electronics</a>
  
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top fixed" role="navigation" style="">
@@ -15,10 +15,10 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
         <ul class="nav navbar-nav">
-        <li><a href="/Altium/PWR"><i class="fa fa-flash"></i> POWER</a></li>
-        <li><a href="/Altium/Connector"><i class="fa fa-plug"></i> CONNECTORS</a></li>
-        <li><a href="/Altium/Signal"><i class="fa fa-random"></i> SIGNAL</a></li>
-        <li><a href="/yproject/show/dev"><i class="fa fa-microchip"></i> PCB PROJECTS</a></li>
+        <li><a href="{{url('/Altium/PWR')}}"><i class="fa fa-flash"></i> POWER</a></li>
+        <li><a href="{{url('/Altium/Connector')}}"><i class="fa fa-plug"></i> CONNECTORS</a></li>
+        <li><a href="{{url('/Altium/Signal')}}"><i class="fa fa-random"></i> SIGNAL</a></li>
+        <li><a href="{{url('/yproject/show/dev')}}"><i class="fa fa-microchip"></i> PCB PROJECTS</a></li>
         </ul>
 
         <!-- Navbar Right Menu -->
@@ -88,26 +88,26 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="/img/avatars/{{Sentinel::getUser()->avatar}}" class="user-image" alt="User Image" />
+                        <img src="{{asset('/img/avatars/'.Sentinel::getUser()->avatar)}}" class="user-image" alt="User Image" />
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{Sentinel::getUser()->getFullName()}} </span>
+                        <span class="hidden-xs">{{$ConnectedUser->getFullName()}} </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="/img/avatars/{{Sentinel::getUser()->avatar}}" class="img-circle" alt="User Image" />
+                            <img src="{{asset('/img/avatars/' .Sentinel::getUser()->avatar)}}" class="img-circle" alt="User Image" />
                             <p>
-                                {{Sentinel::getUser()->getFullName() .' - '. Sentinel::getUser()->title}}
-                                <small>Member since {{Sentinel::getUser()->created_at->diffForHumans()}}</small>
+                                {{$ConnectedUser->getFullName() .' - '. Sentinel::getUser()->title}}
+                                <small>Member since {{$ConnectedUser->created_at->diffForHumans()}}</small>
                             </p>
                         </li>
 
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="/myprofile" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{url('/myprofile')}}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

@@ -46,14 +46,7 @@ class AltiumController extends Controller
 		if($request->ajax()) 
 		{
 			$parts = Altium::getPartRepository($type, $request->table)->findAll();
-			$buffer = '';
-			foreach ($parts as $key => $part) {
-				$buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part['Manufacturer Part Number']  .'</td><td>'. $part ['Library Ref'] .'</td><td>'. $part['Footprint Ref'] .'</td><td style="display:flex;"><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $request->table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a>';
-				$buffer .= Form::button('<i class="fa fa-trash"></i>', ['class' => 'dl-btn btn btn-danger', 'data-toggle'=>'modal','data-target'=>'#confirmDeletePart' , 'data-type'=>$type , 'data-table' =>$request->table , 'data-id' => $part->id, 'onclick'=>'PrepareDelete(this)']);
-				$buffer .= '</td></tr>';
-			}
-
-			return($buffer);
+			return View::make('partials.altium.showall', ['parts'=>$parts, 'type'=>$type, 'request'=>$request]);
 		}
 	}
 

@@ -48,7 +48,7 @@ class YProjectsMigration extends Migration
             $table->increments('id');
             $table->string('type');
             $table->integer('owner')->unsigned();
-            $table->integer('yproject_id')->unsigned();
+            $table->integer('project_id')->unsigned();
             $table->integer('manufacturer_id')->unsigned();
             $table->date('quot_date')->nullable();
             $table->date('offer_date')->nullable();

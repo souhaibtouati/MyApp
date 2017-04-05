@@ -44,10 +44,8 @@ class Altium
 	{
 		$Repo = new svn(Sentinel::getUser()->svnPath);
         $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
-        if (preg_match('/linux/i', $_SERVER['HTTP_USER_AGENT'])) {
-            $Repo->getAdapter()->setExecutable('/usr/bin/svn');
-        }
-        else $Repo->getAdapter()->setExecutable('C:\yamaichiapp\app\Exec\SVN\svn');
+        $Repo->getAdapter()->setExecutable('/usr/bin/svn');
+        
         
         return $Repo;
 	}

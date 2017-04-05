@@ -179,6 +179,17 @@ class ProjectsController extends Controller
         $order = order::find($req->orderId);
         return View::make('YProjects.cancel',['order'=>$order]);
     }
+
+    public function orders()
+    {
+        $orders = order::paginate(15);
+        $manufs = manufacturer::all();
+        foreach ($manufs as $man) {
+            $manufacturers[$man->id] = $man->name;
+        }
+        
+        return View::make('YProjects.orders', ['orders'=>$orders, 'manufs'=>$manufacturers]);
+    }
 }
 
 

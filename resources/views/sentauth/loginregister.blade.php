@@ -97,7 +97,7 @@
               <div class="col-xs-8">
                 <div class="checkbox iCheck" name="rememberme">
                   <label>
-                    <input type="checkbox" name="remember" id="remember" value="false"> Remember Me
+                    <input type="checkbox" name="remember" id="remember"> Remember Me
                   </label>
                 </div>
               </div>
@@ -286,15 +286,5 @@ aria-labelledby="repassModalLabel">
 </div>
 </div>
 
-<script type="text/javascript">
-
-  $('#remember').on('ifChecked', function(event){
-    $('#remember').val(true);
-  }); 
-
-  $('#remember').on('ifUnchecked', function(event){
-    $('#remember').val(false);
-  }); 
-</script>
 
 @endsection

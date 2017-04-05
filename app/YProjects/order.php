@@ -44,13 +44,18 @@ class order extends Model
 
     public function project()
     {
-        return $this->belongsTo('App\YProjects\yproject');
+        return $this->belongsTo('App\YProjects\yproject', 'yproject_id');
     }
 
     
     public function getManufacturer()
     {
-        return manufacturer::where('id',$this->manufacturer_id)->first();
+        return $this->manufacturer()->first();
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo('App\YProjects\manufacturer');
     }
 
     public static function getStatusList()
@@ -129,6 +134,20 @@ class order extends Model
         }
 
         return false;
+    }
+
+    public function sendPORMail()
+    {
+        $project = $this->project()->first();
+        $applicant = Sentinel::getUser();
+        Mail::send('emails.offerready', ['order'=>$this, 'project'=>$project, 'applicant'=>$applicant],function ($m) use($project, $applicant) {
+                $m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
+                $m->to('souhaib.touati@gmail.com')->subject('POR for '.$project->PrjNbr);
+                $m->cc($applicant->email,$applicant->getFullName());
+                $m->replyTo($applicant->email,$applicant->getFullName());
+                
+            });
+        return true;
     }
 
 }

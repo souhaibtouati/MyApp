@@ -32,7 +32,7 @@
   <div class="col-md-3">
     <div class="box box-primary">
       <div class="box-body box-profile">
-        <img class="profile-user-img img-responsive " src="/img/avatars/{{$user->avatar}}" alt="User profile picture" style="width:90%">
+        <img class="profile-user-img img-responsive " src="{{asset('/img/avatars/'.$user->avatar)}}" alt="User profile picture" style="width:90%">
 
 
         <h3 class="profile-username text-center">{{$user->getFullName()}}</h3>

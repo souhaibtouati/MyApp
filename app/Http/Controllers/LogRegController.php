@@ -36,7 +36,7 @@ class LogRegController extends Controller
 	 **/
 	public function rootshow()
 	{
-		return redirect()->to('login');
+		return redirect()->to('/login');
 	}
 
 
@@ -59,8 +59,12 @@ class LogRegController extends Controller
 
 	public function LoginPost(Request $request)
 	{
+		$remember = false;
+		if ($request->remember == 'on' || $request->remember =='1') {
+			$remember = true;
+		}
 
-		if ($auth = Sentinel::authenticate(Input::all(), $request->remember))
+		if ($auth = Sentinel::authenticate(Input::all(), $remember))
 		{
 			return redirect()->intended('/');
 		}

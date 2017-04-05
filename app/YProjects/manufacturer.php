@@ -24,7 +24,7 @@ class manufacturer extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\YProjects\order');
+        return $this->hasMany('App\YProjects\order');
     }
 
     public function getPCBmanufs()

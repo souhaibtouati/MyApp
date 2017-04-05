@@ -33,7 +33,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/Altium/Resistor" class="small-box-footer">
+            <a href="{{url('/Altium/Resistor')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -50,7 +50,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/Altium/Inductor" class="small-box-footer">
+            <a href="{{url('/Altium/Inductor')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -67,7 +67,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/Altium/Capacitor" class="small-box-footer">
+            <a href="{{url('/Altium/Capacitor')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -102,7 +102,7 @@
             <div class="icon">
               <i class="fa fa-flash"></i>
             </div>
-            <a href="/Altium/PWR" class="small-box-footer">
+            <a href="{{url('/Altium/PWR')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -119,7 +119,7 @@
             <div class="icon">
               <i class="fa fa-microchip"></i>
             </div>
-            <a href="/Altium/Control" class="small-box-footer">
+            <a href="{{url('/Altium/Control')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -136,7 +136,7 @@
             <div class="icon">
               <i class="fa fa-random"></i>
             </div>
-            <a href="/Altium/Signal" class="small-box-footer">
+            <a href="{{url('/Altium/Signal')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -172,7 +172,7 @@
             <div class="icon">
               <i class="fa fa-caret-right"></i>
             </div>
-            <a href="/Altium/Diode" class="small-box-footer">
+            <a href="{{url('/Altium/Diode')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -189,7 +189,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/Altium/Transistor" class="small-box-footer">
+            <a href="{{url('/Altium/Transistor')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -226,7 +226,7 @@
             <div class="icon">
               <i class="fa fa-plug"></i>
             </div>
-            <a href="/Altium/Connector" class="small-box-footer">
+            <a href="{{url('/Altium/Connector')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -243,7 +243,7 @@
             <div class="icon">
               <i class="fa fa-toggle-off"></i>
             </div>
-            <a href="/Altium/Command" class="small-box-footer">
+            <a href="{{url('/Altium/Command')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -259,7 +259,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="/Altium/Others" class="small-box-footer">
+            <a href="{{url('/Altium/Others')}}" class="small-box-footer">
               Enter  <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

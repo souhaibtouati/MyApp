@@ -30,7 +30,7 @@
 					<div class="box-header">
 						<h3 class="box-title">New Project</h3>
 					</div>
-					<div class="box-body">
+					<div class="box-body" style="padding: 20px">
 						{{Form::open(['url'=>'yproject/save'])}}
 
 						<div class="row">
@@ -202,7 +202,7 @@
 							<li><a href="/yproject/{{$project->id}}/newrev"><i class="fa fa-recycle"></i>New Revision</a></li>
 						</ul> 
 					</div> -->
-					<a class="btn btn-primary" href="/yproject/{{$project->id}}/view"><i class="fa fa-external-link"></i></a>
+					<a class="btn btn-primary" href="{{url('/yproject/'.$project->id.'/view')}}"><i class="fa fa-external-link"></i></a>
 					
 				</td>
 				<td>{{$project->ProjNbr}}</td>

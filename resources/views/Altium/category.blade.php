@@ -106,9 +106,9 @@
 									</td>
 								</tr>
 								<tr>
-									<th style="text-align: center"><img src="/img/symbol.png" style="width: 110px"></th>
-									<th style="text-align: center"><img src="/img/footprint.png" style="width: 100px"></th>
-									<th style="text-align: center"><img src="/img/datasheet.png" style="width: 80px"></th>
+									<th style="text-align: center"><img src="{{asset('/img/symbol.png')}}" style="width: 110px"></th>
+									<th style="text-align: center"><img src="{{asset('/img/footprint.png')}}" style="width: 100px"></th>
+									<th style="text-align: center"><img src="{{asset('/img/datasheet.png')}}" style="width: 80px"></th>
 								</tr>
 
 
@@ -251,7 +251,7 @@
 					<i class="fa fa-server"></i><h3 class="box-title"> Live Data Search</h3>
 				</div>
 				<div class="box-body" style="overflow: auto;">
-					<img src="/img/Octopart_logo.png" class="pull-right" style="width: 150px">
+					<img src="{{asset('/img/Octopart_logo.png')}}" class="pull-right" style="width: 150px">
 					<div class="col-xs-5">
 						<input id="octo-keyword" class="form-control" placeholder="Search Keyword" >
 					</div>
