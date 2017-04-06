@@ -13,7 +13,6 @@
         "laravelcollective/html": "~5.0",
         "intervention/image": "^2.3",
         "webcreate/vcs": "dev-master",
-        "adldap2/adldap2-laravel": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
