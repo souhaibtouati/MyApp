@@ -120,7 +120,7 @@ class AltiumController extends Controller
 
 		}
 		$part->Revision = 1;
-		$part->modified_by = Sentinel::getUser()->getFullName();
+		$part->modified_by = Sentinel::getUser()->initials;
 		
 		$part->save();
 
@@ -157,7 +157,7 @@ class AltiumController extends Controller
 		$rev = $part->Revision;
 		++$rev;
 		$part->Revision = $rev;
-		$part->modified_by = Sentinel::getUser()->getFullName();
+		$part->modified_by = Sentinel::getUser()->initials;
 		$part->save();
 		return redirect()->back()->withSuccess( $part->Y_PartNr. ' was Updated Successfully');
 
@@ -192,10 +192,7 @@ class AltiumController extends Controller
 			if(method_exists(\App\Altium\PartRepositoryInterface::class , $function)){
 				$parts = Altium::getPartRepository($type, $table)->$function($keyword);
 				if($parts != null){
-					foreach ($parts as $part) {
-
-						$buffer .= '<tr><td>' .  $part->Y_PartNr . '</td><td>' . $part->Description  . '</td><td>' . $part->Manufacturer . '</td><td>' . $part['Manufacturer Part Number']  .'</td><td>'. $part ['Library Ref'] .'</td><td>'. $part ['Footprint Ref'] .'</td><td><a href="/Altium/'. $part->getName(). '/'. $table . '/' .$part->id .'/view" class="btn btn-info pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-eye"></i></a><a href="/Altium/'. $part->getName(). '/'. $table . '/' .$part->id .'/edit" class="btn btn-primary pull-left" target="_blank" style="margin-right: 3px;"><i class="fa fa-edit"></i></a></td></tr>';
-					}
+					$buffer = View::make('partials.altium.search', ['parts'=>$parts, 'table'=>$table]);
 				}
 				else $buffer = 'Not Found...';
 

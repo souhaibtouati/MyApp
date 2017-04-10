@@ -1,7 +1,7 @@
 	var myresults;
 	var supp_Count = 1;
 	var imageset;
-	var foundImg ="/assets/img/img_not_found.jpg";
+	var foundImg = public_path + "img/img_not_found.jpg";
 
 function OctoSearch(){
 		Pace.restart(); 
@@ -89,7 +89,7 @@ function OctoSearch(){
 				++supp_Count;
 			}
 			else {
-				console.log($('#Supplier_'+supp_Count+'').length);
+				
 			$('#supply_chain').append(
 				'<div class="row">	\
 				<div class="col-xs-2">\
@@ -164,7 +164,7 @@ function OctoSearch(){
 					    		}
 					    		for (j=0; j< imageset.length; j++){
 					    			if(imageset[j]['medium_image'] != null ){foundImg = imageset[j]['medium_image']['url'];  break;}
-					    			if (j == imageset.length && foundImg == "/assets/img/img_not_found.jpg"){
+					    			if (j == imageset.length && foundImg == public_path + "img/img_not_found.jpg"){
 					    				for (k=0; k< imageset.length; k++){
 					    					if(imageset[k]['small_image'] != null ){foundImg = imageset[k]['small_image']['url'];  break;}
 					    				}}

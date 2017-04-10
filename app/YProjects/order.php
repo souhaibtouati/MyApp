@@ -123,8 +123,8 @@ class order extends Model
             Mail::send('emails.pcboffer', ['json'=>$json, 'data'=>$data],function ($m) use($json, $applicant, $emails) {
                 $m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
                 $m->to($emails)->subject('Offer Request for '.$json->project);
-                $m->cc($applicant->email,$applicant->getFullName());
-                $m->replyTo($applicant->email,$applicant->getFullName());
+                $m->cc($applicant->email,$applicant->first_name .' '.$applicant->last_name);
+                $m->replyTo($applicant->email,$applicant->first_name .' '.$applicant->last_name);
                 $m->attach(storage_path('tmp/orderZip/').$json->attachment);
             });
             return true;
@@ -143,8 +143,8 @@ class order extends Model
         Mail::send('emails.offerready', ['order'=>$this, 'project'=>$project, 'applicant'=>$applicant],function ($m) use($project, $applicant) {
                 $m->from('souhaib.touati@yamaichi.de', 'Yamaichi Electronics');
                 $m->to('souhaib.touati@gmail.com')->subject('POR for '.$project->PrjNbr);
-                $m->cc($applicant->email,$applicant->getFullName());
-                $m->replyTo($applicant->email,$applicant->getFullName());
+                $m->cc($applicant->email,$applicant->first_name .' '.$applicant->last_name);
+                $m->replyTo($applicant->email,$applicant->first_name .' '.$applicant->last_name);
                 
             });
         return true;

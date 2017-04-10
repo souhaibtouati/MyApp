@@ -287,9 +287,10 @@
 		$('#Stencil_Manuf').prop('disabled',true);
 	});
 
-	function processOrder(orderId, cancel = false) {
+	function processOrder(orderId, cancel) {
+		cancel = false;
 		$.ajax({
-			url: '/yproject/processorder',
+			url: '{{url('/yproject/processorder')}}',
 			headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
 			type: 'POST',
 			data: {orderId : orderId}
@@ -300,7 +301,7 @@
 
 	function CancelOrder(orderId) {
 		$.ajax({
-			url: '/yproject/cancelorder',
+			url: '{{url('yproject/cancelorder')}}',
 			headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
 			type: 'POST',
 			data: {orderId : orderId}

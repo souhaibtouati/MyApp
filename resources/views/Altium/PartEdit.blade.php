@@ -191,7 +191,7 @@
 			<i class="fa fa-server"></i><h3 class="box-title"> Live Data Search</h3>
 		</div>
 		<div class="box-body" style="overflow: auto;">
-			<img src="/img/Octopart_logo.png" class="pull-right" style="width: 150px">
+			<img src="{{asset('/img/Octopart_logo.png')}}" class="pull-right" style="width: 150px">
 			<div class="col-xs-5">
 				<input id="octo-keyword" class="form-control" placeholder="Search Keyword" >
 			</div>
@@ -223,6 +223,9 @@
 
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
 <script type="text/javascript">
+
+	var public_path = '{{asset('/')}}'
+
 	$(document.body).addClass('sidebar-collapse');
 	$('#octo-keyword').keyup(function () {
 		if (event.keyCode == 13) {

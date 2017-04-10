@@ -35,7 +35,7 @@
         <img class="profile-user-img img-responsive " src="{{asset('/img/avatars/'.$user->avatar)}}" alt="User profile picture" style="width:90%">
 
 
-        <h3 class="profile-username text-center">{{$user->getFullName()}}</h3>
+        <h3 class="profile-username text-center">{{$user->first_name .' '. $user->last_name}}</h3>
 
         <p class="text-muted text-center">{{$user->title}}</p>
 

@@ -97,7 +97,7 @@
                         <li class="user-header">
                             <img src="{{asset('/img/avatars/' .Sentinel::getUser()->avatar)}}" class="img-circle" alt="User Image" />
                             <p>
-                                {{$ConnectedUser->getFullName() .' - '. Sentinel::getUser()->title}}
+                                {{$ConnectedUser->first_name . ' '. $ConnectedUser->last_name .' - '. Sentinel::getUser()->title}}
                                 <small>Member since {{$ConnectedUser->created_at->diffForHumans()}}</small>
                             </p>
                         </li>
