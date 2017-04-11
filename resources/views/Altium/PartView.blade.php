@@ -197,6 +197,9 @@
 
 	<script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
 	<script type="text/javascript">
+
+	var public_path = '{{asset('/')}}'
+
 		$(document.body).addClass('sidebar-collapse');
 		$(document).ready(function(){
 			getpartspecs();
@@ -207,7 +210,7 @@
 			$('#ftpt_svn_tab').empty();
 			$('#loader').css('display','block');
 
-			var url = '/Altium/'+ type + '/getsvn';
+			var url = '{{url('/Altium')}}'+ '\/' + type + '/getsvn';
 			var args = {
 				libRef: libRef,
 				ftptRef: ftptRef
