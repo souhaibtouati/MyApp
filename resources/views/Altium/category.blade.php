@@ -26,7 +26,7 @@
 	}
 
 	table.table-expandable > tbody > tr div.table-expandable-arrow {
-		background:transparent url(/img/arrows.png) no-repeat scroll 0px -16px; width:16px; height:16px; display:block;
+		background:transparent url({{asset('/img/arrows.png')}}) no-repeat scroll 0px -16px; width:16px; height:16px; display:block;
 	}
 
 	table.table-expandable > tbody > tr div.table-expandable-arrow.up {

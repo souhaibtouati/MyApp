@@ -27,7 +27,6 @@ abstract class EloquentPart extends Model
 
     	'Description',
     	'Manufacturer',
-    	
         'modified_by',
         'Package'
 

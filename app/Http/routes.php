@@ -50,6 +50,8 @@ Route::get('dashboard', 'PagesController@dashboardIndex')->name('dashboard');
 Route::get('altiumCmp', 'PagesController@altiumCmpIndex')->name('altium');
 Route::get('myprofile', 'PagesController@myprofileIndex')->name('myprofile');
 Route::post('/myprofile/update', 'PagesController@profileUpdate')->name('profile.update');
+Route::get('/doc/altium', 'PagesController@altiumdoc');
+Route::get('/doc/projects', 'PagesController@projdoc');
 
 //users control
 Route::resource('/user', 'UserController');

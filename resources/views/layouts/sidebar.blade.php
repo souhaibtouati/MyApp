@@ -38,9 +38,9 @@
         <li class="treeview">
         <a href="#"><i class="fa fa-bar-chart"></i><span>Projects</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
-                <li><a href="{{url('/yproject/show/dev')}}">PCB</a></li>
-                <li><a href="{{url('/yproject/manufacturers')}}">Manufacturers</a></li>
-                <li><a href="{{url('/yproject/orders')}}">Orders</a></li>
+                <li><a href="{{url('/yproject/show/dev')}}"><i class="fa fa-circle-o"></i>PCB</a></li>
+                <li><a href="{{url('/yproject/manufacturers')}}"><i class="fa fa-circle-o"></i>Manufacturers</a></li>
+                <li><a href="{{url('/yproject/orders')}}"><i class="fa fa-circle-o"></i>Orders</a></li>
                 <!-- <li><a href="/yproject/show/cs2">CS2</a></li>
                 <li><a href="/yproject/show/ts">TS</a></li> -->
             </ul>
@@ -58,7 +58,16 @@
         <li class="treeview">
         <a href="#"><i class="fa fa-cogs"></i><span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
-                <li><a href="{{url('/Settings/Altium/SVN')}}">SVN</a></li>
+                <li><a href="{{url('/Settings/Altium/SVN')}}"><i class="fa fa-circle-o"></i>SVN</a></li>
+
+            </ul>
+        </li>
+
+        <li class="treeview">
+        <a href="#"><i class="fa fa-book"></i><span>Documentation</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a href="{{url('/doc/altium')}}"><i class="fa fa-circle-o"></i>Altium Database</a></li>
+                <li><a href="{{url('/doc/projects')}}"><i class="fa fa-circle-o"></i>PCB Projects</a></li>
 
             </ul>
         </li>

@@ -119,4 +119,14 @@ class PagesController extends Controller
 
         return redirect()->back()->withSuccess('SVN settings Updated Successfully'); 
     }
+
+    public function altiumdoc()
+    {
+        return view('documentation.altium-doc');
+    }
+
+    public function projdoc()
+    {
+        return view('documentation.proj-doc');
+    }
 }

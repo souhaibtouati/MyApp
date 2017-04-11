@@ -118,7 +118,8 @@ class User extends EloquentUser
      */
     public function getFullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        $fullname = $this->first_name . ' ' . $this->last_name;
+        return $fullname;
     }
     
         public function isActive($user)
