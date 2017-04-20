@@ -1,21 +1,3 @@
-<IfModule mod_rewrite.c>
-<<<<<<< HEAD
-    <IfModule mod_negotiation.c>
-        Options -MultiViews
-    </IfModule>
-
-    RewriteEngine On
-
-    
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)/$ /$1 [L,R=301]
-=======
-<IfModule mod_negotiation.c>
-    Options -MultiViews
-</IfModule>
->>>>>>> 62cf975f9637cfe42ae8627863ebdd607e766816
-
 RewriteEngine On
 
 # Redirect Trailing Slashes...

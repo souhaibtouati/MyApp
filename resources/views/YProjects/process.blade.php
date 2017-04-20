@@ -1,10 +1,14 @@
-<div class="modal-body" style="padding: 0">
-	<div class="box box-primary">
+<div class="modal-body" style="padding: 0;">
+	<div class="box box-widget widget-user">
 		@if($order->status == 1)
-		<div class="box-header">
-			<h3 class="box-title">Prepare Quotation</h3>
+		<div class="widget-user-header bg-teal-active">
+			<h3 class="widget-user-username">Process Order</h3>
+			<h5 class="widget-user-desc">Quotation Request</h5>
 		</div>
-		<div class="box-body">
+		<div class="widget-user-image">
+			<img class="img-circle" src="{{asset('/img/orders/quote.jpg')}}" alt="pcb">
+		</div>
+		<div class="box-footer">
 			<p>Please choose the manufacturer and Quantity</p>
 			
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/quotation', 'files'=>true])}}
@@ -13,18 +17,25 @@
 				<div class="col-md-3">
 					{{Form::label('sendmail', 'Send Email', ['style'=>'margin-right: 20px'])}}
 					{{Form::checkbox('sendmail',true,true,['class'=>'checkbox iCheck'])}}
-					
 				</div>
+			</div><br>
 				<div id="files_select">
-					<div class="col-md-4">
-						{{Form::label('json','JSON File')}}
-						{{Form::file('json', ['id'=>'json_input'])}}
-					</div>
 
-					<div class="col-md-4">
-						{{Form::label('attachment','Offer Data Zip')}}
-						{{Form::file('attachment', ['id'=>'attachment_input'])}}
-					</div>
+					<div class="row">
+						<div class="col-md-12">
+						<label class="btn btn-default" for="json">JSON File &nbsp <i class="fa fa-paperclip"></i></label>
+							{{Form::file('json',['style'=>'opacity:0;z-index:-1;position:absolute', 'id'=>'json'])}}
+							<i id="json-file-name" style="margin-top: 30px"></i>
+						</div>
+					</div><br>
+					
+					<div class="row">
+						<div class="col-md-12">
+						<label class="btn btn-default" for="attachment">Offer Data Zip &nbsp <i class="fa fa-paperclip"></i></label>
+							{{Form::file('attachment',['style'=>'opacity:0;z-index:-1;position:absolute', 'id'=>'attachment'])}}
+							<i id="attachment-file-name" style="margin-top: 30px"></i>
+						</div>
+					
 				</div>
 			</div>
 
@@ -56,10 +67,14 @@
 		@endif
 
 		@if($order->status == 2)
-		<div class="box-header">
-			<h3 class="box-title">Offer Received</h3>
+		<div class="widget-user-header bg-teal-active">
+			<h3 class="widget-user-username">Process Order</h3>
+			<h5 class="widget-user-desc">Offer Recieved</h5>
 		</div>
-		<div class="box-body">
+		<div class="widget-user-image">
+			<img class="img-circle" src="{{asset('/img/orders/quote.jpg')}}" alt="pcb">
+		</div>
+		<div class="box-footer">
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/offer', 'files'=>true])}}
 
 			<div class="col-md-3">
@@ -85,10 +100,14 @@
 		@endif
 
 		@if($order->status == 3)
-		<div class="box-header">
-			<h3 class="box-title">Approve Order</h3>
+		<div class="widget-user-header bg-teal-active">
+			<h3 class="widget-user-username">Process Order</h3>
+			<h5 class="widget-user-desc">Approve Order Request</h5>
 		</div>
-		<div class="box-body">
+		<div class="widget-user-image">
+			<img class="img-circle" src="{{asset('/img/orders/approve.png')}}" alt="approve">
+		</div>
+		<div class="box-footer">
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/approve'])}}
 
 			<div class="col-md-12">
@@ -119,10 +138,14 @@
 		@endif
 
 		@if($order->status == 4)
-		<div class="box-header">
-			<h3 class="box-title">Send Order</h3>
+		<div class="widget-user-header bg-teal-active">
+			<h3 class="widget-user-username">Process Order</h3>
+			<h5 class="widget-user-desc">Send Order to Manufacturer</h5>
 		</div>
-		<div class="box-body">
+		<div class="widget-user-image">
+			<img class="img-circle" src="{{asset('/img/orders/confirm_order.png')}}" alt="approve">
+		</div>
+		<div class="box-footer">
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/order', 'files'=>true])}}
 			{{Form::label('order_json', 'Order JSON')}}
 			{{Form::file('order_json')}}
@@ -135,14 +158,25 @@
 		@endif
 
 		@if($order->status == 5)
-		<div class="box-header">
-			<h3 class="box-title">Goods Received</h3>
+		<div class="widget-user-header bg-teal-active">
+			<h3 class="widget-user-username">Process Order</h3>
+			<h5 class="widget-user-desc">Goods Received</h5>
 		</div>
-		<div class="box-body">
+		<div class="widget-user-image">
+			<img class="img-circle" src="{{asset('/img/orders/received.png')}}" alt="approve">
+		</div>
+		<div class="box-footer">
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/delivery'])}}
-
-
-
+			<div class="col-md-12">
+				
+				<p>Do you confirm reception of the order?</p>
+				<div class="row">
+					
+					{{ Form::button('<i class="fa fa-check"></i> Yes' , ['class'=>'btn btn-success pull-right' , 'type'=>'submit'])}}
+					{{Form::close()}}
+					<button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
+				</div>
+			</div>
 			{{Form::close()}}
 
 		</div>
@@ -155,7 +189,7 @@
 		</div>
 		<div class="box-body">
 			{{Form::open(['url'=>'/yproject/order/'.$order->id.'/cancel'])}}
-
+			
 			{{Form::close()}}
 
 		</div>
@@ -176,7 +210,7 @@
 
 	$('#sendmail').on('ifChecked', function(event){
 		$('#files_select').find('*').show();
-	
+
 	});
 	$('#sendmail').on('ifUnchecked', function(event){
 		$('#files_select').find('*').hide();
@@ -185,4 +219,12 @@
 	$('#btn-ready').click(function(){
 		$('#quot-submit').show();
 	});
+
+	document.getElementById("json").onchange = function() {
+    document.getElementById("json-file-name").innerHTML = document.getElementById("json").value.split("\\").pop();
+  };
+
+  document.getElementById("attachment").onchange = function() {
+    document.getElementById("attachment-file-name").innerHTML = document.getElementById("attachment").value.split("\\").pop();
+  };
 </script>

@@ -14,7 +14,7 @@ class YProjectsMigration extends Migration
     {
         Schema::connection('projects')->create('yprojects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ProjNbr');
+            $table->string('ProjNbr')->nullable();
             $table->string('Description')->nullable();
             $table->string('SolidW')->nullable();
             $table->string('PartNumber')->nullable();
@@ -22,9 +22,20 @@ class YProjectsMigration extends Migration
             $table->boolean('stencil')->default(false);
             $table->string('BIOS')->nullable();
             $table->string('Planta')->nullable();
-            $table->string('Conn_typ');
+            $table->string('Conn_typ')->nullable();
             $table->string('Group');
             $table->string('Created_By');
+            $table->string('engineer')->nullable();
+            $table->string('req_qty')->nullable();
+            $table->date('due_date')->nullable();
+            $table->string('tr_proj')->nullable();
+            $table->boolean('cr')->default(false);
+            $table->boolean('hv')->default(false);
+            $table->boolean('dr')->default(false);
+            $table->string('max_volt')->nullable();
+            $table->string('max_amp')->nullable();
+            $table->string('attachment')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
@@ -47,8 +58,8 @@ class YProjectsMigration extends Migration
         Schema::connection('projects')->create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->integer('owner')->unsigned();
-            $table->integer('project_id')->unsigned();
+            $table->integer('owner')->unsigned()->nullable();
+            $table->integer('yproject_id')->unsigned();
             $table->integer('manufacturer_id')->unsigned();
             $table->date('quot_date')->nullable();
             $table->date('offer_date')->nullable();
@@ -60,6 +71,10 @@ class YProjectsMigration extends Migration
             $table->date('delivery_date')->nullable();
             $table->tinyInteger('status');
             $table->string('offer_pdf')->nullable();
+            $table->string('quot_sender')->nullable();
+            $table->string('offer_receiver')->nullable();
+            $table->string('ordered_by')->nullable();
+            $table->string('delivered_to')->nullable();
             $table->string('approv_by')->nullable();
             $table->string('jsonpath')->nullable();
             $table->timestamps();

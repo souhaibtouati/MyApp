@@ -42,9 +42,16 @@ class Altium
 
 	public function InitSVN()
 	{
-		$Repo = new svn(Sentinel::getUser()->svnPath);
-        $Repo->setCredentials(Sentinel::getUser()->svnUsername, Sentinel::getUser()->svnPassword);
+        $user = Sentinel::getUser();
+        if (!$user->svnUsername || !$user->svnPassword) {
+            throw new \Exception('Please Set the SVN credentials and path in the settings');
+        }
+		$Repo = new svn($user->svnPath);
+        $Repo->setCredentials($user->svnUsername, $user->svnPassword);
         $Repo->getAdapter()->setExecutable('/usr/bin/svn');
+       if (preg_match('[WIN]', PHP_OS)) {
+           $Repo->getAdapter()->setExecutable('C:\xampp\htdocs\yamaichiapp\app\Exec\SVN\svn.exe');
+       }
         
         
         return $Repo;
@@ -75,7 +82,7 @@ class Altium
 
         File::cleanDirectory(storage_path('tmp'));
         $tmpFile->move(storage_path('tmp'),$fileFullname);
-        $importPath = $fileType .'/'.$PartType.'/'.$fileFullname;
+        $importPath = Altium::getSVNRepo($fileType, $PartType).'/'.$fileFullname;
 
         $repo = Altium::InitSVN();
         $repo->import(storage_path('tmp/').$fileFullname , $importPath , $strings['input'].' imported');
@@ -93,6 +100,12 @@ class Altium
         $result = $repo->execute('rm', array($fileURL, '-m'=>'Removed '.pathinfo($fileURL, PATHINFO_FILENAME)));
     	
     	return $result;
+    }
+
+    public function getSVNRepo($fileType, $PartType)
+    {
+        $repo = \DB::table('svnrepos')->where('model', $PartType)->where('type',$fileType)->first();
+        return $repo->repo;
     }
 
    public function populateRefs($type, $table, $ref)

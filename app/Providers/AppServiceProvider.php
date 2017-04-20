@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
             $user = Sentinel::getUser();
             $view->with(['ConnectedUser' => $user]);
         });
+        view()->composer('Settings.svn', function($view) {
+            $user = Sentinel::getUser();
+            $view->with(['ConnectedUser' => $user]);
+        });
 
         Blade::directive('Today', function(){
             return Carbon::today()->toDateString();

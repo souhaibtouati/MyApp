@@ -20,7 +20,19 @@ class yproject extends Model
         'Planta',
         'Conn_typ',
     	'Group',
-        'Created_By'
+        'Created_By',
+        'engineer',
+        'req_qty',
+        'due_date',
+        'tr_proj',
+        'cr',
+        'hv',
+        'max_volt',
+        'dr',
+        'max_amp',
+        'attachment',
+        'comment'
+
     ];
 
     // public static $PCBTypes =[
@@ -79,5 +91,10 @@ class yproject extends Model
             return 1;
         }
         else return ($last->id) + 1;
+    }
+
+    public function getFillables()
+    {
+        return $this->fillable;
     }
 }

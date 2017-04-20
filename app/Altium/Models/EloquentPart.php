@@ -32,7 +32,7 @@ abstract class EloquentPart extends Model
 
     ];
 
-
+     protected $Models = ['Capacitor', 'Command', 'Connector', 'Control', 'Diode', 'Inductor', 'Others', 'PWR', 'Resistor', 'Signal', 'Transistor'];
 
     public function getTables()
     {
@@ -91,6 +91,15 @@ abstract class EloquentPart extends Model
         return $this['Footprint Ref'];
     }
 
+    public function getSYMRepo($model)
+    {
+        return DB::table('svnrepos')->where('model', $model)->where('type','SYM')->first();
+    }
+
+    public function getFTPTRepo($model)
+    {
+        return DB::table('svnrepos')->where('model', $model)->where('type','FTPT')->first();
+    }
 
     public function generatePN($table)
     {

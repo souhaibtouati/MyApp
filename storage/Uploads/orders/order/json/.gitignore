@@ -1,7 +1,2 @@
-/vendor
-/node_modules
-/public/storage
-/public/Altium
-Homestead.yaml
-Homestead.json
-.env
+*
+!.gitignore

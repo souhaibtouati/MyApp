@@ -115,7 +115,7 @@
 								<tr>
 									<td style="text-align: center">
 										<label class="btn btn-default" for="symbol" id="symbolLabel"><i class="fa fa-upload"></i>&nbsp&nbsp      Symbol </label>
-										<input type="file" name="symbol" id="symbol" />
+										<input type="file" name="symbol" id="symbol"/>
 
 										<div id="symbol-select-div" style="display: none; width: 100%">
 											<select class="form-control" name="symbol-select" id="symbol-select" style="width: 100%">
@@ -159,7 +159,7 @@
 							
 							<div class="col-md-12">
 								{{ Form::label('Description', 'Description') }}
-								{{ Form::text('Description', null, ['placeholder' => 'Description', 'class' => 'form-control']) }}
+								{{ Form::text('Description', old('Description'), ['placeholder' => 'Description', 'class' => 'form-control']) }}
 							</div>
 						</div>
 					</div>
@@ -179,14 +179,14 @@
 								{{ Form::label('Manufacturer', 'Manufacturer') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Manufacturer', null, ['placeholder' => 'Manufacturer', 'class' => 'form-control', 'id'=>'Manufacturer']) }}
+								{{ Form::text('Manufacturer', old('Manufacturer'), ['placeholder' => 'Manufacturer', 'class' => 'form-control', 'id'=>'Manufacturer']) }}
 							</div>
 
 							<div class="col-xs-2">
 								{{ Form::label('Manufacturer Part Number', 'Manufacturer PN') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Manufacturer Part Number', null, ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control', 'id'=>'Manufacturer_Part_Number']) }}
+								{{ Form::text('Manufacturer Part Number', old('Manufacturer_Part_Number'), ['placeholder' => 'Manufacturer Part Number', 'class' => 'form-control', 'id'=>'Manufacturer_Part_Number']) }}
 							</div>
 							<button class="btn btn-flat" onclick="getpartspecs();" type="button">Specs &nbsp<i class="fa fa-arrow-circle-right"></i></button>
 						</div>
@@ -196,14 +196,14 @@
 								{{ Form::label('Supplier 1', 'Supplier 1') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Supplier 1', null, ['id'=>'Supplier_1', 'placeholder' => 'Supplier 1', 'class' => 'form-control']) }}
+								{{ Form::text('Supplier 1', old('Supplier_1'), ['id'=>'Supplier_1', 'placeholder' => 'Supplier 1', 'class' => 'form-control']) }}
 							</div>
 
 							<div class="col-xs-2">
 								{{ Form::label('Supplier Part Number 1', 'Supplier PN 1') }}
 							</div>
 							<div class="col-xs-3">
-								{{ Form::text('Supplier Part Number 1', null, ['id'=>'Supplier_Part_Number_1', 'placeholder' => 'Supplier Part Number 1', 'class' => 'form-control']) }}
+								{{ Form::text('Supplier Part Number 1', old('Supplier_Part_Number_1'), ['id'=>'Supplier_Part_Number_1', 'placeholder' => 'Supplier Part Number 1', 'class' => 'form-control']) }}
 							</div>
 						</div>
 					</div>
@@ -221,12 +221,12 @@
 							<div id="parameters-div">
 								<div class="col-xs-3">
 									{{ Form::label('Package', 'Package')}}
-									{{ Form::text('Package', null, ['placeholder' => 'Package', 'class' => 'form-control']) }}
+									{{ Form::text('Package', old('Package'), ['placeholder' => 'Package', 'class' => 'form-control']) }}
 								</div>
 								@foreach( $Part->getChildFill() as $child)
 								<div class="col-xs-3">
 									{{ Form::label($child, str_replace('_', ' ', $child))}}
-									{{ Form::text($child, null, ['placeholder' => str_replace('_', ' ', $child), 'class' => 'form-control']) }}
+									{{ Form::text($child, old($child), ['placeholder' => str_replace('_', ' ', $child), 'class' => 'form-control']) }}
 								</div>
 								@endforeach
 							</div>

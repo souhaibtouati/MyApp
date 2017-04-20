@@ -226,7 +226,10 @@ class AltiumController extends Controller
 		else if (preg_match('[file-type]', $message)){
 			return $message;
 		}
-		else { 
+		else if (preg_match('[credentials]', $message)){
+			return $message;
+		}
+		else {
 			return "Error Imporing " . $fileType. " to SVN";
 		}
 	}

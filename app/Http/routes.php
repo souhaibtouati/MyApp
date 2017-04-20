@@ -102,6 +102,7 @@ Route::group(['prefix' => 'yproject'], function(){
 	Route::post('/new_manuf', 'ProjectsController@manufStore');
 	Route::post('/processorder', 'ProjectsController@processorder');
 	Route::post('/cancelorder', 'ProjectsController@cancelorder');
+	Route::post('/{id}/take','ProjectsController@takeproject');
 
 });
 
@@ -122,6 +123,7 @@ Route::group(['prefix' => 'yproject/order'], function(){
 
 Route::get('Settings/Altium/SVN', 'PagesController@SVNSettingsIndex');
 Route::post('Settings/Altium/SVN/update', 'PagesController@SVNSettingsUpdate');
+Route::post('Settings/SVN/repo/{id}/update', 'UserController@updateRepoPath');
 
 Route::get('/mailtest', function(){
 	

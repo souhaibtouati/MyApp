@@ -19,8 +19,8 @@
 	<h4><a href="#cat"><i class="fa fa-circle-o"></i> Categories</a></h4>
 	<h4><a href="#partcre"><i class="fa fa-circle-o"></i> Part Creation</a></h4>
 	<h4><a href="#partview"><i class="fa fa-circle-o"></i> Browse Parts</a></h4>
-	<h4><a href="#partse"><i class="fa fa-circle-o"></i> Part Search</a></h4>
-	<h4><a href="#partupd"><i class="fa fa-circle-o"></i> Part Update</a></h4>
+	<h4><a href="#livese"><i class="fa fa-circle-o"></i> Live Search</a></h4>
+
 </p>
 
 <h2># Introduction</h2>
@@ -34,7 +34,9 @@
 	Before starting to use this application,<br>
 	1. Please take few seconds to check all your account information in <a href="{{url('/myprofile')}}">My Profile</a>.<br>
 	2. If you want to create components or check parts status, you have to update your <a href="{{url('/Settings/Altium/SVN')}}">SVN credentials</a> in the Settings.<br>
-	3. To connect Altium with this application, you have to download and install these <a href="#"><i class="fa fa-download"></i> SVNDBLIB</a> files in altium designer.
+	3. To connect Altium with this application, you have to download and install these <a href="#"><i class="fa fa-download"></i> SVNDBLIB</a> files in altium designer.<br><br>
+
+	For more information about SVN Database Library, you can visit: <a href="http://techdocs.altium.com/display/ADOH/Working+with+Version-Controlled+Database+Libraries">Altium Documentation</a>
 </p>
 
 <h2 id="partmodel"># Part Model</h2>
@@ -65,43 +67,43 @@
 	</div>
 	
 	<div class="col-md-3">
-	<span style="color: blue">-- Integrated Circuits</span><br>
-	<span style="color: green">------ <strong>Power</strong><br></span>
-	----------Power Management<br>
-	<span style="color: green">------ <strong>Control</strong><br></span>
-	----------MCU<br>
-	----------Memory<br>
-	----------Logic<br>
-	<span style="color: green">------ <strong>Signal</strong><br></span>
-	----------Amplifiers<br>
-	----------Interfaces<br>
+		<span style="color: blue">-- Integrated Circuits</span><br>
+		<span style="color: green">------ <strong>Power</strong><br></span>
+		----------Power Management<br>
+		<span style="color: green">------ <strong>Control</strong><br></span>
+		----------MCU<br>
+		----------Memory<br>
+		----------Logic<br>
+		<span style="color: green">------ <strong>Signal</strong><br></span>
+		----------Amplifiers<br>
+		----------Interfaces<br>
 	</div>
 	
 	<div class="col-md-3">
-	<span style="color: blue">-- Semiconductors</span><br>
-	<span style="color: green">------ <strong>Diodes</strong><br></span>
-	----------LED<br>
-	----------Schottky<br>
-	----------Zener<br>
-	----------TVS<br>
-	----------Switch<br>
-	----------Silicon<br>
-	<span style="color: green">------ <strong>Transistors</strong><br></span>
-	----------Bipolar<br>
-	----------MOSFET<br>
+		<span style="color: blue">-- Semiconductors</span><br>
+		<span style="color: green">------ <strong>Diodes</strong><br></span>
+		----------LED<br>
+		----------Schottky<br>
+		----------Zener<br>
+		----------TVS<br>
+		----------Switch<br>
+		----------Silicon<br>
+		<span style="color: green">------ <strong>Transistors</strong><br></span>
+		----------Bipolar<br>
+		----------MOSFET<br>
 	</div>
 	<div class="col-md-3">
-	<span style="color: blue">-- Electromechanical</span><br>
-	<span style="color: green">------ <strong>Connectors</strong><br></span>
-	----------Yamaichi<br>
-	----------General<br>
-	<span style="color: green">------ <strong>Command</strong><br></span>
-	----------Relays<br>
-	----------Switches<br>
-	<span style="color: green">------ <strong>Others</strong><br></span>
-	----------Sensors<br>
-	----------Cristals<br>
-	----------Misc<br>
+		<span style="color: blue">-- Electromechanical</span><br>
+		<span style="color: green">------ <strong>Connectors</strong><br></span>
+		----------Yamaichi<br>
+		----------General<br>
+		<span style="color: green">------ <strong>Command</strong><br></span>
+		----------Relays<br>
+		----------Switches<br>
+		<span style="color: green">------ <strong>Others</strong><br></span>
+		----------Sensors<br>
+		----------Cristals<br>
+		----------Misc<br>
 	</div>
 </div>
 <br>
@@ -180,4 +182,53 @@
 	<i class="fa fa-circle-o"></i> Click on <button class="btn btn-danger"><i class="fa fa-trash"></i></button> to <strong>Delete</strong> a particular part. Only administrators can delete parts <br>
 </p>
 <h3><strong><i class="fa fa-eye"></i> Part View</strong></h3>
+<p>
+	In the <strong>Altium Links</strong> section, you can find the part details related to it's identity in Altium Designer Library. You can click on <span><a><i class="fa fa-external-link"></i></a></span> to view the related Datasheet.
+</p>
+<img src="{{asset('/img/doc/altium_links.jpg')}}" style="margin-bottom: 20px">
+
+<p>
+	In the <strong>Parameters</strong> section, you can find the particular parameters related to the specific category that the part belongs to.
+</p>
+<img src="{{asset('/img/doc/params.jpg')}}" style="margin-bottom: 20px">
+
+<p>
+	In the <strong>Database History</strong> section, you can find a listing of the product lifecycle, in particular, the revision, the creation data of the part, the last person that made changes to the part parameters and the data it was updated. Note: each time you update the part information, the revision number will be incremented automatically.
+</p>
+<img src="{{asset('/img/doc/params.jpg')}}" style="margin-bottom: 20px">
+
+<p>
+	In order to get the part's SVN history, you have to click on <button class="btn btn-primary"><i class="fa fa-globe"></i>&nbsp; SVN Info</button> on the top right corner. and it will show the following dialog.
+</p>
+<img src="{{asset('/img/doc/svninfo.jpg')}}" style="margin-top: 20px">
+<p>
+	For each commit to svn you can get the revision number, the person who made that commit, the date, and the message he left for his modification. Even the changes commited from within Altium Designer will be reflected here.
+</p>
+
+<h2 id="livese"># Live Search</h2>
+<div class="row">
+	<div class="col-md-6"><img src="{{asset('/img/doc/octo1.jpg')}}" style="margin-top: 20px"></div>
+	<div class="col-md-6"><img src="{{asset('/img/doc/octo2.jpg')}}" style="margin-top: 20px"></div>
+</div>
+
+<p>
+	The live search feature, is a powerful option to minimize the searching time for product availability.
+	You can type a <strong>Keyword</strong> in the input field and you will get a list of available parts with different Manufacturer Part Number. <br>
+	Once you find the suitable MPN, you can click on that particular line and browse through a list of all available suppliers with theier corresponding Part number and Stock.<br>
+	By clicking on the <button class="btn btn-primary"><i class="fa fa-plus"></i></button> button, you can add that supplier to the part's supplier list.<br>
+	As per Altium designer, you can only add up to 3 supplier links.
+</p>
+
+<div class="callout callout-info">
+	<h4><i class="fa fa-info"></i> Tip</h4>
+	<i class="fa fa-circle-o"></i> By using the live search feature, we can ease up the use of <strong>Altium Live BOM</strong> document. Altium will automatically assign the added supplier links to create an interactive BOM and will be capable of fetching the parts availability and stock data in real time.
+</div>
+
+<p>
+	The Altium Active BOM Document is a very powerful tool for <strong>BOM Generation & Validation</strong><br>
+	From the supplier links that we add in our application to each part. Altium will automatically get the part supply chain data, and give us the ability to switch between suppliers if there is no enough stock or the price is too high. As well as giving accurate price estimation for our PCB.<br>
+	For more information about Altium Active BOM, you can visit: <a href="http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD">http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD</a>
+</p>
+<img src="{{asset('/img/doc/activbom.jpg')}}" style="margin-top: 20px">
+
 @endsection

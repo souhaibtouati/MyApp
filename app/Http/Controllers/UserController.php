@@ -213,6 +213,15 @@ class UserController extends Controller
 
 	}
 
+	public function updateRepoPath($id)
+	{
+		if (!Sentinel::getUser()->hasAccess('admin')) {
+			return redirect()->back()->withErrors('You don\'t have the right to update this entry');
+		}
+		\DB::table('svnrepos')->where('id',$id)->update(['repo'=> Input::get('repo')]);
+		return Redirect::back()->withSuccess('Repository path Successfully updated');
+	}
+
 
 }
 

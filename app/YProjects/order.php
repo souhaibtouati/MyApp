@@ -26,6 +26,10 @@ class order extends Model
     'delivery_date',
     'status',
     'offer_pdf',
+    'quot_sender',
+    'offer_receiver',
+    'ordered_by',
+    'delivered_to',
     'approv_by',
     'manufacturer_id',
     'jsonpath'
@@ -38,8 +42,9 @@ class order extends Model
     2=>['name'=>'Quotation','color'=>'#FF9999'],
     3=>['name'=>'Approval', 'color'=>'#FFFF99'],
     4=>['name'=>'Order','color'=>'#99CCFF'],
-    5=>['name'=>'Delivered', 'color'=>'#00CC00'],
-    6=>['name'=>'Cancelled','color'=>'#FFFFFF']
+    5=>['name'=>'Delivery', 'color'=>'#FFB266'],
+    6=>['name'=>'Delivered', 'color'=>'#00CC00'],
+    0=>['name'=>'Cancelled','color'=>'#FFFFFF']
     ];
 
     public function project()

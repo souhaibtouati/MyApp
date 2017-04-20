@@ -19,7 +19,7 @@ class OrdersController extends Controller
 
 		$order = order::find($id);
 		if (!$order->checkOwner()) {
-			return redirect()->back()->withErrors('You are not the owner of this order');
+			return redirect()->back()->withErrors('Only the Assigned Engineer can process this Order');
 		} 
 
 		if ($order->status != 1) {
@@ -37,7 +37,7 @@ class OrdersController extends Controller
 			$json_file = Input::file("json");
 			$json_extension = pathinfo($json_file->getClientOriginalName(), PATHINFO_EXTENSION);
 			if (strcasecmp($json_extension, 'json') <> 0) {
-				return redirect()->back()->withErrors('JSON File Type mismatch');
+				return redirect()->back()->withErrors('Please Select a valid JSON file');
 			}
 			$attachment = Input::file('attachment');
 			$attachment_extension = pathinfo($attachment->getClientOriginalName(), PATHINFO_EXTENSION);
@@ -60,6 +60,7 @@ class OrdersController extends Controller
 		}
 			$order->status = 2;
 			$order->quot_date = date("Y-m-d");
+			$order->quot_sender = Sentinel::getUser()->initials;
 			$order->save();
 
 		return redirect()->back()->withSuccess('Quotation ready');
@@ -72,7 +73,7 @@ class OrdersController extends Controller
 
 		$order = order::find($id);
 		if (!$order->checkOwner()) {
-			return redirect()->back()->withErrors('You are not the owner of this order');
+			return redirect()->back()->withErrors('Only the Assigned Engineer can process this Order');
 		} 
 		if ($order->status != 2) {
 			return false;
@@ -88,6 +89,7 @@ class OrdersController extends Controller
 		Input::file('offer_pdf')->move($destination, $filename);
 		$order->status = 3;
 		$order->offer_date = date('Y-m-d');
+		$order->offer_receiver = Sentinel::getUser()->initials;
 		$order->save();
 		$order->sendPORMail();
 		return redirect()->back()->withSuccess('Offer updated');
@@ -123,7 +125,7 @@ class OrdersController extends Controller
 	{
 		$order = order::find($id);
 		if (!$order->checkOwner()) {
-			return redirect()->back()->withErrors('You are not the owner of this order');
+			return redirect()->back()->withErrors('Only the Assigned Engineer can process this Order');
 		} 
 		if ($order->status != 4) {
 			return false;
@@ -134,22 +136,31 @@ class OrdersController extends Controller
 		// Input::file('order_json')->move($destination, $filename);
 		// $file_content = file_get_contents($destination .'/'. $filename);
 		$json = json_decode($file_content, true);
-		dd($json);
+		$order->order_date = date('Y-m-d');
+		$order->ordered_by = Sentinel::getUser()->initials;
+		$order->status = 5;
+		$order->save();
+		return redirect()->back()->withSuccess('Order Sent Successfully');
 	}
 
 	public function delivery($id)
 	{
 		$order = order::find($id);
-		if ($order->status != 4) {
+		if ($order->status != 5) {
 			return false;
 		}
+		$order->status = 6;
+		$order->delivery_date = date('Y-m-d');
+		$order->delivered_to = Sentinel::getUser()->initials;
+		$order->save();
+		return redirect()->back()->withSuccess('Order received - Project Closed');
 	}
 
 	public function cancel($id)
 	{
 		$order = order::find($id);
 		if (!$order->checkOwner()) {
-			return redirect()->back()->withErrors('You are not the owner of this order');
+			return redirect()->back()->withErrors('Only the Assigned Engineer can process this Order');
 		} 
 		$user = Sentinel::getUser();
 		
@@ -158,7 +169,7 @@ class OrdersController extends Controller
 		if(!Sentinel::validateCredentials($user, $credentials))	{
 			return redirect()->back()->withErrors('wrong password');
 		}
-		$order->status = 6;
+		$order->status = 0;
 		$order->save();
 		return redirect()->back()->withSuccess('Order Cancelled');
 	}
