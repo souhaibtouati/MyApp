@@ -1,9 +1,8 @@
  <link rel="stylesheet" type="text/css" href="{{asset('/plugins/datepicker/datepicker3.css')}}">
  <div class="box box-widget widget-user">
-  <!-- Add the bg color to the header using any of the bg-* classes -->
   <div class="widget-user-header bg-teal-active">
     <h3 class="widget-user-username">Project Request</h3>
-    <h5 class="widget-user-desc">PCB</h5>
+    <h5 class="widget-user-desc">Submit a request for a PCB project</h5>
   </div>
   <div class="widget-user-image">
     <img class="img-circle" src="{{asset('/img/pcb-icon.jpg')}}" alt="pcb">

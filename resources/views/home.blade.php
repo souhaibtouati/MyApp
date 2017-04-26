@@ -15,15 +15,16 @@
 
 @section('content')
 
-<div class="col-md-7">
-  {!! View::make('partials.altium.projreq') !!}
-</div> <!-- col-md-6 -->
-<div class="col-md-5">
-  <div class="box box-primary">
-   <div class="box-header">
-    <h3 class="box-title"><i class="fa fa-list"></i> My Projects</h3>
+<div class="col-md-6">
+ <div class="box box-widget widget-user">
+  <div class="widget-user-header bg-red-active">
+    <h3 class="widget-user-username">My Projects</h3>
+    <h5 class="widget-user-desc">List of projects that I created or I am assigned to</h5>
   </div>
-  <div class="box-body">
+  <div class="widget-user-image">
+    <img class="img-circle" src="{{asset('/img/ylogo-Circ.png')}}" alt="pcb">
+  </div>
+  <div class="box-footer">
    {{csrf_field()}}
    <table class="table" id="projtab">
     <thead>
@@ -101,11 +102,16 @@
 </div>
 </div>
 
+
+<div class="col-md-6">
+  {!! View::make('partials.altium.projreq') !!}
+</div> <!-- col-md-6 -->
 @endsection
 
 @section('footer')
 
 <script type="text/javascript">
+
   const StatusList = {
     Design: '#E0E0E0',
     Quotation:'#FF9999',
@@ -123,7 +129,7 @@
     }).success(function(projs){
       
       $.each(projs, function(key, data){
-       $('#my-projs').append('<tr><td>'+ data.ProjNbr +'</td><td>'+ data.Description +'</td><td style="background-color:'+StatusList[data.Status]+'";>'+ data.Status +'</td></tr>');
+       $('#my-projs').append('<tr><td><a href="'+ data.path + '">'+ data.Planta +'</a></td><td>'+ data.Description +'</td><td style="background-color:'+StatusList[data.Status]+'";>'+ data.Status +'</td></tr>');
      });
     }).done(function(){
       $('#projtab').DataTable();

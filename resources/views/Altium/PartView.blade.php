@@ -195,7 +195,7 @@
 
 
 
-	<script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
+	
 	<script type="text/javascript">
 
 	var public_path = '{{asset('/')}}'
@@ -230,5 +230,6 @@
 		
 		}
 	</script>
+	<script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
 
 	@endsection

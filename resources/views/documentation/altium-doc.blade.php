@@ -3,6 +3,14 @@
 @section ('head')
 <style type="text/css">
 	.content-wrapper {background-color: white; font-size: 20px}
+	.doc-wrapper {
+		width: 75%;
+		margin: auto;
+	}
+
+	p {
+		text-align: justify;
+	}
 </style>
 @endsection
 
@@ -11,17 +19,21 @@
 @endsection
 
 @section('content')
-
-<h3># Summary</h3>
-<p>
-	<h4><a href="#initsetup"><i class="fa fa-circle-o"></i> Initial Setup</a></h4>
-	<h4><a href="#partmodel"><i class="fa fa-circle-o"></i> Part Model</a></h4>
-	<h4><a href="#cat"><i class="fa fa-circle-o"></i> Categories</a></h4>
-	<h4><a href="#partcre"><i class="fa fa-circle-o"></i> Part Creation</a></h4>
-	<h4><a href="#partview"><i class="fa fa-circle-o"></i> Browse Parts</a></h4>
-	<h4><a href="#livese"><i class="fa fa-circle-o"></i> Live Search</a></h4>
-
-</p>
+<div style="position: fixed; font-size: 15px">
+	
+	<h3># Summary</h3>
+	<p>
+	<ul>
+		<li><h4><a href="#initsetup"> Initial Setup</a></h4></li>
+		<li><h4><a href="#partmodel"> Part Model</a></h4></li>
+		<li><h4><a href="#cat"> Categories</a></h4></li>
+		<li><h4><a href="#partcre"> Part Creation</a></h4></li>
+		<li><h4><a href="#partview"> Browse Parts</a></h4></li>
+		<li><h4><a href="#livese"> Live Search</a></h4></li>
+	</ul>
+	</p>
+</div>
+<div class="doc-wrapper">
 
 <h2># Introduction</h2>
 <p>
@@ -32,11 +44,11 @@
 <h2 id="initsetup"># Initial Setup</h2>
 <p>
 	Before starting to use this application,<br>
-	1. Please take few seconds to check all your account information in <a href="{{url('/myprofile')}}">My Profile</a>.<br>
-	2. If you want to create components or check parts status, you have to update your <a href="{{url('/Settings/Altium/SVN')}}">SVN credentials</a> in the Settings.<br>
-	3. To connect Altium with this application, you have to download and install these <a href="#"><i class="fa fa-download"></i> SVNDBLIB</a> files in altium designer.<br><br>
+	1. Please take few seconds to check all your account information in <a href="{{url('/myprofile')}}" target="_blank">My Profile</a>.<br>
+	2. If you want to create components or check parts status, you have to update your <a href="{{url('/Settings/Altium/SVN')}}" target="_blank">SVN credentials</a> in the Settings.<br>
+	3. To connect Altium™ with this application, you have to download and install these <a href="{{ url('/Altium/SVNDBLIB.zip') }}"><i class="fa fa-download"></i> SVNDBLIB</a> files in altium designer.<br><br>
 
-	For more information about SVN Database Library, you can visit: <a href="http://techdocs.altium.com/display/ADOH/Working+with+Version-Controlled+Database+Libraries">Altium Documentation</a>
+	For more information about SVN Database Library, you can visit: <a href="http://www.altium.com/documentation/17.0/display/ADES/((Working+with+Database+Libraries))_AD#!WorkingwithDatabaseLibraries-DbLibvsSVNDbLib" target="_blank">Altium Documentation - Working with Database Libraries</a>
 </p>
 
 <h2 id="partmodel"># Part Model</h2>
@@ -207,14 +219,18 @@
 
 <h2 id="livese"># Live Search</h2>
 <div class="row">
-	<div class="col-md-6"><img src="{{asset('/img/doc/octo1.jpg')}}" style="margin-top: 20px"></div>
-	<div class="col-md-6"><img src="{{asset('/img/doc/octo2.jpg')}}" style="margin-top: 20px"></div>
+	<div class="col-md-6"><img src="{{asset('/img/doc/octo1.jpg')}}" style="margin-top: 20px;"></div>
 </div>
 
 <p>
 	The live search feature, is a powerful option to minimize the searching time for product availability.
 	You can type a <strong>Keyword</strong> in the input field and you will get a list of available parts with different Manufacturer Part Number. <br>
 	Once you find the suitable MPN, you can click on that particular line and browse through a list of all available suppliers with theier corresponding Part number and Stock.<br>
+</p>
+<div class="row">
+	<div class="col-md-6"><img src="{{asset('/img/doc/octo2.jpg')}}" style="margin-top: 20px;"></div>
+</div>
+<p>
 	By clicking on the <button class="btn btn-primary"><i class="fa fa-plus"></i></button> button, you can add that supplier to the part's supplier list.<br>
 	As per Altium designer, you can only add up to 3 supplier links.
 </p>
@@ -227,8 +243,8 @@
 <p>
 	The Altium Active BOM Document is a very powerful tool for <strong>BOM Generation & Validation</strong><br>
 	From the supplier links that we add in our application to each part. Altium will automatically get the part supply chain data, and give us the ability to switch between suppliers if there is no enough stock or the price is too high. As well as giving accurate price estimation for our PCB.<br>
-	For more information about Altium Active BOM, you can visit: <a href="http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD">http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD</a>
+	For more information about Altium Active BOM, you can visit: <a href="http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD" target="_blank">http://www.altium.com/documentation/17.0/display/ADES/((ActiveBOM))_AD</a>
 </p>
 <img src="{{asset('/img/doc/activbom.jpg')}}" style="margin-top: 20px">
-
+</div> <!-- doc wrapper -->
 @endsection

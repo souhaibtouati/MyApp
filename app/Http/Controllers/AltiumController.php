@@ -247,7 +247,7 @@ class AltiumController extends Controller
 		$libRef = $req->libRef;
 		$ftptRef = $req->ftptRef;
 		$Repo = Altium::InitSVN();
-		try {$Symbol_Log = $Repo->log('SYM/'.$type.'/'.$libRef .'.Schlib');
+		try {$Symbol_Log = $Repo->log(Altium::getSVNRepo('SYM', $type).'/'.$libRef .'.Schlib');
 			$sym_data = [];
 			foreach ($Symbol_Log as $key => $commit) {
 				$auth = $commit->getAuthor();
@@ -260,7 +260,7 @@ class AltiumController extends Controller
 		
 	}
 		catch (\Exception $e){ $Symbol_Log = [];}
-		try {$Footprint_Log = $Repo->log('FTPT/'.$type.'/'.$ftptRef .'.PcbLib');
+		try {$Footprint_Log = $Repo->log(Altium::getSVNRepo('FTPT', $type).'/'.$ftptRef .'.PcbLib');
 			$ftpt_data = [];
 			foreach ($Footprint_Log as $key => $commit) {
 				$auth = $commit->getAuthor();

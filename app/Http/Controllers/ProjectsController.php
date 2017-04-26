@@ -34,6 +34,7 @@ class ProjectsController extends Controller
              $MyProjects = yproject::where('Created_By', $user->first_name .' '. $user->last_name)->orWhere('engineer',$user->initials)->get();
              foreach ($MyProjects as $key => $proj) {
                  $proj->Status = $proj->getOrderStatusName('PCB');
+                 $proj->path = url('/') . '/yproject/' . $proj->id . '/view';
              }
              return  $MyProjects;
          }

@@ -434,8 +434,10 @@
 <script type="text/javascript">
 	var public_path = '{{asset('/')}}'
 </script>
+
 <script src="{{ asset ('/js/Altium.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('js/OctoSearch.js')}}"></script>
+
 
 @endsection
 
