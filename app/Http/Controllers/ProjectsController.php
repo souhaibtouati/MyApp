@@ -60,7 +60,7 @@ class ProjectsController extends Controller
     public function Store()
     {   
        $user = Sentinel::getUser();
-       
+
        $proj = new yproject;
        $proj->PCBType = Input::get('PCBType');
        $proj->Description= Input::get('Description');
@@ -75,7 +75,7 @@ class ProjectsController extends Controller
        if (Input::hasFile('attachment')) {
           $attachment = Input::file('attachment');
           $attachment->move(public_path('/yprojects/project_requests/'), $attachment->getClientOriginalName());
-          $proj->attachment = asset('/yprojects/project_requests/') . $attachment->getClientOriginalName();
+          $proj->attachment = asset('/yprojects/project_requests/'). '/' . $attachment->getClientOriginalName();
        }
        if (Input::get('stencil') == 'on') {
            $proj->stencil = true;
