@@ -60,7 +60,7 @@ class ProjectsController extends Controller
     public function Store()
     {   
        $user = Sentinel::getUser();
-
+       
        $proj = new yproject;
        $proj->PCBType = Input::get('PCBType');
        $proj->Description= Input::get('Description');

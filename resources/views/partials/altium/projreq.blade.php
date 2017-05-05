@@ -106,16 +106,16 @@
       <div class="form-group">
         <div class="col-md-4">
           {{Form::label('hv', 'High Voltage')}}
-          {{Form::checkbox('hv', true, true,['class'=>'form-control'])}}
+          {{Form::checkbox('hv', 1, true,['class'=>'form-control'])}}
         </div>
 
         <div class="col-md-4">
           {{Form::label('dr', 'Derating')}}
-          {{Form::checkbox('dr', true, true,['class'=>'form-control'])}}
+          {{Form::checkbox('dr', 1, true,['class'=>'form-control'])}}
         </div>
         <div class="col-md-4">
           {{Form::label('cr', 'Contact Resistance')}}
-          {{Form::checkbox('cr', true, true,['class'=>'form-control'])}}
+          {{Form::checkbox('cr', 1, true,['class'=>'form-control'])}}
         </div>
       </div>
     </div>
