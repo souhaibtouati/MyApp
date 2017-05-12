@@ -166,7 +166,8 @@ $('input[name=SymType]').on('ifClicked', function(event){
 				type: 'POST',
 				data: {table : table}
 			}).success(function(data){
-				$('#show-all-table-body').empty();
+				$('#table-all-container').empty();
+				$('#table-all-container').append('<table class="table table-hover" id="show-all-table" cellspacing="0" width="100%"><thead><tr><th>Part Nbr</th><th>Description</th><th>Manufacturer</th><th>MPN</th><th>Symbol</th><th>Footprint</th><th></th></tr></thead><tbody id="show-all-table-body"></tbody><table>');
 				$('#show-all-table-body').append(data);
 				$('#show-all-table').DataTable();
 

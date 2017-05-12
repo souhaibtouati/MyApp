@@ -300,20 +300,22 @@
 					{!! Form::open(['url'=>'/Altium/'.$Part->getName().'/ShowAll', 'id'=>'showURL']) !!}
 					<input name="selected-Type-show" class="selected-Type" type="hidden" value= null>
 					{!! Form::close() !!}
-					<table class="table table-hover" id="show-all-table">
-						<thead>
-							<th>Part Nbr</th>
-							<th>Description</th>
-							<th>Manufacturer</th>
-							<th>MPN</th>
-							<th>Symbol</th>
-							<th>Footprint</th>
-							<th></th>
-						</thead>
-						<tbody id="show-all-table-body">
-
-						</tbody>
-					</table>
+					<div id="table-all-container">
+						<table class="table table-hover" id="show-all-table" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Part Nbr</th>
+									<th>Description</th>
+									<th>Manufacturer</th>
+									<th>MPN</th>
+									<th>Symbol</th>
+									<th>Footprint</th>
+									<th></th>
+								</tr>
+							</thead>
+							
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
