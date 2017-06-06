@@ -166,13 +166,16 @@ class AltiumController extends Controller
 
 	public function destroy(Request $request)
 	{
+		if (!Sentinel::getUser()->hasAccess('admin')) {
+			return redirect()->back()->withErrors('You do not have the right to delete components');
+		}
+
 		$type = Input::get('dl-type');
 		$table = Input::get('dl-table');
 		$id = Input::get('dl-id');
 		
 		$part = Altium::getPartRepository($type , $table)->findPartById($id);
 		$part->setTable($table);
-		
 		
 		$part->delete();    
 		return redirect()->back()->withSuccess('Component Successfully Deleted');
